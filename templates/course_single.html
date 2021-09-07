@@ -1,0 +1,259 @@
+
+{% extends 'base_whit.html' %}
+{% load static %}
+{% block head %}
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+ {% endblock %}
+{% block body %}
+        <section class="section db p120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tagline-message page-title text-center">
+                            <h3>صفحه تک آموزشی</h3>
+                            <ul class="breadcrumb">
+                                <li><a href="javascript:void(0)">Edulogy</a></li>
+                                <li class="active">آموزش</li>
+                            </ul>
+                        </div>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section><!-- end section -->
+
+        <section class="section gb nopadtop">
+            <div class="container">
+                <div class="boxed">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="content blog-list">
+                                <div class="blog-wrapper clearfix">
+                                    <div class="blog-meta">
+                                        <small><a href="">{{ course.category }}</a></small>
+                                        <h3>{{ course.title }}</h3>
+                                        <ul class="list-inline">
+                                            <li>{{ course.date | date }}</li>
+                                            <li><span>منتشر شده توسط</span> <a href="#">{{ course.teacher.name }}</a></li>
+                                        </ul>
+                                    </div><!-- end blog-meta -->
+
+                                    <div class="blog-media">
+                                        <img src="{{ course.image.url }}" style="height: 600px ;width:100%;" alt="" class="img-responsive img-rounded">
+                                    </div><!-- end media -->
+
+                                    <div class="blog-desc-big">
+                                        <p class="lead">{{ course.title }}</p>
+                                        <p style="text-align: justify;">{{ course.description }}</p>
+                                        <ul class="nav navbar-nav navbar-right">
+                                            {% if request.user.is_admin or request.user.teacher == course.teacher %}
+                                                <li><a href="{% url 'education:create_coursevideo' course.pk %}">create Course video </a></li>
+                                                <li><a href="{% url 'education:edit_coursevideo' course.pk %}">edit course video </a></li>
+                                                <li><a href="{% url 'education:delete_coursevideo' course.pk %}">delete course video </a></li>
+                                            {% endif %}
+                                        </ul>
+                                        <br>
+
+
+                                        <blockquote class="text-center">
+                                            <div class="tags-widget">   
+                                                <ul class="list-inline">
+                                            {% if order or course.is_free %}
+                                            <table>
+                                            {% for course in course.relcourse.all %}
+                                                <tr>
+                                                  <th>#</th>
+                                                  <th>عنوان</th>
+                                                  <th>حجم</th>
+                                                  <th>دانلود</th>
+                                                  {% if request.user.is_admin or request.user.teacher == course.course.teacher %}
+                                                    <th> ویرایش</th>
+                                                    <th> حذف</th>
+                                                  {% endif %}
+
+                                                </tr>
+                                                <tr>
+                                                  <td> <li> <a > {{ course.number }} </a> </li> </td>
+                                                  <td> <li> <a > {{ course.title }} </a> </li> </td>
+                                                  <td> <li> <a > {{ course.file.size | filesizeformat}} </a> </li> </td>
+                                                  <td> <li> <a >  <a href="{{ course.file.url }}" download=""> دانلود </a> </li> </td>
+                                                 {% if request.user.is_admin or request.user.teacher == course.course.teacher %}
+                                                    <td> <li><a href="{% url 'education:edit_coursevideo' course.pk %}">edit</a></li> </td>
+                                                    <td> <li><a href="{% url 'education:delete_coursevideo' course.pk %}">delete</a></li> </td>
+                                                {% endif %}
+                                                </tr>
+                                            {% endfor %}
+                                              </table>
+                                            {% else %}
+                                    
+                                                    <div class="tags-widget">   
+                                                        <ul class="list-inline">
+                                                            <p>
+                                                            <li><a>{{course.name}}</a>:نام</li>
+                                                            <li>تاریخ انتشار:<a>{{ course.date | date }}</a></li>
+                                                            <li>زمان آموزش:<a>{{ course.time }}</a></li>
+                                                            </p>
+                                                            <p>
+                                                            {% if course.discount %}
+                                                            <li>قیمت:<a><del> {{ course.price }} </del> </a></li>
+                                                            <li>تخفیف:<a>{{ course.discount }}</a></li>
+                                                            <li>قیمت نهایی:<a>{{ course.price_end }}</a></li>
+                                                            {% else %}
+                                                            <li>قیمت:<a>{{ course.price }}</a></li>
+                                                            {% endif %}
+                                                            </p>
+                                                            <i class="fa fa-shopping-basket"></i> <li><a href="{% url 'education:cart' name='education' pk=course.pk %}">Add Cart</a></li>
+                                                        </ul>
+                                                    </div><!-- end list-widget -->
+                                             
+                                            {% endif %}
+                                        </blockquote>
+
+                                       
+
+                                    </div><!-- end desc -->
+                                </div><!-- end blog -->
+                            </div><!-- end content -->
+
+                            <div class="authorbox">
+                                <div class="site-publisher clearfix">
+                                    <img src="{{ course.teacher.image.url }}" style="height: 100px;" alt="" class="img-responsive img-circle">
+                                    <a href="{% url 'education:teachercourse' course.teacher.slug %}" title=""><h4><small>آموزش های دیگر</small> <span>{{ course.teacher.user.full_name }}</span></h4></a>
+                                    <p style="text-align: justify;">{{ course.teacher.description }}</p>
+
+                                    <div class="authorbox-social">
+                                        <ul class="list-inline">
+                                            <li><a href="{{ course.teacher.facebook }}"><i class="fa fa-facebook"></i></a></li>
+                                            <li><a href="{{ course.teacher.twitter }}"><i class="fa fa-twitter"></i></a></li>
+                                            <li><a href="{{ course.teacher.google_plus }}"><i class="fa fa-google-plus"></i></a></li>
+                                            <li><a href="{{ course.teacher.group }}"><i class="fa fa-pinterest"></i></a></li>
+                                            <li><a href="{{ course.teacher.gmail }}"><i class="fa fa-envelope-o"></i></a></li>
+                                        </ul><!-- end list -->
+                                    </div><!-- end share -->
+                                </div><!-- end publisher -->
+                            </div><!-- end details -->
+
+                            <div class="content boxed-comment clearfix">
+                                <h3 class="small-title">{{ course.commentcourse.all.count }} کامنت ها</h3>
+                                {% for com in course.commentcourse.all %}
+                                <div class="comments-list">
+                                    <div class="media">
+                                        <p class="pull-right"><small>{{ com.date | date }}</small></p>
+                                        <div class="media-body">
+                                            <h4 class="media-heading user_name">{{ com.name }}</h4>
+                                            <p style="text-align: justify;">{{ com.message }}</p>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                {% endfor %}
+                            </div><!-- end content -->
+
+                            <div class="content boxed-comment clearfix">
+                                <h3 class="small-title">ارسال کامنت</h3>
+                                <form class="big-contact-form" action="" method="POST" novalidate >
+                                    <div class="col-md-4" style="float: right;">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                        {{form.name}}
+                                         <span style='color:tomato'> {{errors.name}} </span>
+                                        </div>
+                                        <div class="form-group">
+                                        {{form.email}}
+                                        <span style='color:tomato'> {{errors.email}} </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        {{form.message}}                                        
+                                        <span style='color:tomato'> {{errors.message}} </span>
+                                        <button style="float: left;" class="btn btn-primary" type="submit">ارسال کامنت</button>
+                                    </div>
+                                </form>
+                            </div><!-- end content -->
+
+                        </div><!-- end col -->
+
+                        <div class="sidebar col-md-4">
+                            <div class="widget clearfix">
+                                <div class="banner-widget">
+                                    <img src="upload/banner.jpeg" alt="" class="img-responsive img-rounded">
+                                </div>
+                            </div>
+
+                            <div class="widget clearfix">
+                                <h3 class="widget-title">آموزشهای مرتبط</h3>
+                                <div class="post-widget">
+                                   
+                                    {% for course in courses %}
+                                    <div class="media">
+                                        <img style="float:right;" src="{{ course.image.url }}" alt="" class="img-responsive alignleft img-rounded">
+                                        <div class="media-body">
+                                            <h5 class="mt-0"><a href="{% url 'education:coursesingle' course.pk %}">{{ course.title }}</a></h5>
+                                            <div class="blog-meta">
+                                                <ul class="list-inline">
+                                                    <li>{{ course.date | date }}</li>
+                                                    <li><span>از</span> <a href="#">{{ course.teacher.name }}</a></li>
+                                                </ul>
+                                            </div><!-- end blog-meta -->
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div><!-- end post-widget -->
+                            </div><!-- end widget -->
+
+                            <div class="widget clearfix">
+                                <h3 class="widget-title">عضویت خبرنامه این آموزش</h3>
+                                <div class="newsletter-widget">
+                                    <p>سیاست حفك حریم خصوصی ما را اسپم نکنید.</p>
+                                    <form class="form-inline" role="search" action="{% url 'education:newsletters' %}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="form-1">
+                                            <input type="text" class="form-control" name="email" placeholder="ایمیل خود را وارد کنید..">
+                                            <input type="hidden" class="form-control" name="slug" value={{course.slug}} readonly>
+                                            <input type="hidden" class="form-control" name="path" value={{request.get_full_path}} readonly>
+                                            <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane-o"></i></button>
+                                        </div>
+                                    </form>
+                                    {% if request.user.is_admin or request.user.teache == course.teacher %}
+                                        <div class="form-1">
+                                            <form class="form-inline" role="search" action="{% url 'education:send_email' %}" method="POST">
+                                                {% csrf_token %}
+                                                    <h3 class="widget-title">ارسال ایمیل به تمامی دانشجویان دوره</h3>
+                                                   <p> <input type='text' class="form-control" name="subject" placeholder="موضوع ایمیل .."></p>
+                                                   <p>  <textarea class="form-control" name="message" placeholder="پیغام شما.."></textarea></p>
+                                                    <input type="hidden" class="form-control" name="slug" value={{course.slug}} readonly>
+                                                    <input type="hidden" class="form-control" name="path" value={{request.get_full_path}} readonly>
+                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane-o"></i></button>
+                                            </form>
+                                        </div>
+                                    {% endif %}
+                                </div><!-- end newsletter -->
+                            </div><!-- end widget -->
+                            <div class="tags-widget">   
+                                <ul class="list-inline">
+                                    {% for tag in tags %}
+                                    <li><a href="{% url 'education:tag' tag %}">{{ tag }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div><!-- end sidebar -->
+                    </div><!-- end row -->
+                </div><!-- end boxed -->
+            </div><!-- end container -->
+        </section>
+        {% endblock %}

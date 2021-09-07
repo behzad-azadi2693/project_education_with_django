@@ -1,0 +1,89 @@
+{% load static %}
+        <footer class="section footer noover">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="widget clearfix">
+                            <h3 class="widget-title">اشتراک خبرنامه</h3>
+                            <div class="newsletter-widget">
+                                <p>ایمیل شما محفوظ میباشد ما را اسپم نکنید</p>
+                                <form class="form-inline" role="search" method="POST" action="{% url 'education:newsletters' %}">
+                                    {% csrf_token %}
+                                    <div class="form-1">
+                                        <input type="text" name='email' class="form-control" placeholder="Enter email here..">
+                                        <input type="hidden" value='none'  name='slug' class="form-control" readonly>
+                                        <input type="hidden" value={{request.get_full_path}}  name='path' class="form-control" readonly>
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane-o"></i></button>
+                                    </div>
+                                </form>
+                                <img src="{% static 'images/payments.png' %}" alt="" class="img-responsive">
+                            </div><!-- end newsletter -->
+                        </div><!-- end widget -->
+                    </div><!-- end col -->
+
+                    <div class="col-lg-3 col-md-3">
+                        <div class="widget clearfix">
+                            <h3 class="widget-title">امروز به ما بپیوندید</h3>
+                            <p>با پیوستن به تیم ما سود خود را بدست آورید,بدون از دست دادن وقت به ما بپیوندید</p>
+                            <a href="{% url 'education:contact' %}" class="readmore">معلم شوید</a>
+                        </div><!-- end widget -->
+                    </div><!-- end col -->
+
+                    <div class="col-lg-3 col-md-3">
+                        <div class="widget clearfix">
+                            <h3 class="widget-title">برجسب های محبوب</h3>
+                            <div class="tags-widget">   
+                                <ul class="list-inline">
+                                    <li><a href="{% url 'education:coureses' %}">آموزش ها</a></li>
+                                    <li><a href="{% url 'education:tag' 'web design' %}">طراحی وب</a></li>
+                                    <li><a href="{% url 'education:tag' 'developer' %}">توسعه دهنده</a></li>
+                                    <li><a href="{% url 'education:tag' 'language' %}">زبان</a></li>
+                                    <li><a href="{% url 'education:tag' 'programming' %}">برنامه نویسی</a></li>
+                                    <li><a href="{% url 'education:tag' 'caleg' %}">دانشگاه</a></li>
+                                    <li><a href="{% url 'education:tag' 'math' %}">ریاضیات</a></li>
+                                    <li><a href="{% url 'education:tag' 'phyisics' %}">فیزیک</a></li>
+                                    <li><a href="{% url 'education:tag' 'geraphik' %}">گرافیک</a></li>
+                                </ul>
+                            </div><!-- end list-widget -->
+                        </div><!-- end widget -->
+                    </div><!-- end col -->
+
+                    <div class="col-lg-2 col-md-2">
+                        <div class="widget clearfix">
+                            <h3 class="widget-title">پشتیبانی</h3>
+                            <div class="list-widget">   
+                                <ul>
+                                    <li><a>قوانین مشخص</a></li>
+                                    <li><a>حقوق کپی رایت</a></li>
+                                    <li><a>ایجاد و خرید</a></li>
+                                    <li><a>قیمتها و برنامه ها</a></li>
+                                    <li><a>حامل</a></li>
+                                    <li><a>تجاری</a></li>
+                                </ul>
+                            </div><!-- end list-widget -->
+                        </div><!-- end widget -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </footer><!-- end footer -->
+
+        <div class="copyrights">
+            <div class="container">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <div class="cop-logo">
+                            <a href="#"><img src="{% static 'images/logo.png' %}" alt=""></a>
+                        </div>
+                    </div>
+
+                    <div class="pull-right">
+                        <div class="footer-links">
+                            <ul class="list-inline">
+                                <li>Design : <a href="{% static 'https://html.design' %}">HTML.Design</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end container -->
+        </div><!-- end copy -->
+    </div><!-- end wrapper -->

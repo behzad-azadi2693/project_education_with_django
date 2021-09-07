@@ -1,0 +1,12 @@
+    <div class="container">
+        <div class="boxed boxedp4">
+            <div class="row">    
+                {% if messages %}
+                    {% for msg in messages %}
+                    <div class="col-md-4" ></div>        
+                    <h4 style="background:rgb(0, 195, 255); color:white; text-align: center;" class="col-md-4 alert alert-{{ msg.tags }}">{{ msg }}</h4>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>

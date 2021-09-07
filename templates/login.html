@@ -1,0 +1,46 @@
+{% extends 'base_whit.html' %}
+{% load static %}
+
+{% block body %}
+<section class="section gb nopadtop">
+    <div class="container">
+        <div class="boxed boxedp4">
+
+            <div class="row">ورود/ثبت نامم</div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="section-title text-center">
+                        <h3>ورود به سایت</h3>
+                        <p>قبلا در سایت ثبت نام کرده و حساب کاربری دارید جهت  وردو نام کاربری همراه پسورد یا اینکه ایمیل خود همراه پسورد را وارد کنید</p>
+                    </div><!-- end title -->
+
+                    <form class="big-contact-form" role="search" action="{% url  'education:login' %}" method="POST">
+                        {% csrf_token %}
+                        <input name="email" type="email" class="form-control" placeholder="ایمیل شما..">
+                        <input name="password" type="password" class="form-control" placeholder="پسورد شما..">
+                        <button type="submit" class="btn btn-primary">ورود به سایت</button>
+                    </form>
+                </div><!-- end col -->
+                
+                <div class="col-md-6 ">
+                    <div class="section-title text-center">
+                        <h3>ثبت نام در سایت</h3>
+                        <p>قبلا در سایت ثبت نام نکرده اید؟دقت کنید تمامی فیلدها را پر کنید نام کاربری و ایمیل وارد شده نباید از قبل موجود باشند</p>
+                    </div><!-- end title -->
+
+                    <form class="big-contact-form" role="search" action="{% url  'education:signup' %}" method="POST">
+                        {% csrf_token %}
+                        <input name="email" type="email" class="form-control" placeholder="ایمیل شما..">
+                        <input name="password1" type="password" class="form-control" placeholder="پسورد..">
+                        <input name="password2" type="password" class="form-control" placeholder="تکرار پسورد..">
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div><!-- end col -->
+
+            </div><!-- end row -->
+        </div>
+    </div>
+</section>            
+{% endblock %}

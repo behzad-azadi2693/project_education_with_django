@@ -1,0 +1,48 @@
+{% extends 'base_whit.html' %}
+{% load static %}
+
+{% block body %}
+<section class="section gb nopadtop">
+    <div class="container">
+        <div class="boxed boxedp4">
+
+            <div class="row">Admin Panel
+            <ul class="nav navbar-nav navbar-right">
+                            {% if request.user.is_admin %}
+                                <li><a href="{% url 'education:create_book' %}">create Book </a></li>
+                                <li><a href="{% url 'education:create_category' %}">create Category </a></li>
+                            {% endif %}
+                            {% if request.user.is_admin or request.user.is_teacher %}
+                                <li><a href="{% url 'education:create_course' %}">Create Course</a></li>
+                            {% endif %}
+
+            </ul>
+            </div> 
+            <hr>
+            <div class="row">
+                <div class="col-md-7">
+                    {% for email in emails %}
+                        {{email.date | date:'Y,m,d'}}<--->{{email.user}} <br>
+                        {{email.subject}} <br>
+                        {{email.message}}
+                        <hr>
+                    {% endfor %}
+                </div>
+                
+                    <div class="col-md-4">
+                        <form class="form-inline" role="search" action="{% url 'education:send_email' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-1">
+                               <p> <input type='text' class="form-control" name="subject" placeholder="موضوع ایمیل .."></p>
+                               <p> <textarea class="form-control" name="message" placeholder="پیغام شما.."></textarea></p>
+                                <input type="hidden" class="form-control" name="slug" value=none readonly>
+                                <input type="hidden" class="form-control" name="path" value={{request.get_full_path}} readonly>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane-o"></i></button>
+                            </div>
+                        </form>
+                    </div>
+            </div><!-- end row -->
+        </div>
+    </div>
+</section>            
+{% endblock %}

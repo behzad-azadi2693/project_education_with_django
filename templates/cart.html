@@ -1,0 +1,86 @@
+
+{% extends 'base_whit.html' %}
+{% load static %}
+
+{% block body %}
+  
+        <section class="section lb p120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tagline-message page-title text-center">
+                            <h3>سبد من</h3>
+                            <ul class="breadcrumb">
+                                <li><a href="{% url 'education:index' %}">Edulogy</a></li>
+                                <li class="active">سبد من</li>
+                            </ul>
+                        </div>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section><!-- end section -->
+
+        <section class="section gb nopadtop">
+            <div class="container">
+                <div class="boxed boxedp4">
+                    
+
+                    <div class="row blog-grid shop-grid">
+                        {% for book in orders %}
+                        <div class="col-md-3">
+                            <div class="course-box shop-wrapper">
+                                <div class="image-wrap entry">
+                                    <img src="{{ book.content_object.image.url }}"  alt="" class="img-responsive">
+                                    <div class="magnifier">
+                                        {% if book.is_book %}
+                                        <a href="{% url 'education:book_single' book.content_object.pk %}" title=""><i class="flaticon-add"></i></a>
+                                        {% else %}
+                                        <a href="{% url 'education:coursesingle' book.content_object.pk %}" title=""><i class="flaticon-add"></i></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <!-- end image-wrap -->
+                                <div class="course-details shop-box text-center">
+                                    <h4>
+                                        {% if book.is_book %}
+                                        <a href="{% url 'education:book_single' book.content_object.pk %}" title="">{{ book.content_object.name }}</a>
+                                        {% else %}
+                                        <a href="{% url 'education:coursesingle' book.content_object.pk %}" title="">{{ book.content_object.name }}</a>
+                                        {% endif %}
+                                    </h4>
+                                </div>
+                                <!-- end details -->
+                                <div class="course-footer clearfix" style="direction: ltr;">
+                                    <div class="pull-left" >
+                                        <ul class="list-inline" >
+                                            {% if book.is_paid %}
+                                            <li style="text-align: left;">خریداری شده</li> 
+                                            {% else %}
+                                            <li style="text-align: left;"><a href="{% url 'education:cart' name='delete' pk=book.pk %}"><i class="fa fa-shopping-basket"></i> حذق از سبد</a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </div><!-- end left -->
+
+                                    <div class="pull-right" style="text-align: right;">
+                                        <ul class="list-inline">
+                                            <li><a>{{ book.content_object.price_end }} ریال </a></li>
+                                        </ul>
+                                    </div><!-- end left -->
+                                </div><!-- end footer -->
+                            </div><!-- end box -->
+                        </div><!-- end col -->
+                        {% endfor %}
+                    <hr class="invis">
+
+                </div>
+                <div class="tags-widget row">   
+                    <ul class="list-inline">
+                        {% if request.path == '/cartview/' %}
+                            <li><a href="{% url 'education:paid' %}">ریال{{paid}} </a>:مبلغ پرداختی</li>
+                        {% endif %}
+                    </ul>
+                </div>
+                
+            </div><!-- end container -->
+        </section>
+{% endblock %}

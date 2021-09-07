@@ -1,0 +1,118 @@
+
+{% extends 'base_whit.html' %}
+{% load static %}
+
+{% block body %}
+  
+        <section class="section cb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-right">
+                        <ul class="breadcrumb">
+                            <li><a href="{% url 'education:index' %}">Edulogy</a></li>
+                            <li class="active">پروفایل</li>
+                        </ul>
+                    </div>
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section><!-- end section -->
+
+        <section class="section">
+            <div class="container">
+                    <hr class="invis">
+
+                    <div class="row">   
+                        <div class="col-md-12">
+                            <div class="shop-extra">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#home">اطلاعات کاربر</a></li>
+                                    <li><a data-toggle="tab" href="#menu3">دستگاه های متصل</a></li>
+                                    {% if request.user.is_admin or request.user.is_teacher %}
+                                    <li><a data-toggle="tab" href="#menu1">ایمیل های ارسالی</a></li>
+                                    <li><a data-toggle="tab" href="#menu2">آموزش های شما</a></li>
+                                    {% endif %}
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div id="home" class="tab-pane fade in active">
+                                        <h3>اطلاعات کاربر</h3>
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>ایمیل کاربر</strong></td>
+                                                    <td>{{ request.user.email }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>نام کاربر</strong></td>
+                                                    <td>{{request.user.full_name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>حجم</strong></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div id="menu3" class="tab-pane fade">
+                                        <h3>دستگاههای متصل</h3>
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>تعداد صفحات</strong></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>زبان کتاب</strong></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>حجم</strong></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div id="menu1" class="tab-pane fade">
+                                        <h3>ایمیل های ارسالی</h3>
+                                        <table class="table">
+                                            <tbody>
+                                                {% for course in courses %}
+                                                    <tr>
+                                                        <td><strong>نام آموزش</strong></td>
+                                                        <td>{{ course.title }}</td>
+                                                    </tr>
+                                                    {% for email in course.emial_course.all %}
+                                                    <tr>
+                                                        <td><strong>موضوع و تاریخ</strong></td>
+                                                        <td>{{ email.subject }}<----->{{email.date | date:"Y,m,d"}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>متن</strong></td>
+                                                        <td>{{email.message}}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div id="menu2" class="tab-pane fade">
+                                        <h3>آموزش های شما</h3>
+                                        <ul class="nav navbar-nav navbar-right">
+                                            {% for course in courses %}
+                                                <li><a href="{% url 'education:coursesingle' course.slug %}"> {{course.title}} </a></li>
+                                            {% endfor %}                                
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div><!-- end shop-extra -->
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+                </div><!-- end boxed -->
+            </div><!-- end container -->
+        </section>
+
+{% endblock %}

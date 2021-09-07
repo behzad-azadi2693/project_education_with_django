@@ -1,0 +1,344 @@
+{% extends 'base_dark.html' %}
+{% load static %}
+
+{% block body %}
+        <section id="home" class="video-section js-height-full">
+            <div class="overlay"></div>
+            <div class="home-text-wrapper relative container">
+                <div class="home-message">
+                    <p>سیستم مدیریت یادگیری </p>
+                    <small>Edulogy گزینه ایده آل برای سازمان ، تجارت و سیستم آموزش آنلاین شماست. اکنون دوره آنلاین خود را با الگوهای نامحدود صفحه ، گزینه های رنگ و ویژگی های منو ایجاد کنید</small>
+                    <div class="btn-wrapper">
+                        <div class="text-center">
+                            <a href="{% url 'education:coureses' %}" class="btn btn-primary wow slideInLeft">بررسی بیشتر</a> &nbsp;&nbsp;&nbsp;<a href="{% url 'education:cartview' %}" class="btn btn-default wow slideInRight">خرید هم اکنون</a>
+                        </div>
+                    </div><!-- end row -->
+                </div>
+            </div>
+            <div class="slider-bottom">
+                <span>بررسی بیشتر <i class="fa fa-angle-down"></i></span>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 hidden-sm hidden-xs">
+                        <div class="custom-module">
+                            <img src="{% static 'upload/device_01.png' %}" alt="" class="img-responsive wow slideInLeft">
+                        </div><!-- end module -->
+                    </div><!-- end col -->
+                    <div class="col-md-8">
+                        <div class="custom-module p40l">
+                            <h2>تیم ما یک  <mark>سیستم آموزشی</mark> پرشور از<br>
+                            سراسر کشور می باشد. راحت آموزش ببینید و با بهترین آموزش های آنلاین</h2>
+
+                            <p style="text-align: justify;">اینترنت یک تکنولوژی و یک مسیله مهم زیست محیطی می باشد برای رفع تبعیض ها و یکسان کردن سیستم آموزشی برای جامع ما دانش آموزان دانشجویان مدرسان و یک جامعه همگانی پسند است</p>
+                            <hr class="invis">
+
+                            <div class="row" style="direction: ltr;">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 first">
+                                    <ul class="check">
+                                        <li>آموزش رایگان</li>
+                                        <li>بدور از محدودیت</li>
+                                        <li>بهترین مدرسان</li>
+                                        <li>مغلمانی متعهد</li>
+                                        <li>سیستمی یک پارچه</li>
+                                    </ul><!-- end check -->
+                                </div><!-- end col-lg-4 -->
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <ul class="check">
+                                        <li>متدهای آموزشی روز دنیا</li>
+                                        <li>آموزش برای تمامی مقاطع</li>
+                                        <li>تیمی پرشور و مبتکر</li>
+                                        <li>آموزش و یادگیری سریع</li>
+                                        <li>در دسترس همگان</li>
+                                    </ul><!-- end check -->    
+                                </div><!-- end col-lg-4 -->
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 last">
+                                    <ul class="check">
+                                        <li>مستقل و متکی به خود</li>
+                                        <li>راه های ارتباطی با تیم</li>
+                                        <li>طراحی زیبا</li>
+                                        <li>دانش آموز دانشجو مدرس </li>
+                                        <li>بدون محدودیت</li>
+                                    </ul><!-- end check -->
+                                </div><!-- end col-lg-4 --> 
+                            </div><!-- end row -->   
+
+                            <hr class="invis">
+
+                            <div class="btn-wrapper">
+                                <a href="{% url 'education:contact' %}" style="float: left;" class="btn btn-primary">ارتباط با ما</a>
+                            </div>
+
+                        </div><!-- end module -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+
+        <section class="section gb" style="direction: ltr;">
+            <div class="container">
+                <div class="section-title text-center">
+                    <h3>دوره های اخیر</h3>
+                <p>تیم ما یک سیستم آموزشی پرشور از
+                    سراسر کشور می باشد. راحت آموزش ببینید و با بهترین آموزش های آنلاین
+                    </p>
+                </div><!-- end title -->
+
+                <div id="owl-01" class="owl-carousel owl-theme owl-theme-01">
+                  
+                  {% for course in courses %}
+                    <div class="caro-item">
+                        <div class="course-box">
+                            <div class="image-wrap entry">
+                                <img src="{{ course.image.url }}" style="height: 250px; width: 300px;" alt="" class="img-responsive">
+                                <div class="magnifier">
+                                     <a href="{% url 'education:coursesingle' course.pk %}" title=""><i class="flaticon-add"></i></a>
+                                </div>
+                            </div><!-- end image-wrap -->
+                            <div class="course-details">
+                                <h4>
+                                    <small>{{ course.name }}</small>
+                                    <a href="{% url 'education:coursesingle' course.pk %}" title="">{{ course.title }}</a>
+                                </h4>
+                                <p style="text-align: justify; direction:rtl;">{{ course.description | truncatechars:100 }}</p>
+                            </div><!-- end details -->
+                            <div class="course-footer clearfix">
+                                <div class="pull-left">
+                                    <ul class="list-inline">
+                                        <li><a href="#"><i class="fa fa-user"></i>{{ course.teacher.name }}</a></li>
+                                        <li><a href="#"><i class="fa fa-clock-o"></i>{{ course.time }}</a></li>
+                                    </ul>
+                                </div><!-- end left -->
+
+                                <div class="pull-right">
+                                    <ul class="list-inline">
+                                        {% if course.is_free %}
+                                            رایگان
+                                        {% else %}
+                                        <li><a href="#">{{ course.price_end }}</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div><!-- end left -->
+                            </div><!-- end footer -->
+                        </div><!-- end box -->
+                    </div><!-- end col -->
+                {% endfor %}
+
+
+                </div><!-- end row -->
+
+                <hr class="invis">
+
+                <div class="section-button text-center">
+                    <a href="{% url 'education:coureses' %}" class="btn btn-primary">تمامی آموزش‌ های ما</a>
+                </div>
+            </div><!-- end container -->
+        </section>
+
+        <section class="section db p120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tagline-message text-center">
+                            <h3 style="text-align: justify;">با بهترین خدمات کاراترین آموزشهای بروزترین متدهای آموزشی مستقل ترین مدرس ها</h3>
+                        </div>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section><!-- end section -->
+
+        <section class="section gb nopadtop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="box m30">
+                            <i style="float: left;" class="flaticon-computer-tool-for-education"></i>
+                            <h4>سیستم آموزشی</h4>
+                            <p style="text-align: justify;">تمام بخشهای مورد نیاز برای آموزش آنلاین در Edulogy گنجانده شده است.</p>
+                           
+                        </div>
+                    </div><!-- end col -->
+
+                    <div class="col-md-6">
+                        <div class="box m30">
+                            <i style="float: left;" class="flaticon-monitor-tablet-and-smartohone"></i>
+                            <h4>هماهمگ با تمامی دستگاه ها</h4>
+                            <p style="text-align: justify;">مهمترین ویژگی این الگو سازگاری آن با همه دستگاههای تلفن همراه است. مشتریان شما همچنین می توانند از طریق رایانه لوحی و تلفن به راحتی از سایت شما دیدن کنند.</p>
+                        </div>
+                    </div><!-- end col -->
+
+                    <div class="col-md-3">
+                        <div class="box m30">
+                            <i style="float: left;" class="flaticon-download-business-statistics-symbol-of-a-graphic"></i>
+                            <h4>رفع نیاز کاربران</h4>
+                            <p style="text-align: justify;">ما طراحی تمام زیر صفحات مورد نیاز کاربران را طراحی کردیم.
+                            </p>
+                        </div>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+
+                <hr class="invis">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box">
+                            <i style="float: left;" class="flaticon-html5"></i> <i style="float: left;" class="flaticon-css-3"></i>
+                            <h4>طراحی زیبا</h4>
+                            <p style="text-align: justify;">طراحی زیبا ساده شیک کاربر پسند محیطی برای همگان و ذر تمامی سنین مخصوص آموزش آنلاین و یادگیری به سبک نوین</p>
+                        </div>
+                    </div><!-- end col -->
+
+                    <div class="col-md-6">
+                        <div class="box">
+                            <i style="float: left;" class="flaticon-html-coding"></i>
+                            <h4>قالبی سبک و کامل</h4>
+                            <p style="text-align: justify;">تیمی حرفه ای و کارگروهی مشتاق و خلاق هر آنچه که نیاز دارید برای آموزش بهتر و یادگیری سریعتر</p>
+                        </div>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+
+        <section class="section db" style="direction: ltr;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="stat-count">
+                            <h4 class="stat-timer">{{students}}</h4>
+                            <h3><i class="flaticon-black-graduation-cap-tool-of-university-student-for-head"></i> دانش جویانی خوشحال </h3>
+                            <p>هر آنچه که دانش جویان را به خود مجذوب میکند </p>
+                        </div><!-- stat-count -->
+                    </div><!-- end col -->
+
+                    <div class="col-lg-4 col-md-4">
+                        <div class="stat-count">
+                            <h4 class="stat-timer">{{course}}</h4>
+                            <h3><i class="flaticon-online-course"></i> دورهای اتمام رسیده</h3>
+                            <p>بهترین دوره ها و متدهای آموزشی روز دنیا را با ما تجربه کنید </p>
+                        </div><!-- stat-count -->
+                    </div><!-- end col -->
+
+                    <div class="col-lg-4 col-md-4">
+                        <div class="stat-count">
+                            <h4 class="stat-timer">{{book}}</h4>
+                            <h3><i class="flaticon-coffee-cup"></i> زمانی برای استراحت</h3>
+                            <p>بدون محدودیت زمانی و مکانی مستقل کار آزموده زیبا راحت سبک. </p>
+                        </div><!-- stat-count -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-title text-center">
+                    <h3>مدیریت سیستم</h3>
+                    <p>مدیریت و بنیان گذار طرح و سیستم یادگیری آنلاین برای همگان و در دسترس عموم</p>
+                </div><!-- end title -->
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="box testimonial">
+                            <p class="testiname"><strong><img src="{% static 'upload/testimonial_01.png' %}" alt="" class="img-circle"> جناب آقای دکتر</strong></p>
+                            <p> جناب آقای دکتر دارای مدرک دکتری  از دانششگاه برتر کشور فعال حوزه آموزشی بنیان گ‌ار سیستم آموزش مجازی</p>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div><!-- end testimonial -->
+                    </div><!-- end col -->
+
+                    <div class="col-md-4">
+                        <div class="box testimonial">
+                            <p class="testiname"><strong><img src="{% static 'upload/testimonial_02.png' %}" alt="" class="img-circle"> جناب آقای مهندس</strong></p>
+                            <p>جناب آقای مهندس عضو انجمن مدرسان کشور فعال در حوزه نمایندگان آموطشی</p>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                        </div><!-- end testimonial -->
+                    </div><!-- end col -->
+
+                    <div class="col-md-4">
+                        <div class="box testimonial">
+                            <p class="testiname"><strong><img src="{% static 'upload/testimonial_03.png' %}" alt="" class="img-circle"> سرکار خانم دکتر</strong></p>
+                            <p>سرکار خانم دکتر استاد و مدرس دانشگاه عضو هییت غلمی سییستم آموزشی کشور محقق و تحلیل گر سیستم آموزشی کشور.</p>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div><!-- end testimonial -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+
+        <section class="section gb">
+            <div class="container">
+                <div class="section-title text-center">
+                    <h3>اخبار اخیر</h3>
+                    <p>هویج گل ماسین غمگین زشت است. هر شرکت هواپیمایی بادام زمینی هر کسی شیر والیبال دارد</p>
+                </div><!-- end title -->
+
+                <div class="row" style="direction: ltr;">
+                    {% for new in news %}
+                    <div class="col-lg-4 col-md-12">
+                        <div class="blog-box">
+                            <div class="image-wrap entry">
+                                <img src="{{ new.image.url }}" style="height: 250px; width: 300px;" alt="" class="img-responsive">
+                                <div class="magnifier">
+                                     <a title=""><i class="flaticon-add"></i></a>
+                                </div>
+                            </div><!-- end image-wrap -->
+
+                            <div class="blog-desc">
+                                <h4><a href="blog-single.html">{{ new.title }}</a></h4>
+                                <p>{{ new.dexcription | truncatechars:100 }}</p>
+                            </div><!-- end blog-desc -->
+
+                            <div class="post-meta">
+                                <ul class="list-inline">
+                                    <li><a href="#">{{ new.date }}</a></li>
+                                </ul>
+                            </div><!-- end post-meta -->
+                        </div><!-- end blog -->
+                    </div><!-- end col -->
+                    {% endfor %}
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+
+        <section class="section bgcolor1">
+            <div class="container">
+                <a href="#">
+                <div class="row callout">
+                    <div class="col-md-4 text-center">
+                        <h3><sup>@</sup>Edulogy</h3>
+                        <h4>یادگیری خود را شروع کنید!</h4>
+                    </div><!-- end col -->
+
+                    <div class="col-md-8">
+                        <p class="lead"> بدون محدودیت بدون معطلی زمانی مناسب و دوره های برترموزش سریع کارا با مدرسین کستقل و کار آزموده</p>
+                    </div>
+                </div><!-- end row -->
+                </a>
+            </div><!-- end container -->  
+        </section>
+
+{% endblock %}
+
+{% block script %}     
+<script src="{% static 'js/videobg.js' %}"></script>
+{% endblock %}

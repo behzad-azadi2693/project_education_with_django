@@ -1,0 +1,29 @@
+#header {
+    background-color: #0e0f0f;
+}
+
+￼
+.module h2, .module caption, .inline-group h2 {
+    background: #2c2a2a;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: #01bacf;
+}
+
+￼
+.button.default, input[type=submit].default, .submit-row input.default {
+    background: #01bacf;
+}
+.button.default, input[type="submit"].default, .submit-row input.default {
+    background-color: #0e0f0f;
+
+}
+div.breadcrumbs {
+    background: rgb(77, 75, 75);
+}
+
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: #0e0f0f;
+}

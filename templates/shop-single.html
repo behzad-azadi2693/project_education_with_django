@@ -1,0 +1,180 @@
+
+{% extends 'base_whit.html' %}
+{% load static %}
+
+{% block body %}
+  
+        <section class="section cb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="tagline-message page-title">
+                            <h3>توضیحات کتاب </h3>
+                        </div>
+                    </div><!-- end col -->
+                    <div class="col-md-6 text-right">
+                        <ul class="breadcrumb">
+                            <li><a href="{% url 'education:index' %}">Edulogy</a></li>
+                            <li class="active">کتاب</li>
+                        </ul>
+                    </div>
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section><!-- end section -->
+
+        <section class="section">
+            <div class="container">
+                <div class=" ">
+                    <div class="row">
+                        <div class="col-md-6 shop-media">
+                            <div class="row">
+                                <div class="col-md-12">
+                                <div class="image-wrap entry">
+                                    <img src="{{ book.image.url }}" style="height: 600px ;width: 100%;"  alt="" class="img-responsive">
+                                    <div class="magnifier">
+                                        <a rel="prettyPhoto[inline]" href="{{book.image.url}}" title=""><i class="flaticon-add" download=""></i></a>
+                                    </div>
+                                </div><!-- end image-wrap -->
+                                </div>
+                            </div><!-- end row -->
+
+
+                        </div><!-- end col -->
+
+                        <div class="col-md-6">
+                            <div class="shop-desc">
+                                <h3>{{ book.name }}</h3>
+                                {% if book.is_free %}
+                                <small>رایگان</small>
+
+                                {% else %}
+                                <small> ریال {{book.price_end}}</small>
+                                {% endif %}
+                                <p style="text-align: justify;">{{ book.description | truncatechars:400 }}</p>
+                                <div class="shop-meta">
+                                    <ul class="list-inline">
+                                        {% if is_buy %}
+                                        <a href="{{ book.file.url }}" download="" class="btn btn-primary">دانلود</a>
+                                        <li> شما قبلا خرید کرده اید </li> 
+                                        {% elif book.is_free %}
+                                        <a href="{{ book.file.url }}" download="" class="btn btn-primary">دانلود</a>
+                                        <li>این کتاب رایگان است</li> 
+                                    </ul>
+                                        {% else %}
+                                            <a href="{% url 'education:cart' name='book' pk=book.pk %}" class="btn btn-primary">Add to Cart</a>
+                                        {% endif %}
+                                    
+                                </div><!-- end shop meta -->
+                                {% if request.user.is_admin %}
+                                    <li><a href="{% url 'education:edit_book' book.pk %}">edit book </a></li>
+                                    <li><a href="{% url 'education:delete_book' book.pk %}">delete book </a></li>
+                                {% endif %}
+                            </div><!-- end desc -->
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+
+                    <hr class="invis">
+
+                    <div class="row">   
+                        <div class="col-md-12">
+                            <div class="shop-extra">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#home">توضیحات کتاب</a></li>
+                                    <li><a data-toggle="tab" href="#menu1">اظلاعات کتاب</a></li>
+                                    <li><a data-toggle="tab" href="#menu2">دیدگاه کاربران</a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div id="home" class="tab-pane fade in active">
+                                        <p style="text-align: justify;">{{ book.description }}</p>
+                                    </div>
+                                    <div id="menu1" class="tab-pane fade">
+                                        <h3>اطلاعات کتاب</h3>
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>تعداد صفحات</strong></td>
+                                                    <td>{{ book.page }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>زبان کتاب</strong></td>
+                                                    <td>{{ book.language }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>حجم</strong></td>
+                                                    <td>{{ book.file.size | filesizeformat }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="menu2" class="tab-pane fade">
+                                        <h3>دیدگاه کاربران</h3>                                    
+                                        <form action="" method="POST" class="big-contact-form row" role="search" novalidate>
+                                            {% csrf_token %}
+                                            <div class="col-md-12">
+                                                {{form.message}}
+                                                <span style='color:tomato'> {{errors.message}} </span>
+                                            </div>              
+                                            <div class="col-md-6">   
+                                                {{form.name}}
+                                                <span style='color:tomato'> {{errors.name}} </span>
+                                            </div>     
+                                            <div class="col-md-6">   
+                                                {{form.email}}
+                                                <span style='color:tomato'> {{errors.email}} </span>
+                                            </div>             
+                                            <div class="col-md-12" style="float: left;">
+                                                <button style="float: left;" type="submit" class="btn btn-primary">ارسال</button>
+                                            </div>              
+                                        </form>
+                                    </div>
+                                </div>
+                            </div><!-- end shop-extra -->
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+
+                    <hr class="invis">
+
+                    <div class="related-products">
+                        <div class="text-widget">
+                            <h3>محصولات مرتبط</h3>
+                        </div><!-- end title -->        
+
+                        <div class="row blog-grid shop-grid">
+                            <div class="col-md-3">
+                                {% for book in books %}
+                                <div class="image-wrap entry">
+                                    <img src="{{ book.image.url }}" style="height: 400px;width: 100%;" alt="" class="img-responsive">
+                                    <div class="magnifier">
+                                        <a href="{% url 'education:book_single' book.pk %}" title=""><i class="flaticon-add"></i></a>
+                                    </div>
+                                </div>
+                                <!-- end image-wrap -->
+                                <div class="course-details shop-box text-center">
+                                    <h4>
+                                        <a href="{% url 'education:book_single' book.pk %}" title="">{{ book.name }}</a>
+                                        <small>{{ book.title }}</small>
+                                    </h4>
+                                </div>
+                                <!-- end details -->
+                                <div class="course-footer clearfix">
+                                    <div class="pull-left">
+                                        <ul class="list-inline">
+                                            <li><a href="{% url 'education:cart' book.pk %}"><i class="fa fa-shopping-basket"></i> Add Cart</a></li>
+                                        </ul>
+                                    </div><!-- end left -->
+
+                                    <div class="pull-right">
+                                        <ul class="list-inline">
+                                            <li><a href="#">${{ book.price_end }}</a></li>
+                                        </ul>
+                                    </div><!-- end left -->
+                                </div><!-- end footer -->
+                                {% endfor %}
+                        </div><!-- end row -->
+                    </div><!-- end related -->
+                </div><!-- end boxed -->
+            </div><!-- end container -->
+        </section>
+
+{% endblock %}
