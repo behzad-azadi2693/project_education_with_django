@@ -95,18 +95,6 @@ def contact(request):
     return render(request, 'page-contact.html')
 
 
-def blog_right(request):
-
-    return render(request, 'blog.html')
-
-def blog_left(request):
-
-    return render(request, 'blog-1.html')
-
-def blog_grid_right(request):
-
-    return render(request, 'blog-2.html')
-
 
 def courses(request):
     course_list = Course.objects.all()
