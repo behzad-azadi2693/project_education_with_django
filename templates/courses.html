@@ -41,7 +41,7 @@
                                 <div class="course-details">
                                     <h4>
                                         <small>{{ course.category }}</small>
-                                        <a href="{% url 'education:coursesingle' course.pk %}" title="">{{ course.name }}</a>
+                                        <a href="{% url 'education:coursesingle' course.slug %}" title="">{{ course.name }}</a>
                                     </h4>
                                     <p>{{ course.description | truncatechars:100 }}</p>
                                 </div><!-- end details -->

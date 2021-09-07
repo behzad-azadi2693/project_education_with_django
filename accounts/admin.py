@@ -1,9 +1,10 @@
-from .models import User
+from .models import User, Teacher
 from django.contrib import admin
 from .forms import UserChangeForm, UserCreationForm
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.utils.html import mark_safe
 
 
 @admin.register(User)
@@ -31,3 +32,20 @@ class AdminUser(BaseUserAdmin):
 
     def make_admin(self, request, queryset):
         queryset.update(is_admin=True)
+
+
+
+@admin.register(Teacher)
+class AdminTeacher(admin.ModelAdmin):
+    list_display = ('awatar', 'full_name')
+    
+    fieldsets = (
+        (_('INFORMATION'), {"fields": ('user','slug','description','image'),}),
+        (_('INFORMATION SOCIAL'), {"fields": ('gmail','group','twitter','facebook','google_plus'),}),
+    )
+    
+    def full_name(self, obj):
+        return obj.user.full_name
+
+    def awatar(self, obj):
+        return mark_safe('<img src="{url}" width="50" height="50" />'.format(url=obj.image.url,))

@@ -2,7 +2,7 @@ from django.urls import path
 from django.urls.conf import include
 from django.urls.resolvers import URLPattern
 from .views import (
-    index, contact, blog_right,blog_left, blog_grid_right,
+    index, contact,
     courses, course_single, book_store,cart, book_single,
     teachercourse, newsletters,tag_search, cartview,
     paid,search,panel,myorder,send_email,profile,
@@ -32,9 +32,6 @@ delete_urlpatterns = [
 ]
 urlpatterns = [
     path('', index , name="index"),
-    path('blog/', blog_right , name="blogright"),
-    path('blogleft/', blog_left , name="blogleft"),
-    path('bloggridright/', blog_grid_right , name="bloggridright"),
     path('page-contact/', contact , name="contact"),
     
     path('search/', search ,name='search'),

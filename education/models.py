@@ -129,7 +129,7 @@ class Book(models.Model):
     language = models.CharField(max_length=20, verbose_name=_('language book'))
     page = models.CharField(max_length=5, verbose_name=_('number of pages'))
     price = models.PositiveIntegerField(verbose_name=_('price'), null=True, blank=True)
-    discount = models.FloatField(verbose_name=_('discount'))
+    discount = models.FloatField(verbose_name=_('discount'),default='0.0')
     is_free = models.BooleanField(default=False,verbose_name=_('free'))
     books = GenericRelation('Order')
 
