@@ -59,13 +59,16 @@ class User(AbstractBaseUser,PermissionsMixin):
         super(User, self).save(*args, **kwargs)
 
 
+def path_save_teacher(instance, filename):
+    name = '{0}/{1}'.format(instance.user.email, filename)
+    return 'teacher/'+name
 
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING, verbose_name=_('user teacher'))
     slug = models.SlugField(unique=True, max_length=150, default=uuid4)
     description = models.TextField(verbose_name=_('bio description teacher'))
     facebook = models.URLField(null=True, blank=True, verbose_name=_('facebook'))
-    image = models.ImageField(upload_to='teacher/image', verbose_name=_('awatar'))
+    image = models.ImageField(upload_to=path_save_teacher, verbose_name=_('awatar'))
     twitter = models.URLField(null=True, blank=True, verbose_name=_('twitter'))
     google_plus = models.URLField(null=True, blank=True, verbose_name=_('google'))
     group = models.URLField(null=True, blank=True, verbose_name=_('group'))
@@ -78,3 +81,17 @@ class Teacher(models.Model):
 
     def __str__(self) -> str:
         return self.user.email
+
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        super().delete(*args,**kwargs)
+
+    def save(self, *args, **kwargs):
+        try:
+            this = Teacher.objects.get(id=self.id)
+            if this.image != self.image:
+                this.image.delete()
+        except: 
+            pass
+        
+        super(Teacher, self).save(*args, **kwargs)

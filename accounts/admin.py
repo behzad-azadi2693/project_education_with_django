@@ -5,6 +5,17 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.html import mark_safe
+from education.models import EmailSending
+
+
+class TeacherInline(admin.TabularInline):
+    model = Teacher
+    fields  = ('user','slug','description','image','gmail','group','twitter','facebook','google_plus')
+    
+
+class EmailInline(admin.TabularInline):
+    model = EmailSending
+    fields  = ('subject', 'user', 'message')
 
 
 @admin.register(User)
@@ -27,6 +38,7 @@ class AdminUser(BaseUserAdmin):
     search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ()
+    inlines = [TeacherInline,EmailInline]
 
     actions = ('make_admin',)
 
@@ -37,7 +49,7 @@ class AdminUser(BaseUserAdmin):
 
 @admin.register(Teacher)
 class AdminTeacher(admin.ModelAdmin):
-    list_display = ('awatar', 'full_name')
+    list_display = ('full_name','awatar')
     
     fieldsets = (
         (_('INFORMATION'), {"fields": ('user','slug','description','image'),}),

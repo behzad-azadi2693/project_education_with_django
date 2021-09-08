@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.admin.options import VERTICAL
 from django.db import models
+from django.db.models import deletion
 from django.db.models.base import Model
 from django.db.models.expressions import OrderBy, ValueRange
 from django.db.models.fields import EmailField
@@ -26,6 +27,9 @@ class Category(models.Model):
     def __str__(self) -> str:
         return f'{self.category}-{self.sub_category}'
 
+def path_save_course(instance, filename):
+    name = '{0}/{1}'.format(instance.slug, filename)
+    return 'course/'+name
 
 class Course(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING,related_name='categories', verbose_name=('category'))
@@ -34,7 +38,7 @@ class Course(models.Model):
     title = models.CharField(max_length=300, verbose_name=_('course title'))
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, verbose_name=_('select teacher'), related_name='teacher')
     description = models.TextField(verbose_name=_('course description'))
-    image = models.ImageField(upload_to='course/image/',verbose_name=_('awatar'))
+    image = models.ImageField(upload_to=path_save_course,verbose_name=_('awatar'))
     price = models.PositiveIntegerField(verbose_name=_('course price'), null=True, blank=True)
     view = models.PositiveIntegerField(default=0, verbose_name=_('Number Of visit'))
     time = models.TimeField(verbose_name=_('course time'))
@@ -42,7 +46,7 @@ class Course(models.Model):
     discount = models.FloatField(verbose_name=_('discount'), default='0.0')
     is_free = models.BooleanField(default=False, verbose_name=_('course free'))
     courses = GenericRelation('Order')
-    translate = models.FileField(null=True, blank=True,upload_to='coursevideo/file/', verbose_name=_('file translate'))
+    translate = models.FileField(null=True, blank=True,upload_to= path_save_course, verbose_name=_('file translate'))
     
     def get_absolute_url(self):
         return reverse('education:coursesingle', args=(self.slug,))
@@ -54,12 +58,25 @@ class Course(models.Model):
             return self.price - pe
         if price < 0:
             return self.price
-    
+
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        self.translate.delete()
+        super().delete(*args,**kwargs)
+
     def save(self, *args, **kwargs):
-            slti = self.title.replace(' ','-')
-            slna = self.name.replace(' ','-')
-            self.slug = f'{slti}-{slna}'
-            super(Course, self).save(*args, **kwargs)
+        slti = self.title.replace(' ','-')
+        slna = self.name.replace(' ','-')
+        self.slug = f'{slti}-{slna}'
+        try:
+            this = Course.objects.get(id=self.id)
+            if this.image != self.image:
+                this.image.delete()
+            if this.translate != self.translate:
+                this.translate.delete()
+        except: 
+            pass
+        super(Course, self).save(*args, **kwargs)
     
     class Meta:
         verbose_name = _('course')
@@ -88,17 +105,35 @@ class Comment(models.Model):
         return self.name
 
 
+def path_save_coursevideo(instance, filename):
+    name = '{0}/{1}'.format(instance.course.slug, filename)
+    return 'course/'+name
+
 class CourseVideo(models.Model):
     number = models.PositiveBigIntegerField(verbose_name=_('number file'))
     title = models.CharField(max_length=300, verbose_name=_('title video'))
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='relcourse', verbose_name=_('select course'))
-    file = models.FileField(upload_to='coursevideo/file/', verbose_name=_('file video'))
+    file = models.FileField(upload_to=path_save_coursevideo, verbose_name=_('file video'))
 
     class Meta:
         verbose_name = _('course video')
         verbose_name_plural = _('courses video')
         app_label = 'accounts'
-        
+    
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        self.file.delete()
+        super().delete(**args, **kwargs)
+
+    def saave(self, *args, **kwargs):
+        try:
+            this = NewsBlog.objects.get(id=self.id)
+            if this.file != self.file:
+                this.file.delete()
+        except: 
+            pass
+        super(CourseVideo, self).save(*args,**kwargs)
+
     def __str__(self) -> str:
         return self.title
 
@@ -113,16 +148,21 @@ class Contact(models.Model):
         verbose_name = _('message received')
         verbose_name_plural = _('messages received')
         app_label = 'education'
+
     def __str__(self) -> str:
         return self.name
 
+
+def path_save_book(instance, filename):
+    name = '{0}/{1}'.format(instance.name, filename)
+    return 'book/'+name
 
 class Book(models.Model):
     name = models.CharField(max_length=250, verbose_name=_('book name'))
     title = models.CharField(max_length=300, verbose_name=_('course title'))
     slug = models.SlugField(allow_unicode=True, verbose_name=_("book slug"), unique=True)
-    image = models.ImageField(upload_to = 'book/image/', verbose_name=_('awatar'))
-    file = models.FileField(upload_to= 'book/file/', verbose_name=_('book pdf file'))
+    image = models.ImageField(upload_to = path_save_book, verbose_name=_('awatar'))
+    file = models.FileField(upload_to= path_save_book, verbose_name=_('book pdf file'))
     author = models.CharField(max_length=200, verbose_name=_('writer'))
     description = models.TextField(verbose_name=_('description'))
     date = models.DateField(verbose_name=_('public date'))
@@ -145,10 +185,25 @@ class Book(models.Model):
         return reverse('education:book_single', args=(self.slug,))
     
     def save(self, *args, **kwargs):
-            slti = self.title.replace(' ','-')
-            slna = self.name.replace(' ','-')
-            self.slug = slti+ slna
-            super(Book, self).save(*args, **kwargs)
+        slti = self.title.replace(' ','-')
+        slna = self.name.replace(' ','-')
+        self.slug = slti+ slna
+        try:
+            this = NewsBlog.objects.get(id=self.id)
+            if this.image != self.image:
+                this.image.delete()
+            if this.file != self.file:
+                this.file.delete()
+        except: 
+            pass
+
+        super(Book, self).save(*args, **kwargs)
+
+
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        self.file.delete()
+        super().delete(*args, **kwargs)
 
     class Meta:
         verbose_name = _('book')
@@ -201,11 +256,28 @@ class EmailSending(models.Model):
         return self.user.email
 
 
+def path_save_newsblog(instance, filename):
+    name = '{0}/{1}'.format(instance.date, filename)
+    return 'newsblog/'+name
+
 class NewsBlog(models.Model):
     title = models.CharField(max_length=300, verbose_name=_('news title'))
     description = models.TextField(verbose_name=_('news dewcription'))
     date = models.DateField(auto_now_add=True, verbose_name=_('publish date'))
-    image = models.ImageField(upload_to = 'newsblog/image/', verbose_name=_('awatar'))
+    image = models.ImageField(upload_to = path_save_newsblog, verbose_name=_('awatar'))
+
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        super(NewsBlog, self).delete(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        try:
+            this = NewsBlog.objects.get(id=self.id)
+            if this.image != self.image:
+                this.image.delete()
+        except: 
+            pass
+        super(NewsBlog, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = _('news')

@@ -1,8 +1,9 @@
+from django.db import models
 from django.http.response import FileResponse
 from education.views import search
 from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
-from .models import Book, Order ,Comment, CourseVideo, Contact, Course, Category, Newsletter_email, EmailSending
+from .models import Book, Order ,Comment, CourseVideo, Contact, Course, Category, Newsletter_email, EmailSending,NewsBlog
 # Register your models here.
 from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -41,20 +42,16 @@ class AdminNewsletter_email(admin.ModelAdmin):
 
 @admin.register(EmailSending)
 class AdminEmailSending(admin.ModelAdmin):
-    list_display = ('subject','date','username','awatar')
+    list_display = ('subject','date','username')
     list_filter = ('subject', 'date','user', 'course')
     search_fields = ('subject',)
 
     fieldsets = (
-        (_('INFORMATION EMAIL'), {"fields": ('subject','message','date'),}),
+        (_('INFORMATION EMAIL'), {"fields": ('subject','message'),}),
         (_('INFORMATION SENDER'), {"fields": ('user','course'),}),
     )
     def username(self, obj):
         return obj.user.email
-
-    def awatar(self, obj):
-        return mark_safe('<img src="{url}" width="50" height="50" />'.format(url=obj.course.image.url,))
-
 
 
 @admin.register(Comment)
@@ -73,6 +70,13 @@ class AdminComment(admin.ModelAdmin):
 
 
 
+class CourseVideoInline(admin.TabularInline):
+    model = CourseVideo
+    fields  = ('number','title', 'file')
+
+class EmailInline(admin.TabularInline):
+    model = EmailSending
+    fields  = ('subject', 'user', 'message')
 
 @admin.register(Course)
 class AdminCourse(admin.ModelAdmin):
@@ -80,10 +84,11 @@ class AdminCourse(admin.ModelAdmin):
     list_display = ('name','title','full_name', 'awatar', 'is_free')
     list_filter = ('name','title','teacher', 'is_free','price','date','discount','time')
     search_fields = ('name','title','description')
-    prepopulated_fields = {'slug': ('title','name' )}
+    prepopulated_fields = {'slug': ('title','name')}
+    inlines = [CourseVideoInline, EmailInline]
 
     fieldsets = (
-        (_('INFORMATION'), {"fields": ('name','title','teacher','course','image','translate','view','time','date','description'),}),
+        (_('INFORMATION'), {"fields": ('name','title','slug','teacher','image','translate','view','time','date','description'),}),
         (_('INFORMATION PAID'), {"fields": ('price','discount','is_free'),}),
     )
     
@@ -139,3 +144,17 @@ class AdminOrder(admin.ModelAdmin):
     
     def awatar(self, obj):
         return mark_safe('<img src="{url}" width="50" height="50" />'.format(url=obj.content_object.image.url,))
+
+
+
+@admin.register(NewsBlog)
+class AdminNewsBlog(admin.ModelAdmin):
+    date_hierarchy = 'date'
+    list_display = ('title', 'date', 'awatar')
+    list_filter = ('title', 'date')
+    fieldsets = (
+        (_('INFORMATION'), {"fields": ('title','image','description'),}),
+    )
+    
+    def awatar(self, obj):
+        return mark_safe('<img src="{url}" width="50" height="50" />'.format(url=obj.image.url,))
