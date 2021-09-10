@@ -78,30 +78,20 @@ class UserRegister(forms.Form):
         return cd['password_confierm']
 
 
-class UserLogin(forms.ModelForm):
+class UserLogin(forms.Form):
    
-    class Meta:
-        model = get_user_model()
-        fields = ('email', 'password')
-        widgets ={
-            'email':forms.TextInput(attrs={'placeholder':_("your email ..."), 'class':'form-control'}),
-            'password':forms.TextInput(attrs={'placeholder':_("your password ..."), 'type':'password','class':'form-control'}),
-        }
-
-    def clean(self):
-        cd = self.cleaned_data
-        user = get_user_model().objects.filter(email=cd['email'])
-        if not user:            
-            raise forms.ValidationError(_("this user dosen't exict"))
-
-        if not user.check_email:
-            raise forms.ValidationError(_("this user don't email confirmation"))
-
-        if user:
-            if user.password != cd['password']:
-                raise forms.ValidationError(_("user or password wrong"))
-        
-        return cd['user']
+    email = forms.EmailField(
+        error_messages=messages,
+        required=True,
+        help_text = _('please rnter password egain'),
+        widget=forms.TextInput(attrs={'placeholder':_('your email'),'class':'form-control','type':'email'})
+    )
+    password = forms.CharField( 
+            error_messages=messages,
+            required=True,
+            help_text = _('please rnter password egain'),
+            widget=forms.PasswordInput(attrs={'placeholder':_('password confirm'),'class':'form-control','type':'password'})
+        )
 
 
 class UserChangeForm(forms.ModelForm):

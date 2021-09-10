@@ -6,12 +6,13 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import gettext_lazy as _
-# Create your views here.
-from .models import User
+from .models import User, SessionUser
 from .token import send_token, account_activation_token
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
-
+from django.contrib.sessions.models import Session
+from datetime import date
+from education.models import Course
 
 def signup(request):
     #if request.user.is_authenticated:
@@ -29,7 +30,7 @@ def signup(request):
                 user.save()
                 send_token(user, request)
                 messages.success(request, 'user registred please check email and click your link for activation email','success')
-                return redirect('accounts:login')
+                return redirect('accounts:signin')
 
             elif not user.email_check:
                 user.password = cd['password']
@@ -37,7 +38,7 @@ def signup(request):
                 user.save()
                 send_token(user, request)
                 messages.success(request,_('user register please check email and click your link for activation email'),'success')
-                return redirect('accounts:login')
+                return redirect('accounts:signin')
 
             else:
                 messages.success(request, 'email or password is wrong ','success')
@@ -57,7 +58,7 @@ def signup(request):
         return render(request, 'login.html', context)
 
 
-def logining(request):
+def signin(request):
     #if request.user.is_authenticated:
     #    return redirect('education:index')
 
@@ -70,13 +71,20 @@ def logining(request):
                 if user.email_check:
                     user_is =  authenticate(request, email = cd['email'], password=cd['password'])
                     login(request, user)
-
+                    SessionUser.objects.get_or_create(
+                                        user = user,
+                                        session_key =Session.objects.get(session_key = request.session.session_key),
+                                        device = f'{request.user_agent.browser.family}-{request.user_agent.browser.version_string}',
+                                        os = f'{request.user_agent.os.family}-{request.user_agent.os.version_string}',
+                                        date_joiin = date.today(),
+                                        ip_device =request.META['REMOTE_ADDR'] ,
+                                    )
                     return redirect('education:index')
 
                 else:
                     send_token(user, request)
                     messages.success(request, _('please check email and click your link for activation email'),'success')
-                    return redirect('accounts:login')
+                    return redirect('accounts:signin')
 
             except get_user_model().DoesNotExist:
                 messages.success(request, _('please first register in site'),'success')
@@ -97,8 +105,8 @@ def logining(request):
 @login_required
 def logoutg(request):
     logout(request)
-    messages.success(request, 'شما از سایت خارج شدید', 'success')
-    return redirect('education:login')
+    messages.success(request, _('you are logout of site'), 'success')
+    return redirect('accounts:signin')
 
 
 def activate_account(request, uidb64, token):
@@ -114,7 +122,35 @@ def activate_account(request, uidb64, token):
         user.email_check = True
         user.save()
         messages.success(request, _('Your email account activate please login with email and password'), 'success')
-        return redirect('accounts:login')
+        return redirect('accounts:signin')
     else:
         messages.warning(request, _('The confirmation link was invalid, possibly because it has already been used.'),'error')
         return redirect('home')
+
+
+@login_required
+def remove_session(request):
+    if request.method == 'POST':
+        key = request.POST.get('key')
+        try:
+            sessn = SessionUser.objects.get(user = request.user, session_key__session_key=key)
+            if sessn:
+                session = Session.objects.get(session_key = key)
+                session.delete()
+                return redirect('accounts:profile')
+            return redirect('accounts:profile')
+        except:
+            return redirect('accounts:profile')
+    else:           
+        return redirect('accounts:profile')
+
+
+
+@login_required
+def profile(request):
+    context = {
+        'courses' : Course.objects.filter(teacher = request.user.teacher),
+        'sessions' : SessionUser.objects.filter(user=request.user),
+    }
+    return render(request, 'profile.html', context)
+

@@ -1,4 +1,4 @@
-from .models import User, Teacher
+from .models import User, Teacher, SessionUser
 from django.contrib import admin
 from .forms import UserChangeForm, UserCreationForm
 from django.utils.translation import gettext_lazy as _
@@ -6,6 +6,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.html import mark_safe
 from education.models import EmailSending
+from django.contrib.sessions.models import Session
 
 
 class TeacherInline(admin.TabularInline):
@@ -61,3 +62,16 @@ class AdminTeacher(admin.ModelAdmin):
 
     def awatar(self, obj):
         return mark_safe('<img src="{url}" width="50" height="50" />'.format(url=obj.image.url,))
+
+admin.site.register(Session)
+
+@admin.register(SessionUser)
+class AdminSessionUser(admin.ModelAdmin):
+    list_filter = ('user','id', 'date_joiin')
+    list_display = ('user','session_key', 'date_joiin')
+    
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request, obj=None):
+        return False    

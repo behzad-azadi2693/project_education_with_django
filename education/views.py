@@ -1,3 +1,4 @@
+from accounts.models import SessionUser
 from os import error, linesep
 from django.shortcuts import render, redirect, get_object_or_404, resolve_url
 from django.urls import reverse
@@ -71,14 +72,6 @@ def send_email(request):
     
     return redirect('education:index')
         
-
-@login_required
-def profile(request):
-    context = {
-        'courses' : Course.objects.filter(teacher = request.user.teacher)
-    }
-    return render(request, 'profile.html', context)
-
 
 def contact(request):
     if request.method == 'POST':

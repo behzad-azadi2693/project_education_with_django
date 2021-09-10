@@ -77,9 +77,9 @@
                         <li><a href="{% url 'education:contact' %}">ارتباط با ما</a></li>
                         {% if request.user.is_authenticated %}
                         <li><a href="{% url 'accounts:logout' %}">خروج</a></li>
-                        <li><a href="{% url 'education:profile' %}">پروفایل</a></li>
+                        <li><a href="{% url 'accounts:profile' %}">پروفایل</a></li>
                         {% else %}
-                        <li><a href="{% url 'accounts:login' %}">ورود/ثبت نام</a></li>
+                        <li><a href="{% url 'accounts:signin' %}">ورود/ثبت نام</a></li>
                         {% endif %}
                         <li class="iconitem"><a href="{% url 'education:search' %}" data-toggle="modal" data-target="#login-modal"><i class="fa fa-search"></i></a></li>
                         <li class="iconitem"><a class="shopicon" href="{% url 'education:cartview' %}"><i class="fa fa-shopping-basket"></i> &nbsp;</a></li>

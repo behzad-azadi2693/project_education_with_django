@@ -58,18 +58,18 @@
                                         <h3>دستگاههای متصل</h3>
                                         <table class="table">
                                             <tbody>
-                                                <tr>
-                                                    <td><strong>تعداد صفحات</strong></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>زبان کتاب</strong></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>حجم</strong></td>
-                                                    <td></td>
-                                                </tr>
+                                                {% for user in sessions %}
+                                                    <td>{{user.date_joiin|date:"Y-m-d"}}</td>
+                                                    <td>{{user.os}}</td>
+                                                    <td>{{user.device}}</td>
+                                                    <td>
+                                                      <form action="{% url 'accounts:remove_session'%}" method="POST">
+                                                          {% csrf_token %}
+                                                          <input type="password" name="key" value="{{user.session_key}}" readonly hidden>
+                                                          <button type="submit" class="btn btn-primary">Submit</button>
+                                                      </form>
+                                                    </td>
+                                                {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>

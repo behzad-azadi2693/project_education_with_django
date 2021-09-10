@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     #local
     'education.apps.EducationConfig',
     'accounts.apps.AccountsConfig',
+    #3rd
+    'django_user_agents',
+
 ]
 
 MIDDLEWARE = [
@@ -49,6 +52,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #3rd
+    'django_user_agents.middleware.UserAgentMiddleware',
+
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -164,6 +170,7 @@ MEDIA_ROOT = os.path.join('media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_URL = 'accounts:signin'
 
 AUTH_USER_MODEL = 'accounts.User'
 

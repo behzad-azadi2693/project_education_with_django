@@ -5,6 +5,7 @@ from uuid import uuid4
 from django.utils.translation import gettext_lazy as _
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.sessions.models import Session
 
 # Create your models here.
 
@@ -95,3 +96,19 @@ class Teacher(models.Model):
             pass
         
         super(Teacher, self).save(*args, **kwargs)
+
+
+class SessionUser(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sessions', verbose_name=_('user name'))
+    session_key = models.ForeignKey(Session, on_delete=models.CASCADE, verbose_name=_('session key'))
+    device = models.CharField(max_length=300, verbose_name=_('device name'))
+    os = models.CharField(max_length=300, verbose_name=_('os name'))
+    date_joiin = models.DateField(verbose_name=_('date join device'))
+    ip_device = models.GenericIPAddressField(verbose_name=_('ip address device'))
+
+
+    class Meta:
+        verbose_name = _('session user device')        
+        verbose_name_plural = _("ssessions user devices")
+        ordering = ('-id',)
+        app_label = 'accounts'
