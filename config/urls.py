@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from accounts.views import activate_account
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('education.urls')),
     path('accounts/', include('accounts.urls')),
+    path('activate/<uidb64>/<token>/', activate_account, name='activate'),
 ]
 
 if settings.DEBUG:
