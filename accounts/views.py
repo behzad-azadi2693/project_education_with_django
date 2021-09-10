@@ -1,21 +1,94 @@
+from accounts.forms import UserRegister, UserLogin
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
-
+from django.utils.translation import gettext_lazy as _
 # Create your views here.
-
+from .models import User
 
 
 
 def signup(request):
-    pass
+    #if request.user.is_authenticated:
+    #    return redirect('education:index')
+    
+    if request.method == 'POST':
+        form = UserRegister(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = User.objects.filter(email=cd['email']).first()
+
+            if not user:
+                user = User.objects.create_user(email=cd['email'],password=cd['password'])
+                user.is_active = False
+                user.save()
+                messages.success(request, 'user registred please check email and click your link for activation email','success')
+                return redirect('accounts:login')
+
+            elif not user.email_check:
+                user.password = cd['password']
+                user.is_active= False
+                user.save()
+                messages.success(request,_('user register please check email and click your link for activation email'),'success')
+                return redirect('accounts:login')
+
+            else:
+                messages.success(request, 'email or password is wrong ','success')
+                return redirect('accounts:signup')
+
+
+        else:
+            context = {
+                'form_register': UserRegister(request.POST),
+            }
+            return render(request, 'login.html', context)
+
+    else:
+        context = {
+            'form_register': UserRegister(),
+        }
+        return render(request, 'login.html', context)
 
 
 def logining(request):
-   pass
+    #if request.user.is_authenticated:
+    #    return redirect('education:index')
+
+    if request.method == 'POST':
+        form = UserLogin(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            try:
+                user = get_user_model().objects.get(email=cd['email'])
+                if user.email_check:
+                    user_is =  authenticate(request, email = cd['email'], password=cd['password'])
+                    login(request, user)
+
+                    return redirect('education:index')
+
+                else:
+                    #send token
+                    messages.success(request, _('please check email and click your link for activation email'),'success')
+                    return redirect('accounts:login')
+
+            except get_user_model().DoesNotExist:
+                messages.success(request, _('please first register in site'),'success')
+                return redirect('accounts:signup')
+        else:
+            context = {
+                'form_login': UserLogin(request.POST),
+            }
+            messages.error(request, 'email or password confirm email not True', 'warning')
+            return render(request, 'login.html', context)
+    else:
+        context = {
+            'form_login': UserLogin(),
+        }
+        return render(request, 'login.html', context)
+
 
 @login_required
 def logoutg(request):
