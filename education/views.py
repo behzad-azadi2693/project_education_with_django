@@ -262,18 +262,6 @@ def cartview(request):
 
 
 @login_required
-def paid(request):
-    orders = Order.objects.filter(user = request.user, is_paid = False)
-    paid = 0
-
-    for order in orders:
-        paid = paid + int(order.content_object.price - (order.content_object.price * order.content_object.discount ))
-        orders.filter(pk=order.pk).update(is_paid = True, price_paide = paid)
-
-    return redirect('education:myorder')
-
-
-@login_required
 def cart(request, name, pk):
     if name == 'book':
         course = get_object_or_404(Book, pk=pk)
@@ -281,8 +269,7 @@ def cart(request, name, pk):
         if order:
             return redirect('education:cartview')
         else:
-            price_end = course.price * (course.price * course.discount)
-            basket = Order(content_object = course, user = request.user)
+            basket = Order(content_object = course, user = request.user, is_book = True)
             basket.save()
 
     if name == 'education':

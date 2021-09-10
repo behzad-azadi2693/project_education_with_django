@@ -5,12 +5,12 @@ from .views import (
     index, contact,
     courses, course_single, book_store,cart, book_single,
     teachercourse, newsletters,tag_search, cartview,
-    paid,search,panel,myorder,send_email,
+    search,panel,myorder,send_email,
     create_category,create_course,create_coursevideo,create_book,
     edit_course,edit_coursevideo,edit_book,
     delete_course,delete_coursevideo,delete_book,
 )
-
+from .cart import send_request, verify
 
 app_name = 'education'
 
@@ -35,11 +35,12 @@ urlpatterns = [
     path('page-contact/', contact , name="contact"),
     
     path('search/', search ,name='search'),
-    path('paid/', paid, name='paid'),
     path('myorder/', myorder, name='myorder'),
     path('cartview/', cartview, name='cartview'),
     path('tagsearch/<str:name>/', tag_search, name='tag'),
     path('cart/<str:name>/<int:pk>/', cart , name='cart'), 
+    path('send/request/', send_request , name='send_request'), 
+    path('verify/<int:order_id>/', verify , name='verify'),
     path('contact/', contact, name='contact'),
     path('newsletters/', newsletters , name="newsletters"),
     path('send_email/', send_email , name="send_email"),

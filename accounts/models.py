@@ -1,6 +1,4 @@
 from django.db import models
-from datetime import datetime,timedelta
-from django.core.validators import RegexValidator
 from uuid import uuid4
 from django.utils.translation import gettext_lazy as _
 from django.contrib.contenttypes.fields import GenericRelation
@@ -58,6 +56,21 @@ class User(AbstractBaseUser,PermissionsMixin):
     def save(self, *args, **kwargs):
         """saving to DB disabled"""
         super(User, self).save(*args, **kwargs)
+    
+    def price_amount(self):
+        amount = 0
+        for order in self.user.filter(is_paid=False):
+            pass
+
+
+
+
+
+
+
+
+
+
 
 
 def path_save_teacher(instance, filename):

@@ -56,7 +56,12 @@
                                             {% if book.is_paid %}
                                             <li style="text-align: left;">خریداری شده</li> 
                                             {% else %}
-                                            <li style="text-align: left;"><a href="{% url 'education:cart' name='delete' pk=book.pk %}"><i class="fa fa-shopping-basket"></i> حذق از سبد</a></li>
+                                                <li style="text-align: left;"><a href="{% url 'education:cart' name='delete' pk=book.pk %}"><i class="fa fa-shopping-basket"></i> delete of basket</a></li>
+                                                <form class="big-contact-form" role="search" action="{% url 'education:send_request' %}" method="POST" novalidate>
+                                                    {% csrf_token %}
+                                                    <input value={{book.pk}} name='order_id' readonly hidden type='number'>
+                                                    <button type="submit" class="fa fa-shopping-basket">payment</button>
+                                                </form>
                                             {% endif %}
                                         </ul>
                                     </div><!-- end left -->
@@ -73,14 +78,6 @@
                     <hr class="invis">
 
                 </div>
-                <div class="tags-widget row">   
-                    <ul class="list-inline">
-                        {% if request.path == '/cartview/' %}
-                            <li><a href="{% url 'education:paid' %}">ریال{{paid}} </a>:مبلغ پرداختی</li>
-                        {% endif %}
-                    </ul>
-                </div>
-                
             </div><!-- end container -->
         </section>
 {% endblock %}

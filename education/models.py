@@ -1,18 +1,10 @@
-from django.contrib import messages
-from django.contrib.admin.options import VERTICAL
 from django.db import models
-from django.db.models import deletion
-from django.db.models.base import Model
-from django.db.models.expressions import OrderBy, ValueRange
-from django.db.models.fields import EmailField
-from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
-from accounts.models import Teacher
-from django.utils.translation import gettext_lazy as _
-# Create your models here.
 from django.urls import reverse
+from accounts.models import Teacher
+from django.contrib.auth import get_user_model
+from django.utils.translation import gettext_lazy as _
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 
 
 class Category(models.Model):
@@ -52,11 +44,10 @@ class Course(models.Model):
         return reverse('education:coursesingle', args=(self.slug,))
 
     def price_end(self):
-        pe = self.price * self.discount
-        price = self.price - pe
-        if price > 0:
-            return self.price - pe
-        if price < 0:
+        product_price = self.price * (1 - self.discount)
+        if 0 <= product_price <= self.price:
+            return product_price
+        else:
             return self.price
 
     def delete(self, *args, **kwargs):
@@ -174,12 +165,12 @@ class Book(models.Model):
     books = GenericRelation('Order')
 
     def price_end(self):
-        pe = self.price * self.discount
-        price = self.price - pe
-        if price > 0:
-            return self.price - pe
-        if price < 0:
+        product_price = self.price * (1 - self.discount)
+        if 0 <= product_price <= self.price:
+            return product_price
+        else:
             return self.price
+
     
     def get_absolute_url(self):
         return reverse('education:book_single', args=(self.slug,))
