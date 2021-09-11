@@ -1,18 +1,28 @@
 from django.urls import path
 from django.urls.conf import include
+from .cart import send_request, verify
 from django.urls.resolvers import URLPattern
+from .sitemaps import CourseSitemap, BookSitemap
+from django.contrib.sitemaps.views import sitemap
 from .views import (
-    index, contact,
-    courses, course_single, book_store,cart, book_single,
-    teachercourse, newsletters,tag_search, cartview,
-    search,panel,myorder,send_email,
-    create_category,create_course,create_coursevideo,create_book,
+    index, contact,book_single, cartview,
+    courses, course_single, book_store,cart, 
+    teachercourse, newsletters,tag_search,
+    search,panel,myorder,send_email,create_book,
+    create_category,create_course,create_coursevideo,
     edit_course,edit_coursevideo,edit_book,
     delete_course,delete_coursevideo,delete_book,
 )
-from .cart import send_request, verify
+
 
 app_name = 'education'
+
+
+sitemaps = {
+    'movie':CourseSitemap,
+    'serial':BookSitemap,
+}
+
 
 create_urlpatterns = [
     path('category/',create_category, name='create_category'),
@@ -53,4 +63,6 @@ urlpatterns = [
     path('create/', include(create_urlpatterns)),
     path('edit/', include(edit_urlpatterns)),
     path('delete/', include(delete_urlpatterns)),
+    path('sitemap/', sitemap, {'sitemaps':sitemaps}, name="sitemap"),
+
 ]

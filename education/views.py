@@ -1,14 +1,13 @@
-from accounts.models import SessionUser
 from os import error, linesep
 from django.shortcuts import render, redirect, get_object_or_404, resolve_url
 from django.urls import reverse
 from .models import Book, BookComment, Category, Contact, CourseVideo, NewsBlog, Order, Course, Comment, Newsletter_email, EmailSending
-# Create your views here.
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.cache import cache
 from itertools import chain
 from .forms import (
         CourseForm,CourseVideoForm,CategoryForm, BookForm, CommentCourseForm,
@@ -90,7 +89,12 @@ def contact(request):
 
 
 def courses(request):
-    course_list = Course.objects.all()
+    course_list = cache.get('course_all')
+    if not course_list:
+        course_list = Course.objects.all()
+        if course_list:
+            cache.set('course_all', course_list, 60 * 60)
+
     page = request.GET.get('page', 1)
 
     paginator = Paginator(course_list, 12)
@@ -157,8 +161,19 @@ def tag_search(request, name):
 
 
 def course_single(request, slug):
-    course = get_object_or_404(Course, slug=slug)
-    courses = Course.objects.filter(category__category=course.category, category__sub_category=course.category.sub_category).exclude(slug=slug)[:4]
+    course = cache.get(f'single_course_{slug}')
+    if not course:
+        course = get_object_or_404(Course, slug=slug)
+        if course:
+            cache.set(f'single_course_{slug}', course, 3600)
+
+    course_all = cache.get('course_all')
+    if not course_all:
+        course_all = Course.objects.all()
+        if course_all:
+            cache.set('course_all', course_all, 60*60)
+
+    courses = course_all(category__category=course.category, category__sub_category=course.category.sub_category).exclude(slug=slug)[:4]
     order = course.courses.filter(user=request.user).filter(is_paid=True)
     tags = Category.objects.order_by('?')[:6]
 
@@ -186,7 +201,12 @@ def course_single(request, slug):
 
 
 def book_store(request):
-    book_list = Book.objects.all()
+    book_list = cache.get('book_all')
+    if not book_list:
+        book_list = Book.objects.all()
+        if book_list:
+            cache.set('book_all', book_list, 60 * 60)
+
     page = request.GET.get('page', 1)
 
     paginator = Paginator(book_list, 12)
@@ -208,8 +228,19 @@ def book_store(request):
 
 
 def book_single(request, slug):
-    book = get_object_or_404(Book, slug=slug)
-    books = Book.objects.filter(name__contains = book.name).exclude(slug=slug)[:4]
+    book = cache.get(f'book_single_{slug}')
+    if not book:
+        book = get_object_or_404(Book, slug=slug)
+        if book:
+            cache.set(f'book_single_{slug}', book, 3600)
+    
+    book_all = cache.get('book_all')
+    if not book_all:
+        book_all = Book.objects.all()
+        if book_all:
+            cache.set('book_all',book_all, 60 * 60)
+
+    books = book_all.filter(name__contains = book.name).exclude(slug=slug)[:4]
     is_buy = book.books.filter(user = request.user, is_paid = True)
 
     context = {
@@ -316,13 +347,24 @@ def newsletters(request):
 
 def search(request):
     query = request.GET.get('q')
+    course_all = cache.get('course_all')
+    if not course_all:
+        course_all = Course.objects.all()
+        if course_all:
+            cache.set('course_all', course_all, 60*60)
 
-    courses = Course.objects.filter(
+    courses = course_all.filter(
         Q(name__contains=query) | Q(date__contains=query) |
         Q(description__contains=query) | Q(title__contains=query)
     )
-    
-    books = Book.objects.filter(
+
+    book_all = cache.get('book_all')
+    if not book_all:
+        book_all = Book.objects.all()
+        if book_all:
+            cache.set('book_all', book_all, 60*60)
+
+    books = book_all.filter(
         Q(name__contains=query) | Q(date__contains=query) |
         Q(description__contains=query)
     

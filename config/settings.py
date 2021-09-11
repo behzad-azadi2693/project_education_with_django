@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     #local
     'education.apps.EducationConfig',
     'accounts.apps.AccountsConfig',
+    'django.contrib.sitemaps',
     #3rd
     'django_user_agents',
+
 
 ]
 
@@ -196,3 +198,11 @@ else:
     EMAIL_HOST_USER = 'youremail@gmail.com'
     EMAIL_HOST_PASSWORD = 'email_password'
     EMAIL_PORT = 587
+
+
+CACHES = {
+    'default':{
+        'BACKEND':'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION':'127.0.0.1:11211',
+    }
+}
