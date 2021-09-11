@@ -30,7 +30,10 @@
                                     {% if request.user.is_admin or request.user.is_teacher %}
                                     <li><a data-toggle="tab" href="#menu1">ایمیل های ارسالی</a></li>
                                     <li><a data-toggle="tab" href="#menu2">آموزش های شما</a></li>
+                                    <li><a data-toggle="tab" href="#menu4">صورت حساب</a></li>
                                     {% endif %}
+                                    <li><a data-toggle="tab" href="#menu5">پرداختی شما</a></li>
+
                                 </ul>
 
                                 <div class="tab-content">
@@ -85,11 +88,7 @@
                                                     </tr>
                                                     {% for email in course.emial_course.all %}
                                                     <tr>
-                                                        <td><strong>موضوع و تاریخ</strong></td>
                                                         <td>{{ email.subject }}<----->{{email.date | date:"Y,m,d"}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>متن</strong></td>
                                                         <td>{{email.message}}</td>
                                                     </tr>
                                                     {% endfor %}
@@ -106,7 +105,23 @@
                                             {% endfor %}                                
                                         </ul>
                                     </div>
+                                    <div id="menu4" class="tab-pane fade">
+                                        <h3>صورت حساب  شما</h3>
+                                        <ul class="nav navbar-nav navbar-right">
+                                            {% for pay in paids %}
+                                                <li>{{pay.price_paide}}-{{pay.user}}-{{order.code_payment}}-{{order.date}}</li>
+                                            {% endfor %}                                
+                                        </ul>
+                                    </div>
+                                    <div id="menu5" class="tab-pane fade">
+                                        <h3>صورت حساب  شما</h3>
+                                        <ul class="nav navbar-nav navbar-right">
+                                            {% for ord in orders %}
 
+                                                <li>{{ord.price_paide}}-{{ord.content_object.name}}-{{order.code_payment}}-{{order.date}}</li>
+                                            {% endfor %}                                
+                                        </ul>
+                                    </div>
                                 </div>
                             </div><!-- end shop-extra -->
                         </div><!-- end col -->

@@ -2,8 +2,12 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 import requests
 import json
-from .models import Book, Course, Order
+from .models import  Order
 from django.contrib.auth.decorators import login_required
+from django.core.mail import EmailMessage
+from datetime import datetime
+from django.utils.translation import gettext_lazy as _
+
 
 MERCHANT = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
 ZP_API_REQUEST = "https://api.zarinpal.com/pg/v4/payment/request.json"
@@ -22,6 +26,7 @@ def send_request(request):
     if order_id:
         order = Order.objects.get(pk=order_id, user = request.user)
         amount = order.content_object.price_end()
+        
     else:
         return redirect('education:cartview')
 
@@ -51,6 +56,8 @@ def verify(request, *args, **kwrags):
     order_id = kwrags.get('order_id')
     order = Order.objects.get(pk=order_id)
     amount = order.content_object.price_end()
+    email_teacher = order.content_object.email
+    print('kkkkkkkkkkkkkkkkkkkkkkk',email_teacher)
 
     t_status = request.GET.get('Status')
     t_authority = request.GET['Authority']
@@ -67,8 +74,27 @@ def verify(request, *args, **kwrags):
             t_status = req.json()['data']['code']
             if t_status == 100:
                 order = Order.objects.get(pk=order_id, is_paid = False)
-                order.update(is_paid = True, price_paide = amount)
-            
+                order.update(is_paid = True, price_paide = amount, code_payment=req.json()['data']['ref_id'])
+                if not order.is_book:
+                    email_teacher = order.content_object.teacher.user.email
+                    subject=_('buy your course in site Education')
+                    message=f"this {datetime.now()} buy your's course with name {order.content_object.name} paied for course is {order.price_paide}"
+                    email = EmailMessage(
+                        subject,
+                        message,
+                        to=[email_teacher],
+                    )
+                    email.send()
+                if order.is_book:
+                    email_teacher = 'admin@gmail.com'
+                    subject=_('buy your book in site Education')
+                    message=f"this {datetime.now()} buy your's book with name {order.content_object.name} paied for book is {order.price_paide}"
+                    email = EmailMessage(
+                        subject,
+                        message,
+                        to=[email_teacher],
+                    )
+                    email.send()
                 return HttpResponse('Transaction success.\nRefID: ' + str(
                     req.json()['data']['ref_id']
                 ))

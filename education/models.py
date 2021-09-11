@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 from django.urls import reverse
 from accounts.models import Teacher
@@ -287,6 +288,7 @@ class Order(models.Model):
     is_paid = models.BooleanField(default=False, verbose_name=_('is paid'))
     code_payment = models.CharField(max_length=30, null=True, blank=True,verbose_name=_('code payment'))
     is_book = models.BooleanField(default=False)
+    date = models.DateField(auto_now_add=True)
 
     class Meta:
         verbose_name = _('order ')

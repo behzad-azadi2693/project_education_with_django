@@ -12,7 +12,7 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.sessions.models import Session
 from datetime import date
-from education.models import Course
+from education.models import Course, Order
 
 def signup(request):
     #if request.user.is_authenticated:
@@ -151,6 +151,16 @@ def profile(request):
     context = {
         'courses' : Course.objects.filter(teacher = request.user.teacher),
         'sessions' : SessionUser.objects.filter(user=request.user),
+        'orders': Order.objects.filter(user=request.user, is_paid = True)
     }
+    if request.user.is_teacher:
+        paids = []
+        orders = Order.objects.filter(is_paid = True)
+        for order in orders:
+            if not order.is_book: 
+                if order.content_object.teacher == request.user.teacher:
+                    paids.append(order)
+
+        context.update({'paids':paids})
     return render(request, 'profile.html', context)
 
