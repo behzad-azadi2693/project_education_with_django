@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.contenttypes import fields
+from django.core.exceptions import ValidationError
 from django.forms.forms import Form
 from .models import User
 from django.utils.translation import gettext_lazy as _
@@ -46,38 +48,39 @@ class UserRegister(forms.Form):
         help_text = _('please rnter password egain'),
         widget=forms.TextInput(attrs={'placeholder':_('your email'),'class':'form-control','type':'email'})
     )
+
     password = forms.CharField( 
-            error_messages=messages,
-            required=True,
-            help_text = _('please rnter password egain'),
-            widget=forms.PasswordInput(attrs={'placeholder':_('password confirm'),'class':'form-control','type':'password'})
-        )
+        error_messages=messages,
+        required=True,
+        help_text = _('please rnter password egain'),
+        widget=forms.PasswordInput(attrs={'placeholder':_('password confirm'),'class':'form-control','type':'password'})
+    )
+
     password_confierm = forms.CharField(
-            error_messages=messages,
-            required=True,
-            help_text = _('please rnter password egain'),
-            widget=forms.PasswordInput(attrs={'placeholder':_('password confirm'),'class':'form-control','type':'password'})
-        )
+        error_messages=messages,
+        required=True,
+        help_text = _('please rnter password egain'),
+        widget=forms.PasswordInput(attrs={'placeholder':_('password confirm'),'class':'form-control','type':'password'})
+    )
+    
+    def clean_password(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
         
-    #def clean_email(self):
-    #    cd = self.cleaned_data
-    #    user = User.objects.filter(email=cd['email'], email_check = True).first()
-    #    
-    #    if user:
-    #        raise forms.ValidationError(_(''))
-    #    else:
-    #        return cd['email']
+        if len(cleaned_data['password']) < 8 and password:
+            raise forms.ValidationError(_('this fields must of 8 character'))
+        return password
 
     def clean_password_confierm(self):
-        cd = self.cleaned_data
-        if len(cd['password']) < 8:
-            raise forms.ValidationError(_('length password must of 8 character'))
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        password_confierm = cleaned_data.get('password_confierm')
+
+
+        if password and password_confierm and password_confierm != password:
+            raise forms.ValidationError(_('password and confierm passqord must be matched'))
+        return password_confierm
         
-        if cd['password'] and cd['password_confierm'] and cd['password'] != cd['password_confierm']:
-            raise forms.ValidationError(_("password and confirm password must be match "))
-        return cd['password_confierm']
-
-
 class UserLogin(forms.Form):
    
     email = forms.EmailField(
@@ -89,8 +92,8 @@ class UserLogin(forms.Form):
     password = forms.CharField( 
             error_messages=messages,
             required=True,
-            help_text = _('please rnter password egain'),
-            widget=forms.PasswordInput(attrs={'placeholder':_('password confirm'),'class':'form-control','type':'password'})
+            help_text = _('please inter password '),
+            widget=forms.PasswordInput(attrs={'placeholder':_('password'),'class':'form-control','type':'password'})
         )
 
 
@@ -103,3 +106,55 @@ class UserChangeForm(forms.ModelForm):
     def clean_password(self):
         return self.initial['password']
     
+class EmailForm(forms.Form):
+   
+    email = forms.EmailField(
+        error_messages=messages,
+        required=True,
+        help_text = _('please rnter password egain'),
+        widget=forms.TextInput(attrs={'placeholder':_('your email'),'class':'form-control','type':'email'})
+    )
+   
+
+    def clean_email(self):
+        cd = self.cleaned_data
+        try:
+            user = get_user_model().objects.get(email=cd['email'], email_check=True)
+            return cd['email']
+        except get_user_model().DoesNotExist:
+            raise forms.ValidationError(_('this email is not validation'))
+
+
+class PasswordForm(forms.Form):
+   
+    new_password = forms.CharField( 
+            error_messages=messages,
+            required=True,
+            help_text = _('please inter password '),
+            widget=forms.PasswordInput(attrs={'placeholder':_('new password'),'class':'form-control','type':'password'})
+        )
+
+    confirm_new_password = forms.CharField( 
+            error_messages=messages,
+            required=True,
+            help_text = _('please inter password egain'),
+            widget=forms.PasswordInput(attrs={'placeholder':_('password confirm'),'class':'form-control','type':'password'})
+        )
+
+    def clean_new_password(self):
+        cleaned_data = super().clean()
+        new_password = cleaned_data.get('new_password')
+        
+        if len(cleaned_data['new_password']) < 8 and new_password:
+            raise forms.ValidationError(_('this fields must of 8 character'))
+            
+        return new_password
+    
+    def clean_confirm_new_password(self):
+        cleaned_data = super().clean()
+        new_password = cleaned_data.get('password')
+        confirm_new_password = cleaned_data.get('password_confierm')
+
+        if new_password and confirm_new_password and confirm_new_password != new_password:
+            raise forms.ValidationError(_('password and confierm passqord must be matched'))
+        return confirm_new_password

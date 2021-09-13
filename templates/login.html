@@ -9,6 +9,24 @@
             <div class="row">ورود/ثبت نامم</div>
 
             <div class="row">
+            {% if form_email %}
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div class="section-title text-center">
+                            <h3>ورود به سایت</h3>
+                            <p>قبلا در سایت ثبت نام نکرده اید و اکانت فعال ندارید<a href='{% url "accounts:signup" %}' style='color:blue'>register in site</a></p>
+                        </div><!-- end title -->
+
+                        <form class="big-contact-form" role="search" action="" method="POST" novalidate>
+                            {% csrf_token %}
+                            {% for field in form_email %}
+                                {{ field }}
+                                <p style='color:tomato'>{{ field.errors }}</p>
+                            {% endfor %}
+                            <button type="submit" class="btn btn-primary">ارسال درخواست</button>
+                        </form>
+                    </div><!-- end col -->
+                {% endif %}
              {% if form_login %}
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
@@ -25,6 +43,7 @@
                             {% endfor %}
                             <button type="submit" class="btn btn-primary">ورود به سایت</button>
                         </form>
+                        <p>پسورد خود را فراموش کرده اید<a href='{% url "accounts:email_form" %}' style='color:blue'>password recovery</a></p>
                     </div><!-- end col -->
                 {% endif %}
                 {% if form_register %}
@@ -34,7 +53,6 @@
                             <h3>ثبت نام در سایت</h3>
                             <p>قبلا در سایت ثبت نام نکرده اید؟دقت کنید تمامی فیلدها را پر کنید ایمیل وارد شده نباید از قبل موجود باشند</p>
                         </div><!-- end title -->
-
                         <form class="big-contact-form" role="search" action="" method="POST" novalidate>
                             {% csrf_token %}
                             {% for field in form_register %}
@@ -45,7 +63,22 @@
                         </form>
                     </div><!-- end col -->
                 {% endif %}
-
+                {% if form_password %}
+                    <div class="col-md-3 "></div>
+                    <div class="col-md-6 ">
+                        <div class="section-title text-center">
+                            <h3>{{user}}تغییر پسورد</h3>
+                        </div><!-- end title -->
+                        <form class="big-contact-form" role="search" action="" method="POST" novalidate>
+                            {% csrf_token %}
+                            {% for field in form_password %}
+                                {{ field }}
+                                <p style='color:tomato'>{{ field.errors }}</p>
+                            {% endfor %}
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div><!-- end col -->
+                {% endif %}
             </div><!-- end row -->
         </div>
     </div>

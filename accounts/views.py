@@ -1,4 +1,4 @@
-from accounts.forms import UserRegister, UserLogin
+from accounts.forms import UserRegister, UserLogin, EmailForm, PasswordForm
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -7,12 +7,34 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from .models import User, SessionUser
-from .token import send_token, account_activation_token
+from .token import send_token, account_activation_token, send_email
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.sessions.models import Session
 from datetime import date
 from education.models import Course, Order
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+
+
+def email_form(request):
+    #if request.user.is_authenticated:
+    #    return redirect('education:index')
+    if request.method == 'POST':
+        form = EmailForm(request.POST)
+        if form.is_valid:
+            cd = request.POST
+            user = get_user_model().objects.get(email=cd['email'])
+            send_email(user, request)
+            messages.success(request, _('please check your email'),'success')
+            return redirect('accounts:email_form')
+        else:
+            form_email = EmailForm(request.POST)
+            return render(request, 'login.html', {'form_email':form_email})
+    else:
+        form_email = EmailForm()
+        return render(request, 'login.html', {'form_email':form_email})
+
 
 def signup(request):
     #if request.user.is_authenticated:
@@ -108,6 +130,34 @@ def logoutg(request):
     messages.success(request, _('you are logout of site'), 'success')
     return redirect('accounts:signin')
 
+
+def password_confirm_down(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if request.method == 'POST':
+        form = PasswordForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            if user is not None and account_activation_token.check_token(user, token):
+                password = cd['new_password']
+                print('rrrrrrrrrrrrrrrrrrrrrrr',password)
+                user = User.objects.get(pk=uid)
+                user.set_password(password)
+                user.save()
+                messages.success(request, _('reset password complete'),'success')
+                return redirect('accounts:signin')
+            else:
+                messages.warning(request, _("please triing ea\gain"))
+                return redirect('accounts:email_form')
+        else:
+            form_password = PasswordForm(request.POST)
+            return render(request, 'login.html',{'form_password':form_password} )
+    else:
+        form_password = PasswordForm()
+        return render(request, 'login.html',{'form_password':form_password,'user':user.email} )
 
 def activate_account(request, uidb64, token):
 
