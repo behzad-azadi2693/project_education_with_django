@@ -40,10 +40,10 @@ INSTALLED_APPS = [
     'education.apps.EducationConfig',
     'accounts.apps.AccountsConfig',
     'django.contrib.sitemaps',
+    'api.apps.ApiConfig',
     #3rd
     'django_user_agents',
-
-
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

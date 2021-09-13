@@ -18,13 +18,17 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from accounts.views import activate_account, password_confirm_down
+from api.views_user import rest_activate_account
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('education.urls')),
     path('accounts/', include('accounts.urls')),
     path('activate/<uidb64>/<token>/', activate_account, name='activate'),
+    path('rest/activate/<uidb64>/<token>/', rest_activate_account, name='rest_activate'),
     path('password/confirm/<uidb64>/<token>/', password_confirm_down, name='password_confirm'),
+    path('api/', include('api.urls')),
 ]
 
 if settings.DEBUG:
