@@ -54,7 +54,7 @@ class Course(models.Model):
     def delete(self, *args, **kwargs):
         self.image.delete()
         self.translate.delete()
-        super().delete(*args,**kwargs)
+        super(Course, self).delete()
 
     def save(self, *args, **kwargs):
         slti = self.title.replace(' ','-')
@@ -113,11 +113,10 @@ class CourseVideo(models.Model):
         app_label = 'accounts'
     
     def delete(self, *args, **kwargs):
-        self.image.delete()
         self.file.delete()
-        super().delete(**args, **kwargs)
+        super(CourseVideo, self).delete()
 
-    def saave(self, *args, **kwargs):
+    def save(self, *args, **kwargs):
         try:
             this = NewsBlog.objects.get(id=self.id)
             if this.file != self.file:
@@ -189,13 +188,13 @@ class Book(models.Model):
         except: 
             pass
 
-        super(Book, self).save(*args, **kwargs)
+        super(Book, self).save()
 
 
     def delete(self, *args, **kwargs):
         self.image.delete()
         self.file.delete()
-        super().delete(*args, **kwargs)
+        super(Book, self).delete()
 
     class Meta:
         verbose_name = _('book')
@@ -206,7 +205,7 @@ class Book(models.Model):
         return self.name
 
 class BookComment(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='book', verbose_name=_('select book'))
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='relbook', verbose_name=_('select book'))
     message = models.TextField(verbose_name=_('MESSAGE'))
     name = models.CharField(max_length=200, verbose_name=_('your name'))
     email = models.EmailField(verbose_name=_('email'))
@@ -260,7 +259,7 @@ class NewsBlog(models.Model):
 
     def delete(self, *args, **kwargs):
         self.image.delete()
-        super(NewsBlog, self).delete(*args, **kwargs)
+        super(NewsBlog, self).delete()
 
     def save(self, *args, **kwargs):
         try:
@@ -288,7 +287,7 @@ class Order(models.Model):
     is_paid = models.BooleanField(default=False, verbose_name=_('is paid'))
     code_payment = models.CharField(max_length=30, null=True, blank=True,verbose_name=_('code payment'))
     is_book = models.BooleanField(default=False)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField(auto_now=True)
 
     class Meta:
         verbose_name = _('order ')

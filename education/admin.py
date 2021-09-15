@@ -110,7 +110,7 @@ class AdminCourseVideo(admin.ModelAdmin):
     )
     
     def awatar(self, obj):
-        return mark_safe('<img src="{url}" width="50" height="50" />'.format(url=obj.image.url,))
+        return mark_safe('<img src="{url}" width="50" height="50" />'.format(url=obj.course.image.url,))
 
 
 @admin.register(Contact)

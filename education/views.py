@@ -174,7 +174,7 @@ def course_single(request, slug):
         if course_all:
             cache.set('course_all', course_all, 60*60)
 
-    courses = course_all(category__category=course.category, category__sub_category=course.category.sub_category).exclude(slug=slug)[:4]
+    courses = course_all(category=course.category).exclude(slug=slug)[:4]
     order = course.courses.filter(user=request.user).filter(is_paid=True)
     tags = Category.objects.order_by('?')[:6]
 
@@ -296,7 +296,7 @@ def cartview(request):
 @login_required
 def cart(request, name, pk):
     if name == 'book':
-        course = get_object_or_404(Book, pk=pk)
+        course = get_object_or_404(Book, pk=pk, is_free = False)
         order = course.books.filter(user = request.user)
         if order:
             return redirect('education:cartview')
@@ -305,7 +305,7 @@ def cart(request, name, pk):
             basket.save()
 
     if name == 'education':
-        course = get_object_or_404(Course, pk=pk)
+        course = get_object_or_404(Course, pk=pk, is_free = False)
         order = course.courses.filter(user = request.user)
         if order:
             return redirect('education:cartview')

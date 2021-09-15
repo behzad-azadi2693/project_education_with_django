@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
-from .user_serializer import UserRegisterSerializer, UserLoginSerializer
+from .serializer_user import UserRegisterSerializer, UserLoginSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
