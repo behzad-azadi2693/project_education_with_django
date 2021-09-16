@@ -63,16 +63,6 @@ class User(AbstractBaseUser,PermissionsMixin):
             pass
 
 
-
-
-
-
-
-
-
-
-
-
 def path_save_teacher(instance, filename):
     name = '{0}/{1}'.format(instance.user.email, filename)
     return 'teacher/'+name

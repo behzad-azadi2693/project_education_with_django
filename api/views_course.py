@@ -1,9 +1,6 @@
+from api.serializer import EmailSerializer
 from django.core.checks import messages
-from django.core.paginator import Paginator
-from django.db.models import manager
-from rest_framework import permissions
-from education.models import Book, Comment, Course, Newsletter_email, Order
-from django.contrib.auth import get_user_model
+from education.models import Course, Newsletter_email
 from django.shortcuts import redirect, get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -17,6 +14,7 @@ from .serializer_course import (
             )
 from rest_framework.pagination import PageNumberPagination
 from django.core.mail import send_mail
+from django.core.cache import cache
 
 
 @api_view(['GET', 'POST'])
@@ -137,10 +135,14 @@ def course_video_delete(request, pk):
 
 @api_view(['GET','POST'])
 def course_all(request):
+    course_all = cache.get('course_all')
+    if not course_all:
+        course_all = Course.objects.all()
+        if course_all:
+            cache.set('course_all', course_all, 60*60)
+
     paginator = PageNumberPagination()
     paginator.page_size = 10
-
-    course_all = Course.objects.all()
 
     result_page = paginator.paginate_queryset(course_all, request)
 
@@ -151,19 +153,36 @@ def course_all(request):
 
 @api_view(['GET',])
 def teacher_course(request,slug):
-    courses = Course.objects.filter(teacher__slug = slug)
+    course_all = cache.get('course_all')
+    if not course_all:
+        course_all = Course.objects.all()
+        if course_all:
+            cache.set('course_all', course_all, 60*60)
+
+    courses = course_all.filter(teacher__slug = slug)
     srz = CourseAll(courses, many=True).data
     return Response(srz, status=status.HTTP_200_OK)
 
 
 @api_view(['GET','POST'])
 def course_single(request, slug):
-    
-    course_data = get_object_or_404(Course, slug=slug)
+    course_data = cache.get(f'course_{slug}')
+    if not course_data:
+        course_data = get_object_or_404(Course, slug=slug)
+        if course_data:
+            cache.set(f'course_{slug}', course_data, 3600)
+
+
+    course_all = cache.get('course_all')
+    if not course_all:
+        course_all = Course.objects.all()
+        if course_all:
+            cache.set('course_all', course_all, 60*60)
+
     courses_video = course_data.relcourse.all()
     course_comment = course_data.commentcourse.all()
     user_course = course_data.courses.filter(user = request.user, is_paid  =True)
-    instance_course = Course.objects.filter(category=course_data.category).exclude(slug=slug)[:4]
+    instance_course = course_all.filter(category=course_data.category).exclude(slug=slug)[:4]
     
     course = CourseSingle(course_data).data
     comment = CommentCourse(course_comment, many=True).data
@@ -210,9 +229,16 @@ def email_save(request):
             if obj.slug:
                 return redirect('api:course_single', obj.slug)
             else:
-                return redirect
+                message = {
+                    'message':'your email submited with successfully'
+                }
+                return Response(messages, status=status.HTTP_201_CREATED)
         else:
-            pass
+            form_new = NewsLetterEmail().data
+            return Response(form.errors, form_new, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        form = NewsLetterEmail().data
+        return Response(form, status=status.HTTP_200_OK)
 
 
 
@@ -258,3 +284,5 @@ def email_sending(request):
         message = {
                     'message':'emial don`t sending please try egain',
                 }
+        form_new = EmailSerializer(data=request.data).data
+        return Response(message, form_new)

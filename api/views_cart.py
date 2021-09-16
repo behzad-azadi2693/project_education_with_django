@@ -9,7 +9,8 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 import requests
 import json
-
+from django.core.mail import send_mail
+from datetime import datetime
 
 @api_view(['GET',])
 def add_to_basket(request, name, pk):
@@ -115,7 +116,20 @@ def verify(request, pk):
             if t_status == 100:
                 order.is_paid = True
                 order.price_paide = int(amount)
+                order.code_payment = req.json()['data']['ref_id']
                 order.save()
+                subject = f'payment cache in {datetime.now()}'
+                message = f'this {order.user.email} buy {order.content_object.name} paied {amount} RefId {order.code_payment}'
+                email = ['admin@gmail.com']
+                if not order.is_book:
+                    email.append(order.content_object.teacher.user.email)
+                send_mail(
+                    subject,
+                    message,
+                    'Education Site',
+                    email,
+                    fail_silently=False,
+                )
                 return HttpResponse('Transaction success.\nRefID: ' + str(
                     req.json()['data']['ref_id']
                 ))

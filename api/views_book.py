@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
+from django.core.cache import cache
 from .serializer_book import (
                 BookSerializer, BookSingleSerializer, BookCommentSerializer, CommentSerializer,
                 SingleSerializer
@@ -20,16 +21,31 @@ from django.core.mail import send_mail
 
 @api_view(['GET',])
 def book_all(request):
+    books = cache.get('book_all')
+    if not books:
+        books = Book.objects.all()
+        if books:
+            cache.set('book_all', books, 60 * 60)
+
+    paginator = PageNumberPagination()
+    paginator.page_size = 10
+
     books = Book.objects.all()
+    result_page = paginator.paginate_queryset(books, request)
 
-    srz = BookSerializer(books, many=True).data
+    srz = BookSerializer(result_page, many=True).data
 
-    return Response(srz, status=status.HTTP_200_OK)
+    return paginator.get_paginated_response(srz)
 
 
 @api_view(['GET',])
 def book_single(request, slug):
-    book = get_object_or_404(Book, slug=slug)
+    book = cache.get(f'book_{slug}')
+    if not book:
+        book = get_object_or_404(Book, slug=slug)
+        if book:
+            cache.set(f'book_{slug}',book, 3600)
+    
     book_comment = book.relbook.all()
     paid = book.books.filter(user = request.user, is_paid=True)
     bookcomment_srz = BookCommentSerializer(book_comment, many=True).data
@@ -120,4 +136,3 @@ def book_comment(request):
         
         else:
             pass
-        
