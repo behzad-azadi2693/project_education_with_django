@@ -1,0 +1,3 @@
+django-admin.py makemessages -l fa --ignore sbenv
+
+django-admin.py compilemessages -l fa --ignore sbenv

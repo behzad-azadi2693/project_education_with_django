@@ -1,0 +1,1398 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-19 20:29+0430\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: accounts/admin.py:30 accounts/admin.py:35
+msgid "Information"
+msgstr ""
+
+#: accounts/admin.py:31
+msgid "personal info"
+msgstr ""
+
+#: accounts/admin.py:32
+msgid "permission"
+msgstr ""
+
+#: accounts/admin.py:36
+msgid "otp information"
+msgstr ""
+
+#: accounts/admin.py:37
+msgid "Access"
+msgstr ""
+
+#: accounts/admin.py:56 education/admin.py:21 education/admin.py:35
+#: education/admin.py:91 education/admin.py:109 education/admin.py:122
+#: education/admin.py:131 education/admin.py:140 education/admin.py:156
+msgid "INFORMATION"
+msgstr ""
+
+#: accounts/admin.py:57
+msgid "INFORMATION SOCIAL"
+msgstr ""
+
+#: accounts/apps.py:8 education/models.py:18
+msgid "accounts"
+msgstr ""
+
+#: accounts/forms.py:13 education/forms.py:8
+msgid "this field is required"
+msgstr ""
+
+#: accounts/forms.py:14 education/forms.py:9
+msgid "It is not correct"
+msgstr ""
+
+#: accounts/forms.py:15 education/forms.py:10
+msgid "The size of the characters is large of 15 character"
+msgstr ""
+
+#: accounts/forms.py:16 education/forms.py:11
+msgid "The size of the characters is small of 9 character"
+msgstr ""
+
+#: accounts/forms.py:17
+msgid "out of range maximum size"
+msgstr ""
+
+#: accounts/forms.py:18
+msgid "out of range minimum size"
+msgstr ""
+
+#: accounts/forms.py:22 accounts/forms.py:96
+msgid "password"
+msgstr ""
+
+#: accounts/forms.py:23
+msgid "password_confierm"
+msgstr ""
+
+#: accounts/forms.py:32
+msgid "password and confirm password must be match "
+msgstr ""
+
+#: accounts/forms.py:48 accounts/forms.py:55 accounts/forms.py:62
+#: accounts/forms.py:89 accounts/forms.py:114
+msgid "please rnter password egain"
+msgstr ""
+
+#: accounts/forms.py:49 accounts/forms.py:90 accounts/forms.py:115
+#: accounts/models.py:26 education/models.py:85
+msgid "your email"
+msgstr ""
+
+#: accounts/forms.py:56 accounts/forms.py:63 accounts/forms.py:141
+msgid "password confirm"
+msgstr ""
+
+#: accounts/forms.py:71 accounts/forms.py:149
+msgid "this fields must of 8 character"
+msgstr ""
+
+#: accounts/forms.py:81 accounts/forms.py:159
+msgid "password and confierm passqord must be matched"
+msgstr ""
+
+#: accounts/forms.py:95 accounts/forms.py:133
+msgid "please inter password "
+msgstr ""
+
+#: accounts/forms.py:125
+msgid "this email is not validation"
+msgstr ""
+
+#: accounts/forms.py:134
+msgid "new password"
+msgstr ""
+
+#: accounts/forms.py:140
+msgid "please inter password egain"
+msgstr ""
+
+#: accounts/models.py:13
+msgid "please insert email"
+msgstr ""
+
+#: accounts/models.py:27
+msgid "user check email"
+msgstr ""
+
+#: accounts/models.py:29
+msgid "user is teacher"
+msgstr ""
+
+#: accounts/models.py:30
+msgid "user is active"
+msgstr ""
+
+#: accounts/models.py:31
+msgid "user is admin"
+msgstr ""
+
+#: accounts/models.py:33
+msgid "name for user"
+msgstr ""
+
+#: accounts/models.py:39
+msgid "user"
+msgstr ""
+
+#: accounts/models.py:40
+msgid "users"
+msgstr ""
+
+#: accounts/models.py:71
+msgid "user teacher"
+msgstr ""
+
+#: accounts/models.py:73
+msgid "bio description teacher"
+msgstr ""
+
+#: accounts/models.py:74 templates/page-contact.html:56
+msgid "facebook"
+msgstr ""
+
+#: accounts/models.py:75 education/models.py:34 education/models.py:155
+#: education/models.py:258
+msgid "awatar"
+msgstr ""
+
+#: accounts/models.py:76 templates/page-contact.html:55
+msgid "twitter"
+msgstr ""
+
+#: accounts/models.py:77
+msgid "google"
+msgstr ""
+
+#: accounts/models.py:78
+msgid "group"
+msgstr ""
+
+#: accounts/models.py:79
+msgid "gmail"
+msgstr ""
+
+#: accounts/models.py:82
+msgid "teacher"
+msgstr ""
+
+#: accounts/models.py:83
+msgid "teachers"
+msgstr ""
+
+#: accounts/models.py:105 templates/profile.html:50
+msgid "user name"
+msgstr ""
+
+#: accounts/models.py:106
+msgid "session key"
+msgstr ""
+
+#: accounts/models.py:107
+msgid "device name"
+msgstr ""
+
+#: accounts/models.py:108
+msgid "os name"
+msgstr ""
+
+#: accounts/models.py:109
+msgid "date join device"
+msgstr ""
+
+#: accounts/models.py:110
+msgid "ip address device"
+msgstr ""
+
+#: accounts/models.py:114
+msgid "session user device"
+msgstr ""
+
+#: accounts/models.py:115
+msgid "ssessions user devices"
+msgstr ""
+
+#: accounts/views.py:29
+msgid "please check your email"
+msgstr ""
+
+#: accounts/views.py:63
+msgid ""
+"user register please check email and click your link for activation email"
+msgstr ""
+
+#: accounts/views.py:109
+msgid "email or password email not True"
+msgstr ""
+
+#: accounts/views.py:113
+msgid "please check email and click your link for activation email"
+msgstr ""
+
+#: accounts/views.py:117
+msgid "please first register in site"
+msgstr ""
+
+#: accounts/views.py:135
+msgid "you are logout of site"
+msgstr ""
+
+#: accounts/views.py:156
+msgid "reset password complete"
+msgstr ""
+
+#: accounts/views.py:159
+msgid "please triing ea\\gain"
+msgstr ""
+
+#: accounts/views.py:180 api/views_user.py:122
+msgid "Your email account activate please login with email and password"
+msgstr ""
+
+#: accounts/views.py:183 api/views_user.py:129
+msgid ""
+"The confirmation link was invalid, possibly because it has already been used."
+msgstr ""
+
+#: education/admin.py:22 education/admin.py:92
+msgid "INFORMATION PAID"
+msgstr ""
+
+#: education/admin.py:50 education/admin.py:64
+msgid "INFORMATION EMAIL"
+msgstr ""
+
+#: education/admin.py:51
+msgid "INFORMATION SENDER"
+msgstr ""
+
+#: education/admin.py:65
+msgid "INFORMATION reply"
+msgstr ""
+
+#: education/admin.py:141
+msgid "INFORMATION GENERIC"
+msgstr ""
+
+#: education/apps.py:7
+msgid "education"
+msgstr ""
+
+#: education/cart.py:80
+msgid "buy your course in site Education"
+msgstr ""
+
+#: education/cart.py:90
+msgid "buy your book in site Education"
+msgstr ""
+
+#: education/forms.py:73 education/forms.py:88 templates/page-contact.html:71
+msgid "your name ..."
+msgstr ""
+
+#: education/forms.py:74 education/forms.py:89 templates/page-contact.html:72
+msgid "your email ..."
+msgstr ""
+
+#: education/forms.py:75 education/forms.py:90 templates/course_single.html:239
+msgid "your message ..."
+msgstr ""
+
+#: education/models.py:12
+msgid "category name"
+msgstr ""
+
+#: education/models.py:12
+msgid "Area of expertise"
+msgstr ""
+
+#: education/models.py:13
+msgid "subcategory name"
+msgstr ""
+
+#: education/models.py:13
+msgid "Sub Area of expertties"
+msgstr ""
+
+#: education/models.py:16
+msgid "category"
+msgstr ""
+
+#: education/models.py:17
+msgid "categories"
+msgstr ""
+
+#: education/models.py:29
+msgid "course slug"
+msgstr ""
+
+#: education/models.py:30
+msgid "course name"
+msgstr ""
+
+#: education/models.py:31 education/models.py:153 templates/profile.html:87
+msgid "course title"
+msgstr ""
+
+#: education/models.py:32
+msgid "select teacher"
+msgstr ""
+
+#: education/models.py:33
+msgid "course description"
+msgstr ""
+
+#: education/models.py:35
+msgid "course price"
+msgstr ""
+
+#: education/models.py:36
+msgid "Number Of visit"
+msgstr ""
+
+#: education/models.py:37
+msgid "course time"
+msgstr ""
+
+#: education/models.py:38 education/models.py:257
+msgid "publish date"
+msgstr ""
+
+#: education/models.py:39 education/models.py:163
+msgid "discount"
+msgstr ""
+
+#: education/models.py:40
+msgid "course free"
+msgstr ""
+
+#: education/models.py:42
+msgid "file translate"
+msgstr ""
+
+#: education/models.py:74 templates/nav/foter.html:39
+msgid "course"
+msgstr ""
+
+#: education/models.py:75 templates/courses.html:15
+msgid "courses"
+msgstr ""
+
+#: education/models.py:83
+msgid "select_course"
+msgstr ""
+
+#: education/models.py:84 education/models.py:133 education/models.py:210
+msgid "your name"
+msgstr ""
+
+#: education/models.py:86
+msgid "message"
+msgstr ""
+
+#: education/models.py:92 templates/course_single.html:153
+msgid "comment"
+msgstr ""
+
+#: education/models.py:93
+msgid "comments"
+msgstr ""
+
+#: education/models.py:105
+msgid "number file"
+msgstr ""
+
+#: education/models.py:106
+msgid "title video"
+msgstr ""
+
+#: education/models.py:107 education/models.py:223 education/models.py:234
+msgid "select course"
+msgstr ""
+
+#: education/models.py:108
+msgid "file video"
+msgstr ""
+
+#: education/models.py:111
+msgid "course video"
+msgstr ""
+
+#: education/models.py:112
+msgid "courses video"
+msgstr ""
+
+#: education/models.py:139
+msgid "message received"
+msgstr ""
+
+#: education/models.py:140
+msgid "messages received"
+msgstr ""
+
+#: education/models.py:152
+msgid "book name"
+msgstr ""
+
+#: education/models.py:154
+msgid "book slug"
+msgstr ""
+
+#: education/models.py:156
+msgid "book pdf file"
+msgstr ""
+
+#: education/models.py:157
+msgid "writer"
+msgstr ""
+
+#: education/models.py:158
+msgid "description"
+msgstr ""
+
+#: education/models.py:159
+msgid "public date"
+msgstr ""
+
+#: education/models.py:160
+msgid "language book"
+msgstr ""
+
+#: education/models.py:161
+msgid "number of pages"
+msgstr ""
+
+#: education/models.py:162 templates/course_single.html:118
+msgid "price"
+msgstr ""
+
+#: education/models.py:164
+msgid "free"
+msgstr ""
+
+#: education/models.py:200
+msgid "book"
+msgstr ""
+
+#: education/models.py:201
+msgid "books"
+msgstr ""
+
+#: education/models.py:208
+msgid "select book"
+msgstr ""
+
+#: education/models.py:209
+msgid "MESSAGE"
+msgstr ""
+
+#: education/models.py:211 education/models.py:222
+msgid "email"
+msgstr ""
+
+#: education/models.py:214
+msgid "book comment"
+msgstr ""
+
+#: education/models.py:215
+msgid "books comment"
+msgstr ""
+
+#: education/models.py:226
+msgid "newsletter email"
+msgstr ""
+
+#: education/models.py:227
+msgid "newsletter emaills"
+msgstr ""
+
+#: education/models.py:235
+msgid "subject email"
+msgstr ""
+
+#: education/models.py:236
+msgid "message email"
+msgstr ""
+
+#: education/models.py:237
+msgid "user sending"
+msgstr ""
+
+#: education/models.py:238
+msgid "date sending email"
+msgstr ""
+
+#: education/models.py:241 templates/profile.html:82
+msgid "email sending"
+msgstr ""
+
+#: education/models.py:242 templates/profile.html:32
+msgid "emails sending"
+msgstr ""
+
+#: education/models.py:255
+msgid "news title"
+msgstr ""
+
+#: education/models.py:256
+msgid "news dewcription"
+msgstr ""
+
+#: education/models.py:274 education/models.py:275
+msgid "news"
+msgstr ""
+
+#: education/models.py:282
+msgid "select user"
+msgstr ""
+
+#: education/models.py:286
+msgid "price pay ment"
+msgstr ""
+
+#: education/models.py:287
+msgid "is paid"
+msgstr ""
+
+#: education/models.py:288
+msgid "code payment"
+msgstr ""
+
+#: education/models.py:293
+msgid "order "
+msgstr ""
+
+#: education/models.py:294
+msgid "orders "
+msgstr ""
+
+#: education/views.py:80
+msgid "email sendig successfully"
+msgstr ""
+
+#: education/views.py:83
+msgid "email not sendig successfully"
+msgstr ""
+
+#: education/views.py:350
+msgid "please insert email field"
+msgstr ""
+
+#: education/views.py:356
+msgid "email successful submit"
+msgstr ""
+
+#: education/views.py:408 education/views.py:415
+msgid "Create Category"
+msgstr ""
+
+#: education/views.py:437 education/views.py:444 education/views.py:479
+#: templates/panel.html:17
+msgid "Create Course"
+msgstr ""
+
+#: education/views.py:472
+msgid "Create Course Video"
+msgstr ""
+
+#: education/views.py:499 education/views.py:506
+msgid "Create Book"
+msgstr ""
+
+#: education/views.py:532
+msgid "Edit Category"
+msgstr ""
+
+#: education/views.py:539
+msgid "Edit Course"
+msgstr ""
+
+#: education/views.py:567 education/views.py:574
+msgid "Edit Course Video"
+msgstr ""
+
+#: education/views.py:596 education/views.py:603
+msgid "Edit Book"
+msgstr ""
+
+#: templates/account_activation_email.html:3
+#: templates/password_confirm_user.html:4
+#: templates/rest_account_activation_email.html:4
+msgid "Hi"
+msgstr ""
+
+#: templates/account_activation_email.html:5
+#: templates/password_confirm_user.html:6
+#: templates/rest_account_activation_email.html:6
+msgid "Please click on the link below to confirm your registration:"
+msgstr ""
+
+#: templates/bookstore.html:13
+msgid "Book Shop"
+msgstr ""
+
+#: templates/bookstore.html:16
+msgid "Shop"
+msgstr ""
+
+#: templates/bookstore.html:34
+msgid "reduce of:"
+msgstr ""
+
+#: templates/bookstore.html:35
+msgid "Additive of"
+msgstr ""
+
+#: templates/bookstore.html:71 templates/courses.html:55
+#: templates/index.html:119 templates/shop-single.html:48
+msgid "Free"
+msgstr ""
+
+#: templates/cart.html:12
+msgid "my basket"
+msgstr ""
+
+#: templates/cart.html:15
+msgid "basket"
+msgstr ""
+
+#: templates/cart.html:57
+msgid "Buy"
+msgstr ""
+
+#: templates/cart.html:71 templates/search.html:67
+#: templates/shop-single.html:51
+msgid "rials"
+msgstr ""
+
+#: templates/course_single.html:30
+msgid "page one course"
+msgstr ""
+
+#: templates/course_single.html:33 templates/nav/foter.html:47
+msgid "learning"
+msgstr ""
+
+#: templates/course_single.html:53
+msgid "Publick of :"
+msgstr ""
+
+#: templates/course_single.html:66
+msgid "create Course video"
+msgstr ""
+
+#: templates/course_single.html:67
+msgid "edit course video"
+msgstr ""
+
+#: templates/course_single.html:68
+msgid "delete course video"
+msgstr ""
+
+#: templates/course_single.html:82
+msgid "title"
+msgstr ""
+
+#: templates/course_single.html:83 templates/profile.html:54
+#: templates/shop-single.html:104
+msgid "size"
+msgstr ""
+
+#: templates/course_single.html:84 templates/course_single.html:95
+#: templates/shop-single.html:57 templates/shop-single.html:60
+msgid "download"
+msgstr ""
+
+#: templates/course_single.html:86 templates/course_single.html:97
+msgid "edit"
+msgstr ""
+
+#: templates/course_single.html:87
+msgid "delete"
+msgstr ""
+
+#: templates/course_single.html:98
+msgid "delte"
+msgstr ""
+
+#: templates/course_single.html:108
+msgid "name"
+msgstr ""
+
+#: templates/course_single.html:109
+msgid "date of public"
+msgstr ""
+
+#: templates/course_single.html:110
+msgid "time course:"
+msgstr ""
+
+#: templates/course_single.html:114
+msgid "price:"
+msgstr ""
+
+#: templates/course_single.html:115
+msgid "discount:"
+msgstr ""
+
+#: templates/course_single.html:116
+msgid "price end:"
+msgstr ""
+
+#: templates/course_single.html:137
+msgid "other ccourse"
+msgstr ""
+
+#: templates/course_single.html:169 templates/course_single.html:185
+msgid "send comment"
+msgstr ""
+
+#: templates/course_single.html:200
+msgid "Related tutorials"
+msgstr ""
+
+#: templates/course_single.html:211
+msgid "of"
+msgstr ""
+
+#: templates/course_single.html:221
+msgid "Subscribe to this training newsletter"
+msgstr ""
+
+#: templates/course_single.html:227
+msgid "Enter email here..."
+msgstr ""
+
+#: templates/course_single.html:237
+msgid "sending email for all student"
+msgstr ""
+
+#: templates/course_single.html:238
+msgid "email subject ..."
+msgstr ""
+
+#: templates/courses.html:12
+msgid "page courses"
+msgstr ""
+
+#: templates/index.html:10
+msgid "Learning Management System"
+msgstr ""
+
+#: templates/index.html:11
+msgid ""
+"Edulogy is the ideal choice for your organization, your business and your "
+"online education system. Create your online course now with unlimited page "
+"templates, color options, and menu features."
+msgstr ""
+
+#: templates/index.html:14
+msgid "Read More"
+msgstr ""
+
+#: templates/index.html:14
+msgid "Buy Now"
+msgstr ""
+
+#: templates/index.html:20
+msgid "Explore"
+msgstr ""
+
+#: templates/index.html:34
+msgid "We are a passionate"
+msgstr ""
+
+#: templates/index.html:34
+msgid "learning system"
+msgstr ""
+
+#: templates/index.html:34
+msgid "from"
+msgstr ""
+
+#: templates/index.html:35
+msgid "London. Do beautiful and easy-to-use digital"
+msgstr ""
+
+#: templates/index.html:36
+msgid "design & web development"
+msgstr ""
+
+#: templates/index.html:38
+msgid ""
+"Nam dictum sem, ipsum aliquam . Etiam sit amet fringilla lacus. Pellentesque "
+"suscipit ante at ullamcorper pulvinar neque porttitor. Integer lectus. "
+"Praesent sed nisi eleifend, fermentum orci amet, iaculis libero."
+msgstr ""
+
+#: templates/index.html:44
+msgid "Custom Shortcodes"
+msgstr ""
+
+#: templates/index.html:45
+msgid "Visual Page Builder"
+msgstr ""
+
+#: templates/index.html:46
+msgid "Unlimited Shortcodes"
+msgstr ""
+
+#: templates/index.html:47
+msgid "Responsive Theme"
+msgstr ""
+
+#: templates/index.html:48
+msgid "Tons of Layouts"
+msgstr ""
+
+#: templates/index.html:53
+msgid "Font Awesome Icons"
+msgstr ""
+
+#: templates/index.html:54
+msgid "Pre-Defined Colors"
+msgstr ""
+
+#: templates/index.html:55
+msgid "AJAX Transitions"
+msgstr ""
+
+#: templates/index.html:56
+msgid "High Quality Support"
+msgstr ""
+
+#: templates/index.html:57
+msgid "Unlimited Options"
+msgstr ""
+
+#: templates/index.html:62
+msgid "Shopping Layouts"
+msgstr ""
+
+#: templates/index.html:63
+msgid "Pre-Defined Fonts"
+msgstr ""
+
+#: templates/index.html:64
+msgid "Style Changers"
+msgstr ""
+
+#: templates/index.html:65
+msgid "Footer Styles"
+msgstr ""
+
+#: templates/index.html:66
+msgid "Header Styles"
+msgstr ""
+
+#: templates/index.html:74
+msgid "Contact us"
+msgstr ""
+
+#: templates/index.html:86
+msgid "Recent Courses"
+msgstr ""
+
+#: templates/index.html:87 templates/index.html:234 templates/index.html:288
+msgid ""
+"Maecenas sit amet tristique turpis. Quisque porttitor eros quis leo "
+"pulvinar, at hendrerit sapien iaculis. Donec consectetur accumsan arcu, sit "
+"amet fringilla ex ultricies."
+msgstr ""
+
+#: templates/index.html:136
+msgid "we all course"
+msgstr ""
+
+#: templates/index.html:146
+msgid ""
+"With the best services, the most efficient trainings, the latest training "
+"methods of the most independent teachers"
+msgstr ""
+
+#: templates/index.html:159
+msgid "Learning system"
+msgstr ""
+
+#: templates/index.html:160
+msgid "All sections required for online training are included to Edulogy."
+msgstr ""
+
+#: templates/index.html:167
+msgid "Works all mobile devices"
+msgstr ""
+
+#: templates/index.html:168
+msgid ""
+"The most important feature of this template is that it is compatible with "
+"all mobile devices. Your customers can also visit your site easily from "
+"tablets and phones."
+msgstr ""
+
+#: templates/index.html:174
+msgid "User Dashboard"
+msgstr ""
+
+#: templates/index.html:175
+msgid "We designed the design of all the sub-pages needed for the users."
+msgstr ""
+
+#: templates/index.html:186
+msgid "Compatible HTML5 & CSS3"
+msgstr ""
+
+#: templates/index.html:187
+msgid ""
+"HTML5 is a markup language used for structuring and presenting content on "
+"the World Wide Web. It is the fifth and current version of the HTML standard."
+msgstr ""
+
+#: templates/index.html:193
+msgid "Bootstrap Framework"
+msgstr ""
+
+#: templates/index.html:194
+msgid ""
+"Bootstrap is a technique of loading a program into a computer by means of a "
+"few initial instructions which enable the introduction of the rest of the "
+"program from an input device."
+msgstr ""
+
+#: templates/index.html:206
+msgid "Happy Students"
+msgstr ""
+
+#: templates/index.html:207 templates/index.html:215 templates/index.html:223
+msgid "Quisque porttitor eros quis leo pulvinar, at hendrerit sapien iaculis."
+msgstr ""
+
+#: templates/index.html:214
+msgid "Course Done"
+msgstr ""
+
+#: templates/index.html:222
+msgid "Ordered Coffe's"
+msgstr ""
+
+#: templates/index.html:233
+msgid "Testimonials"
+msgstr ""
+
+#: templates/index.html:240
+msgid "Jenny LUXURY"
+msgstr ""
+
+#: templates/index.html:241 templates/index.html:255 templates/index.html:269
+msgid ""
+"Quisque porttitor eros quis leo pulvinar, at hendrerit sapien iaculis. Donec "
+"consectetur accumsan arcu, sit amet fringilla ex ultricies."
+msgstr ""
+
+#: templates/index.html:254
+msgid "Martin LEO"
+msgstr ""
+
+#: templates/index.html:268
+msgid "John DOE"
+msgstr ""
+
+#: templates/index.html:287
+msgid "Recent News"
+msgstr ""
+
+#: templates/index.html:325
+msgid "Start your awesome course today!"
+msgstr ""
+
+#: templates/index.html:329
+msgid ""
+"Limited time offer! Your profile will be added to our \"Students\" directory "
+"as well."
+msgstr ""
+
+#: templates/login.html:10
+msgid "signup/signin"
+msgstr ""
+
+#: templates/login.html:17 templates/login.html:35
+msgid "signin"
+msgstr ""
+
+#: templates/login.html:18 templates/login.html:36
+msgid ""
+"You have not registered on the site before and you do not have an active "
+"account "
+msgstr ""
+
+#: templates/login.html:18 templates/login.html:36
+msgid "register in site"
+msgstr ""
+
+#: templates/login.html:27
+msgid "sending request"
+msgstr ""
+
+#: templates/login.html:45
+msgid "singup"
+msgstr ""
+
+#: templates/login.html:47
+msgid "forget password"
+msgstr ""
+
+#: templates/login.html:47
+msgid "password recovery"
+msgstr ""
+
+#: templates/login.html:54
+msgid "signup"
+msgstr ""
+
+#: templates/login.html:55
+msgid ""
+"Have you not already registered on the site? Make sure you fill in all the "
+"fields. The entered email should not already exist"
+msgstr ""
+
+#: templates/login.html:63
+msgid "Submit"
+msgstr ""
+
+#: templates/login.html:71
+msgid "change password"
+msgstr ""
+
+#: templates/nav/foter.html:9
+msgid "Subscribe Our Newsletter"
+msgstr ""
+
+#: templates/nav/foter.html:11
+msgid "You can opt out of our newsletters at any time.<br> See our"
+msgstr ""
+
+#: templates/nav/foter.html:11
+msgid "privacy policy"
+msgstr ""
+
+#: templates/nav/foter.html:28
+msgid "Join us today"
+msgstr ""
+
+#: templates/nav/foter.html:29
+msgid ""
+"Would you like to earn your profits by joining our team? Join us without "
+"losing time."
+msgstr ""
+
+#: templates/nav/foter.html:30
+msgid "Became a Teacher"
+msgstr ""
+
+#: templates/nav/foter.html:36
+msgid "Popular Tags"
+msgstr ""
+
+#: templates/nav/foter.html:40
+msgid "web design"
+msgstr ""
+
+#: templates/nav/foter.html:41
+msgid "development"
+msgstr ""
+
+#: templates/nav/foter.html:42
+msgid "language"
+msgstr ""
+
+#: templates/nav/foter.html:43
+msgid "programming"
+msgstr ""
+
+#: templates/nav/foter.html:44
+msgid "caleg"
+msgstr ""
+
+#: templates/nav/foter.html:45
+msgid "math"
+msgstr ""
+
+#: templates/nav/foter.html:46
+msgid "phyisics"
+msgstr ""
+
+#: templates/nav/foter.html:55
+msgid "Support"
+msgstr ""
+
+#: templates/nav/foter.html:58
+msgid "Terms of Use"
+msgstr ""
+
+#: templates/nav/foter.html:59
+msgid "Copyrights"
+msgstr ""
+
+#: templates/nav/foter.html:60
+msgid "Create a Ticket"
+msgstr ""
+
+#: templates/nav/foter.html:61
+msgid "Pricing & Plans"
+msgstr ""
+
+#: templates/nav/foter.html:62
+msgid "Carrier"
+msgstr ""
+
+#: templates/nav/foter.html:63
+msgid "Trademark"
+msgstr ""
+
+#: templates/nav/header_dark.html:21 templates/nav/header_whit.html:21
+msgid "What you are looking for?"
+msgstr ""
+
+#: templates/nav/header_dark.html:70 templates/nav/header_whit.html:70
+msgid "admin panel"
+msgstr ""
+
+#: templates/nav/header_dark.html:72 templates/nav/header_whit.html:72
+msgid "home"
+msgstr "خانه"
+
+#: templates/nav/header_dark.html:73 templates/nav/header_whit.html:73
+msgid "Courses"
+msgstr "آموزشها"
+
+#: templates/nav/header_dark.html:75 templates/nav/header_whit.html:75
+msgid "Shop Book"
+msgstr "فروشگاه کتاب"
+
+#: templates/nav/header_dark.html:76 templates/nav/header_whit.html:76
+msgid "My Buies"
+msgstr ""
+
+#: templates/nav/header_dark.html:78 templates/nav/header_whit.html:78
+msgid "Countact Us"
+msgstr ""
+
+#: templates/nav/header_dark.html:80 templates/nav/header_whit.html:80
+msgid "Signout"
+msgstr ""
+
+#: templates/nav/header_dark.html:81 templates/nav/header_whit.html:81
+msgid "Translate"
+msgstr ""
+
+#: templates/nav/header_dark.html:84 templates/nav/header_whit.html:84
+msgid "signin / signup"
+msgstr ""
+
+#: templates/nav/header_dark.html:105 templates/nav/header_whit.html:104
+msgid "cha lng"
+msgstr ""
+
+#: templates/page-contact.html:13 templates/page-contact.html:16
+msgid "contact us"
+msgstr ""
+
+#: templates/page-contact.html:34
+msgid "contact today"
+msgstr ""
+
+#: templates/page-contact.html:35
+msgid "phone"
+msgstr ""
+
+#: templates/page-contact.html:36
+msgid "fax"
+msgstr ""
+
+#: templates/page-contact.html:45
+msgid "PO Box 16122 Collins Street West"
+msgstr ""
+
+#: templates/page-contact.html:46
+msgid "Victoria 8007 Australia"
+msgstr ""
+
+#: templates/page-contact.html:47
+msgid "google map"
+msgstr ""
+
+#: templates/page-contact.html:54
+msgid "social network"
+msgstr ""
+
+#: templates/page-contact.html:57
+msgid "newsletter"
+msgstr ""
+
+#: templates/page-contact.html:66
+msgid ""
+"Please send your comments and suggestions for the work of our expert group "
+msgstr ""
+
+#: templates/page-contact.html:73
+msgid "subject ..."
+msgstr ""
+
+#: templates/page-contact.html:74
+msgid "message .."
+msgstr ""
+
+#: templates/page-contact.html:75 templates/shop-single.html:127
+msgid "send"
+msgstr ""
+
+#: templates/panel.html:10
+msgid "Admin Panel"
+msgstr ""
+
+#: templates/panel.html:13
+msgid "create Book"
+msgstr ""
+
+#: templates/panel.html:14
+msgid "create Category"
+msgstr ""
+
+#: templates/panel.html:38
+msgid "your message"
+msgstr ""
+
+#: templates/profile.html:13 templates/search.html:15
+msgid "Edulogy"
+msgstr ""
+
+#: templates/profile.html:14
+msgid "profile"
+msgstr ""
+
+#: templates/profile.html:29 templates/profile.html:42
+msgid "information user"
+msgstr ""
+
+#: templates/profile.html:30
+msgid "devices"
+msgstr ""
+
+#: templates/profile.html:33
+msgid "your toturial"
+msgstr ""
+
+#: templates/profile.html:34
+msgid "paid"
+msgstr ""
+
+#: templates/profile.html:36 templates/profile.html:110
+#: templates/profile.html:118
+msgid "your paid"
+msgstr ""
+
+#: templates/profile.html:46
+msgid "user email"
+msgstr ""
+
+#: templates/profile.html:62
+msgid "user devices"
+msgstr ""
+
+#: templates/profile.html:73
+msgid "submit"
+msgstr ""
+
+#: templates/profile.html:102
+msgid "tour toturial"
+msgstr ""
+
+#: templates/search.html:13 templates/search.html:16
+msgid "search"
+msgstr ""
+
+#: templates/search.html:58
+msgid "paied"
+msgstr ""
+
+#: templates/search.html:80
+msgid "vdhg"
+msgstr ""
+
+#: templates/search.html:80
+msgid "Amount"
+msgstr ""
+
+#: templates/shop-single.html:12
+msgid "Book Description "
+msgstr ""
+
+#: templates/shop-single.html:18
+msgid "Book"
+msgstr ""
+
+#: templates/shop-single.html:58
+msgid "You have already purchased "
+msgstr ""
+
+#: templates/shop-single.html:61
+msgid "this book is free"
+msgstr ""
+
+#: templates/shop-single.html:64 templates/shop-single.html:163
+msgid "add to cart"
+msgstr ""
+
+#: templates/shop-single.html:69
+msgid "edit book"
+msgstr ""
+
+#: templates/shop-single.html:70
+msgid "delete book"
+msgstr ""
+
+#: templates/shop-single.html:82
+msgid "book Description"
+msgstr ""
+
+#: templates/shop-single.html:83 templates/shop-single.html:92
+msgid "information book"
+msgstr ""
+
+#: templates/shop-single.html:84
+msgid "User comments"
+msgstr ""
+
+#: templates/shop-single.html:96
+msgid "number page"
+msgstr ""
+
+#: templates/shop-single.html:100
+msgid "book language"
+msgstr ""
+
+#: templates/shop-single.html:111
+msgid "user comments"
+msgstr ""
+
+#: templates/shop-single.html:140
+msgid "Related products"
+msgstr ""
