@@ -1,7 +1,7 @@
 
 {% extends 'base_whit.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block body %}
   
         <section class="section lb p120">
@@ -9,10 +9,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="tagline-message page-title text-center">
-                            <h3>سبد من</h3>
+                        <h3>{% trans 'my basket'%}</h3>
                             <ul class="breadcrumb">
                                 <li><a href="{% url 'education:index' %}">Edulogy</a></li>
-                                <li class="active">سبد من</li>
+                                <li class="active">{% trans 'basket' %}</li>
                             </ul>
                         </div>
                     </div><!-- end col -->
@@ -54,7 +54,7 @@
                                     <div class="pull-left" >
                                         <ul class="list-inline" >
                                             {% if book.is_paid %}
-                                            <li style="text-align: left;">خریداری شده</li> 
+                                            <li style="text-align: left;">{% trans 'Buy' %}</li> 
                                             {% else %}
                                                 <li style="text-align: left;"><a href="{% url 'education:cart' name='delete' pk=book.pk %}"><i class="fa fa-shopping-basket"></i> delete of basket</a></li>
                                                 <form class="big-contact-form" role="search" action="{% url 'education:send_request' %}" method="POST" novalidate>
@@ -68,7 +68,7 @@
 
                                     <div class="pull-right" style="text-align: right;">
                                         <ul class="list-inline">
-                                            <li><a>{{ book.content_object.price_end }} ریال </a></li>
+                                            <li><a>{{ book.content_object.price_end }} {% trans 'rials' %} </a></li>
                                         </ul>
                                     </div><!-- end left -->
                                 </div><!-- end footer -->

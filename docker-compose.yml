@@ -1,12 +1,12 @@
 version: '3.9'
 
 services:
-    postgres:
+    postgres1:
         image: postgres
-        container_name: postgres-container
+        container_name: postgres_container1
         restart: on-failure
         environment: 
-            - POSTGRES_DB=education
+            - POSTGRES_DB=education_db
             - POSTGRES_USER=admin
             - POSTGRES_PASSWORD=admin
         networks: 
@@ -16,14 +16,35 @@ services:
         volumes: 
             - postgres_data:/var/lib/postgresql/data 
 
+    postgres2:
+        image: postgres
+        container_name: postgres_container2
+        restart: on-failure
+        environment: 
+            - POSTGRES_DB=messages_db
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=admin
+        networks: 
+            - main
+        ports: 
+            - "5433:5432"
+        volumes: 
+            - postgres_data:/var/lib/postgresql/data 
 
     app:
         container_name: app
         build: .
-        command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic && python manage.py initadmin && gunicorn -k gevent config.wsgi:application -b 0.0.0.0:8000"
+        command: sh -c "
+                    python manage.py makemigrations &&
+                    python manage.py migrate --database=education_db && 
+                    python manage.py migrate --database=messages_db && 
+                    python manage.py collectstatic && 
+                    python manage.py initadmin && 
+                    gunicorn -k gevent config.wsgi:application -b 0.0.0.0:8000"
         restart: on-failure
         depends_on: 
-            - postgres
+            - postgres1
+            - postgres2
         expose: 
             - "8000"
         networks:

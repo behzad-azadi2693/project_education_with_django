@@ -1,6 +1,7 @@
 
 {% extends 'base_whit.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block body %}
   
@@ -9,10 +10,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="tagline-message page-title text-center">
-                            <h3>فروشگاه کتاب</h3>
+                            <h3>{% trans 'Book Shop'%}</h3>
                             <ul class="breadcrumb">
                                 <li><a href="{% url 'education:index' %}">Edulogy</a></li>
-                                <li class="active">فروشگاه</li>
+                                <li class="active">{% trans 'Shop'%}</li>
                             </ul>
                         </div>
                     </div><!-- end col -->
@@ -30,8 +31,8 @@
                             </div>
                             <div class="pull-right">
                             <select class="selectpicker">
-                                <option>قیمت:بیشترین به کمترین</option>
-                                <option>قیمت:کمترین به بیشترین</option>
+                                <option>{% trans 'reduce of:'%}</option>
+                                <option>{% trans 'Additive of'%}</option>
                                
                             </select>
                             </div>
@@ -67,7 +68,7 @@
                                     <div class="pull-right">
                                         <ul class="list-inline">
                                             {% if book.is_free %}
-                                            <li><a href="#">رایگان</a></li>
+                                            <li><a href="#">{% trans 'Free' %}</a></li>
 
                                             {% else %}
                                             <li><a href="#">%{{ book.discount }} </a></li>

@@ -1,6 +1,7 @@
 
 {% extends 'base_whit.html' %}
 {% load static %}
+{% load i18n %}
 {% block head %}
 <style>
 table {
@@ -26,10 +27,10 @@ tr:nth-child(even) {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="tagline-message page-title text-center">
-                            <h3>صفحه تک آموزشی</h3>
+                            <h3>{% trans 'page one course' %}</h3>
                             <ul class="breadcrumb">
                                 <li><a href="javascript:void(0)">Edulogy</a></li>
-                                <li class="active">آموزش</li>
+                                <li class="active">{% trans 'learning' %}</li>
                             </ul>
                         </div>
                     </div><!-- end col -->
@@ -49,7 +50,7 @@ tr:nth-child(even) {
                                         <h3>{{ course.title }}</h3>
                                         <ul class="list-inline">
                                             <li>{{ course.date | date }}</li>
-                                            <li><span>منتشر شده توسط</span> <a href="#">{{ course.teacher.name }}</a></li>
+                                            <li><span>{% trans 'Publick of :' %}</span> <a href="#">{{ course.teacher.name }}</a></li>
                                         </ul>
                                     </div><!-- end blog-meta -->
 
@@ -62,9 +63,9 @@ tr:nth-child(even) {
                                         <p style="text-align: justify;">{{ course.description }}</p>
                                         <ul class="nav navbar-nav navbar-right">
                                             {% if request.user.is_admin or request.user.teacher == course.teacher %}
-                                                <li><a href="{% url 'education:create_coursevideo' course.pk %}">create Course video </a></li>
-                                                <li><a href="{% url 'education:edit_coursevideo' course.pk %}">edit course video </a></li>
-                                                <li><a href="{% url 'education:delete_coursevideo' course.pk %}">delete course video </a></li>
+                                                <li><a href="{% url 'education:create_coursevideo' course.pk %}">{% trans 'create Course video' %} </a></li>
+                                                <li><a href="{% url 'education:edit_coursevideo' course.pk %}">{% trans 'edit course video' %} </a></li>
+                                                <li><a href="{% url 'education:delete_coursevideo' course.pk %}">{% trans 'delete course video' %} </a></li>
                                             {% endif %}
                                         </ul>
                                         <br>
@@ -78,12 +79,12 @@ tr:nth-child(even) {
                                             {% for course in course.relcourse.all %}
                                                 <tr>
                                                   <th>#</th>
-                                                  <th>عنوان</th>
-                                                  <th>حجم</th>
-                                                  <th>دانلود</th>
+                                                  <th>{% trans 'title' %}</th>
+                                                  <th>{% trans 'size' %}</th>
+                                                  <th>{% trans 'download' %}</th>
                                                   {% if request.user.is_admin or request.user.teacher == course.course.teacher %}
-                                                    <th> ویرایش</th>
-                                                    <th> حذف</th>
+                                                    <th> {% trans 'edit' %}</th>
+                                                    <th> {% trans 'delete' %}</th>
                                                   {% endif %}
 
                                                 </tr>
@@ -91,10 +92,10 @@ tr:nth-child(even) {
                                                   <td> <li> <a > {{ course.number }} </a> </li> </td>
                                                   <td> <li> <a > {{ course.title }} </a> </li> </td>
                                                   <td> <li> <a > {{ course.file.size | filesizeformat}} </a> </li> </td>
-                                                  <td> <li> <a >  <a href="{{ course.file.url }}" download=""> دانلود </a> </li> </td>
+                                                  <td> <li> <a >  <a href="{{ course.file.url }}" download=""> {% trans 'download' %} </a> </li> </td>
                                                  {% if request.user.is_admin or request.user.teacher == course.course.teacher %}
-                                                    <td> <li><a href="{% url 'education:edit_coursevideo' course.pk %}">edit</a></li> </td>
-                                                    <td> <li><a href="{% url 'education:delete_coursevideo' course.pk %}">delete</a></li> </td>
+                                                    <td> <li><a href="{% url 'education:edit_coursevideo' course.pk %}">{% trans 'edit' %}</a></li> </td>
+                                                    <td> <li><a href="{% url 'education:delete_coursevideo' course.pk %}">{% trans 'delte' %}</a></li> </td>
                                                 {% endif %}
                                                 </tr>
                                             {% endfor %}
@@ -104,17 +105,17 @@ tr:nth-child(even) {
                                                     <div class="tags-widget">   
                                                         <ul class="list-inline">
                                                             <p>
-                                                            <li><a>{{course.name}}</a>:نام</li>
-                                                            <li>تاریخ انتشار:<a>{{ course.date | date }}</a></li>
-                                                            <li>زمان آموزش:<a>{{ course.time }}</a></li>
+                                                            <li><a>{{course.name}}</a>{% trans 'name' %}</li>
+                                                            <li>{% trans 'date of public' %}<a>{{ course.date | date }}</a></li>
+                                                            <li>{% trans 'time course:' %}<a>{{ course.time }}</a></li>
                                                             </p>
                                                             <p>
                                                             {% if course.discount %}
-                                                            <li>قیمت:<a><del> {{ course.price }} </del> </a></li>
-                                                            <li>تخفیف:<a>{{ course.discount }}</a></li>
-                                                            <li>قیمت نهایی:<a>{{ course.price_end }}</a></li>
+                                                            <li>{% trans 'price:' %}<a><del> {{ course.price }} </del> </a></li>
+                                                            <li>{% trans 'discount:' %}<a>{{ course.discount }}</a></li>
+                                                            <li>{% trans 'price end:' %}<a>{{ course.price_end }}</a></li>
                                                             {% else %}
-                                                            <li>قیمت:<a>{{ course.price }}</a></li>
+                                                            <li>{% trans 'price' %}<a>{{ course.price }}</a></li>
                                                             {% endif %}
                                                             </p>
                                                             <i class="fa fa-shopping-basket"></i> <li><a href="{% url 'education:cart' name='education' pk=course.pk %}">Add Cart</a></li>
@@ -133,7 +134,7 @@ tr:nth-child(even) {
                             <div class="authorbox">
                                 <div class="site-publisher clearfix">
                                     <img src="{{ course.teacher.image.url }}" style="height: 100px;" alt="" class="img-responsive img-circle">
-                                    <a href="{% url 'education:teachercourse' course.teacher.slug %}" title=""><h4><small>آموزش های دیگر</small> <span>{{ course.teacher.user.full_name }}</span></h4></a>
+                                    <a href="{% url 'education:teachercourse' course.teacher.slug %}" title=""><h4><small>{% trans 'other ccourse' %}</small> <span>{{ course.teacher.user.full_name }}</span></h4></a>
                                     <p style="text-align: justify;">{{ course.teacher.description }}</p>
 
                                     <div class="authorbox-social">
@@ -149,7 +150,7 @@ tr:nth-child(even) {
                             </div><!-- end details -->
 
                             <div class="content boxed-comment clearfix">
-                                <h3 class="small-title">{{ course.commentcourse.all.count }} کامنت ها</h3>
+                                <h3 class="small-title">{{ course.commentcourse.all.count }} {% trans 'comment' %}</h3>
                                 {% for com in course.commentcourse.all %}
                                 <div class="comments-list">
                                     <div class="media">
@@ -165,7 +166,7 @@ tr:nth-child(even) {
                             </div><!-- end content -->
 
                             <div class="content boxed-comment clearfix">
-                                <h3 class="small-title">ارسال کامنت</h3>
+                                <h3 class="small-title"> {% trans 'send comment' %}</h3>
                                 <form class="big-contact-form" action="" method="POST" novalidate >
                                     <div class="col-md-4" style="float: right;">
                                         {% csrf_token %}
@@ -181,7 +182,7 @@ tr:nth-child(even) {
                                     <div class="col-md-12">
                                         {{form.message}}                                        
                                         <span style='color:tomato'> {{errors.message}} </span>
-                                        <button style="float: left;" class="btn btn-primary" type="submit">ارسال کامنت</button>
+                                        <button style="float: left;" class="btn btn-primary" type="submit">{% trans 'send comment' %}</button>
                                     </div>
                                 </form>
                             </div><!-- end content -->
@@ -196,7 +197,7 @@ tr:nth-child(even) {
                             </div>
 
                             <div class="widget clearfix">
-                                <h3 class="widget-title">آموزشهای مرتبط</h3>
+                                <h3 class="widget-title">{% trans 'Related tutorials' %}</h3>
                                 <div class="post-widget">
                                    
                                     {% for course in courses %}
@@ -207,7 +208,7 @@ tr:nth-child(even) {
                                             <div class="blog-meta">
                                                 <ul class="list-inline">
                                                     <li>{{ course.date | date }}</li>
-                                                    <li><span>از</span> <a href="#">{{ course.teacher.name }}</a></li>
+                                                    <li><span>{% trans 'of' %}</span> <a href="#">{{ course.teacher.name }}</a></li>
                                                 </ul>
                                             </div><!-- end blog-meta -->
                                         </div>
@@ -217,13 +218,13 @@ tr:nth-child(even) {
                             </div><!-- end widget -->
 
                             <div class="widget clearfix">
-                                <h3 class="widget-title">عضویت خبرنامه این آموزش</h3>
+                                <h3 class="widget-title">{% trans 'Subscribe to this training newsletter' %}</h3>
                                 <div class="newsletter-widget">
-                                    <p>سیاست حفك حریم خصوصی ما را اسپم نکنید.</p>
+                                    <p>Subscribe to this training newsletter</p>
                                     <form class="form-inline" role="search" action="{% url 'education:newsletters' %}" method="POST">
                                         {% csrf_token %}
                                         <div class="form-1">
-                                            <input type="text" class="form-control" name="email" placeholder="ایمیل خود را وارد کنید..">
+                                            <input type="text" class="form-control" name="email" placeholder="{% trans 'Enter email here...' %}">
                                             <input type="hidden" class="form-control" name="slug" value={{course.slug}} readonly>
                                             <input type="hidden" class="form-control" name="path" value={{request.get_full_path}} readonly>
                                             <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane-o"></i></button>
@@ -233,9 +234,9 @@ tr:nth-child(even) {
                                         <div class="form-1">
                                             <form class="form-inline" role="search" action="{% url 'education:send_email' %}" method="POST">
                                                 {% csrf_token %}
-                                                    <h3 class="widget-title">ارسال ایمیل به تمامی دانشجویان دوره</h3>
-                                                   <p> <input type='text' class="form-control" name="subject" placeholder="موضوع ایمیل .."></p>
-                                                   <p>  <textarea class="form-control" name="message" placeholder="پیغام شما.."></textarea></p>
+                                                    <h3 class="widget-title">{% trans 'sending email for all student' %}</h3>
+                                                   <p> <input type='text' class="form-control" name="subject" placeholder="{% trans 'email subject ...'%}"></p>
+                                                <p>  <textarea class="form-control" name="message" placeholder="{% trans 'your message ...' %}"></textarea></p>
                                                     <input type="hidden" class="form-control" name="slug" value={{course.slug}} readonly>
                                                     <input type="hidden" class="form-control" name="path" value={{request.get_full_path}} readonly>
                                                     <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane-o"></i></button>

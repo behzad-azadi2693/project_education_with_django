@@ -1,5 +1,6 @@
 {% extends 'base_whit.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block body %}
   
@@ -8,10 +9,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="tagline-message page-title text-center">
-                            <h3>صفحه آموزش ها</h3>
+                            <h3>{% trans 'page courses' %}</h3>
                             <ul class="breadcrumb">
                                 <li><a href="{% url 'education:index' %}">Edulogy</a></li>
-                                <li class="active">آموزش ها</li>
+                                <li class="active">{% trans 'courses' %}</li>
                             </ul>
                         </div>
                     </div><!-- end col -->
@@ -51,7 +52,7 @@
                                             <li><a href="{% url 'education:teachercourse' course.teacher.pk %}"><i class="fa fa-user"></i> {{ course.teacher.name }}</a></li>
                                             <li><a ><i class="fa fa-clock-o"></i>{{ course.date | date }}</a></li>
                                             {% if course.is_free %}
-                                            <li><a ><i class="fa fa-eye"></i> رایگان </a></li>
+                                            <li><a ><i class="fa fa-eye"></i> {% trans 'Free' %} </a></li>
 
                                             {% else %}
                                             <li><a href=""><i class="fa fa-eye"></i> {{ course.view }}</a></li>

@@ -1,22 +1,23 @@
 {% extends 'base_dark.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block body %}
         <section id="home" class="video-section js-height-full">
             <div class="overlay"></div>
             <div class="home-text-wrapper relative container">
                 <div class="home-message">
-                    <p>سیستم مدیریت یادگیری </p>
-                    <small>Edulogy گزینه ایده آل برای سازمان ، تجارت و سیستم آموزش آنلاین شماست. اکنون دوره آنلاین خود را با الگوهای نامحدود صفحه ، گزینه های رنگ و ویژگی های منو ایجاد کنید</small>
+                    <p> {% trans 'Learning Management System' %} </p>
+                    <small>{% trans 'Edulogy is the ideal choice for your organization, your business and your online education system. Create your online course now with unlimited page templates, color options, and menu features.' %}</small>
                     <div class="btn-wrapper">
                         <div class="text-center">
-                            <a href="{% url 'education:coureses' %}" class="btn btn-primary wow slideInLeft">بررسی بیشتر</a> &nbsp;&nbsp;&nbsp;<a href="{% url 'education:cartview' %}" class="btn btn-default wow slideInRight">خرید هم اکنون</a>
+                            <a href="{% url 'education:coureses' %}" class="btn btn-primary wow slideInLeft">{% trans 'Read More' %}</a> &nbsp;&nbsp;&nbsp;<a href="{% url 'education:cartview' %}" class="btn btn-default wow slideInRight">{% trans 'Buy Now' %}</a>
                         </div>
                     </div><!-- end row -->
                 </div>
             </div>
             <div class="slider-bottom">
-                <span>بررسی بیشتر <i class="fa fa-angle-down"></i></span>
+                <span>{% trans 'Explore' %} <i class="fa fa-angle-down"></i></span>
             </div>
         </section>
 
@@ -30,38 +31,39 @@
                     </div><!-- end col -->
                     <div class="col-md-8">
                         <div class="custom-module p40l">
-                            <h2>تیم ما یک  <mark>سیستم آموزشی</mark> پرشور از<br>
-                            سراسر کشور می باشد. راحت آموزش ببینید و با بهترین آموزش های آنلاین</h2>
+                            <h2>{% trans 'We are a passionate'%} <mark>{% trans 'learning system' %}</mark> {% trans 'from'%}<br>
+                            {% trans 'London. Do beautiful and easy-to-use digital'%} <br>
+                            {% trans 'design & web development'%}</h2>
 
-                            <p style="text-align: justify;">اینترنت یک تکنولوژی و یک مسیله مهم زیست محیطی می باشد برای رفع تبعیض ها و یکسان کردن سیستم آموزشی برای جامع ما دانش آموزان دانشجویان مدرسان و یک جامعه همگانی پسند است</p>
+                            <p style="text-align: justify;">{% trans 'Nam dictum sem, ipsum aliquam . Etiam sit amet fringilla lacus. Pellentesque suscipit ante at ullamcorper pulvinar neque porttitor. Integer lectus. Praesent sed nisi eleifend, fermentum orci amet, iaculis libero.' %}</p>
                             <hr class="invis">
 
                             <div class="row" style="direction: ltr;">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 first">
                                     <ul class="check">
-                                        <li>آموزش رایگان</li>
-                                        <li>بدور از محدودیت</li>
-                                        <li>بهترین مدرسان</li>
-                                        <li>مغلمانی متعهد</li>
-                                        <li>سیستمی یک پارچه</li>
+                                        <li>{% trans 'Custom Shortcodes' %}</li>
+                                        <li>{% trans 'Visual Page Builder' %}</li>
+                                        <li>{% trans 'Unlimited Shortcodes' %}</li>
+                                        <li>{% trans 'Responsive Theme' %}</li>
+                                        <li>{% trans 'Tons of Layouts' %}</li>
                                     </ul><!-- end check -->
                                 </div><!-- end col-lg-4 -->
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                     <ul class="check">
-                                        <li>متدهای آموزشی روز دنیا</li>
-                                        <li>آموزش برای تمامی مقاطع</li>
-                                        <li>تیمی پرشور و مبتکر</li>
-                                        <li>آموزش و یادگیری سریع</li>
-                                        <li>در دسترس همگان</li>
+                                        <li>{% trans 'Font Awesome Icons' %}</li>
+                                        <li>{% trans 'Pre-Defined Colors' %}</li>
+                                        <li>{% trans 'AJAX Transitions' %}</li>
+                                        <li>{% trans 'High Quality Support' %}</li>
+                                        <li>{% trans 'Unlimited Options' %}</li>
                                     </ul><!-- end check -->    
                                 </div><!-- end col-lg-4 -->
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 last">
                                     <ul class="check">
-                                        <li>مستقل و متکی به خود</li>
-                                        <li>راه های ارتباطی با تیم</li>
-                                        <li>طراحی زیبا</li>
-                                        <li>دانش آموز دانشجو مدرس </li>
-                                        <li>بدون محدودیت</li>
+                                        <li>{% trans 'Shopping Layouts' %}</li>
+                                        <li>{% trans 'Pre-Defined Fonts' %}</li>
+                                        <li>{% trans 'Style Changers' %}</li>
+                                        <li>{% trans 'Footer Styles' %} </li>
+                                        <li>{% trans 'Header Styles' %}</li>
                                     </ul><!-- end check -->
                                 </div><!-- end col-lg-4 --> 
                             </div><!-- end row -->   
@@ -69,7 +71,7 @@
                             <hr class="invis">
 
                             <div class="btn-wrapper">
-                                <a href="{% url 'education:contact' %}" style="float: left;" class="btn btn-primary">ارتباط با ما</a>
+                                <a href="{% url 'education:contact' %}" style="float: left;" class="btn btn-primary">{% trans 'Contact us' %}</a>
                             </div>
 
                         </div><!-- end module -->
@@ -81,10 +83,8 @@
         <section class="section gb" style="direction: ltr;">
             <div class="container">
                 <div class="section-title text-center">
-                    <h3>دوره های اخیر</h3>
-                <p>تیم ما یک سیستم آموزشی پرشور از
-                    سراسر کشور می باشد. راحت آموزش ببینید و با بهترین آموزش های آنلاین
-                    </p>
+                   <h3>{% trans 'Recent Courses' %}</h3>
+                    <p>{% trans 'Maecenas sit amet tristique turpis. Quisque porttitor eros quis leo pulvinar, at hendrerit sapien iaculis. Donec consectetur accumsan arcu, sit amet fringilla ex ultricies.'%}</p>
                 </div><!-- end title -->
 
                 <div id="owl-01" class="owl-carousel owl-theme owl-theme-01">
@@ -116,7 +116,7 @@
                                 <div class="pull-right">
                                     <ul class="list-inline">
                                         {% if course.is_free %}
-                                            رایگان
+                                            {% trans 'Free' %}
                                         {% else %}
                                         <li><a href="#">{{ course.price_end }}</a></li>
                                         {% endif %}
@@ -133,7 +133,7 @@
                 <hr class="invis">
 
                 <div class="section-button text-center">
-                    <a href="{% url 'education:coureses' %}" class="btn btn-primary">تمامی آموزش‌ های ما</a>
+                    <a href="{% url 'education:coureses' %}" class="btn btn-primary">{% trans 'we all course' %}</a>
                 </div>
             </div><!-- end container -->
         </section>
@@ -143,7 +143,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="tagline-message text-center">
-                            <h3 style="text-align: justify;">با بهترین خدمات کاراترین آموزشهای بروزترین متدهای آموزشی مستقل ترین مدرس ها</h3>
+                            <h3 style="text-align: justify;">{% trans 'With the best services, the most efficient trainings, the latest training methods of the most independent teachers' %}</h3>
                         </div>
                     </div><!-- end col -->
                 </div><!-- end row -->
@@ -156,26 +156,23 @@
                     <div class="col-md-3">
                         <div class="box m30">
                             <i style="float: left;" class="flaticon-computer-tool-for-education"></i>
-                            <h4>سیستم آموزشی</h4>
-                            <p style="text-align: justify;">تمام بخشهای مورد نیاز برای آموزش آنلاین در Edulogy گنجانده شده است.</p>
-                           
+                            <h4>{% trans 'Learning system' %}</h4>
+                            <p>{% trans 'All sections required for online training are included to Edulogy.' %}</p>
                         </div>
                     </div><!-- end col -->
 
                     <div class="col-md-6">
                         <div class="box m30">
                             <i style="float: left;" class="flaticon-monitor-tablet-and-smartohone"></i>
-                            <h4>هماهمگ با تمامی دستگاه ها</h4>
-                            <p style="text-align: justify;">مهمترین ویژگی این الگو سازگاری آن با همه دستگاههای تلفن همراه است. مشتریان شما همچنین می توانند از طریق رایانه لوحی و تلفن به راحتی از سایت شما دیدن کنند.</p>
-                        </div>
+                            <h4>{% trans 'Works all mobile devices' %}</h4>
+                            <p>{% trans 'The most important feature of this template is that it is compatible with all mobile devices. Your customers can also visit your site easily from tablets and phones.' %}</p></div>
                     </div><!-- end col -->
 
                     <div class="col-md-3">
                         <div class="box m30">
                             <i style="float: left;" class="flaticon-download-business-statistics-symbol-of-a-graphic"></i>
-                            <h4>رفع نیاز کاربران</h4>
-                            <p style="text-align: justify;">ما طراحی تمام زیر صفحات مورد نیاز کاربران را طراحی کردیم.
-                            </p>
+                            <h4>{% trans 'User Dashboard' %}</h4>
+                            <p>{% trans 'We designed the design of all the sub-pages needed for the users.' %}</p>
                         </div>
                     </div><!-- end col -->
                 </div><!-- end row -->
@@ -186,17 +183,15 @@
                     <div class="col-md-6">
                         <div class="box">
                             <i style="float: left;" class="flaticon-html5"></i> <i style="float: left;" class="flaticon-css-3"></i>
-                            <h4>طراحی زیبا</h4>
-                            <p style="text-align: justify;">طراحی زیبا ساده شیک کاربر پسند محیطی برای همگان و ذر تمامی سنین مخصوص آموزش آنلاین و یادگیری به سبک نوین</p>
-                        </div>
+                            <h4>{% trans 'Compatible HTML5 & CSS3' %}</h4>
+                            <p>{% trans 'HTML5 is a markup language used for structuring and presenting content on the World Wide Web. It is the fifth and current version of the HTML standard.' %}</p></div>
                     </div><!-- end col -->
 
                     <div class="col-md-6">
                         <div class="box">
                             <i style="float: left;" class="flaticon-html-coding"></i>
-                            <h4>قالبی سبک و کامل</h4>
-                            <p style="text-align: justify;">تیمی حرفه ای و کارگروهی مشتاق و خلاق هر آنچه که نیاز دارید برای آموزش بهتر و یادگیری سریعتر</p>
-                        </div>
+                            <h4>{% trans 'Bootstrap Framework' %}</h4>
+                            <p>{% trans 'Bootstrap is a technique of loading a program into a computer by means of a few initial instructions which enable the introduction of the rest of the program from an input device.' %}</p></div>
                     </div><!-- end col -->
                 </div><!-- end row -->
             </div><!-- end container -->
@@ -208,24 +203,24 @@
                     <div class="col-lg-4 col-md-4">
                         <div class="stat-count">
                             <h4 class="stat-timer">{{students}}</h4>
-                            <h3><i class="flaticon-black-graduation-cap-tool-of-university-student-for-head"></i> دانش جویانی خوشحال </h3>
-                            <p>هر آنچه که دانش جویان را به خود مجذوب میکند </p>
+                           <h3><i class="flaticon-black-graduation-cap-tool-of-university-student-for-head"></i>{% trans 'Happy Students' %}</h3>
+                            <p>{% trans 'Quisque porttitor eros quis leo pulvinar, at hendrerit sapien iaculis.'%} </p>
                         </div><!-- stat-count -->
                     </div><!-- end col -->
 
                     <div class="col-lg-4 col-md-4">
                         <div class="stat-count">
                             <h4 class="stat-timer">{{course}}</h4>
-                            <h3><i class="flaticon-online-course"></i> دورهای اتمام رسیده</h3>
-                            <p>بهترین دوره ها و متدهای آموزشی روز دنیا را با ما تجربه کنید </p>
+                            <h3><i class="flaticon-black-graduation-cap-tool-of-university-student-for-head"></i>{% trans 'Course Done' %}</h3>
+                            <p>{% trans 'Quisque porttitor eros quis leo pulvinar, at hendrerit sapien iaculis.'%} </p>
                         </div><!-- stat-count -->
                     </div><!-- end col -->
 
                     <div class="col-lg-4 col-md-4">
                         <div class="stat-count">
                             <h4 class="stat-timer">{{book}}</h4>
-                            <h3><i class="flaticon-coffee-cup"></i> زمانی برای استراحت</h3>
-                            <p>بدون محدودیت زمانی و مکانی مستقل کار آزموده زیبا راحت سبک. </p>
+                            <h3><i class="flaticon-coffee-cup"></i> {% trans "Ordered Coffe's" %}</h3>
+                            <p>{% trans 'Quisque porttitor eros quis leo pulvinar, at hendrerit sapien iaculis.' %}' </p>
                         </div><!-- stat-count -->
                     </div><!-- end col -->
                 </div><!-- end row -->
@@ -235,15 +230,15 @@
         <section class="section">
             <div class="container">
                 <div class="section-title text-center">
-                    <h3>مدیریت سیستم</h3>
-                    <p>مدیریت و بنیان گذار طرح و سیستم یادگیری آنلاین برای همگان و در دسترس عموم</p>
+                    <h3>{% trans 'Testimonials' %}</h3>
+                    <p>{% trans 'Maecenas sit amet tristique turpis. Quisque porttitor eros quis leo pulvinar, at hendrerit sapien iaculis. Donec consectetur accumsan arcu, sit amet fringilla ex ultricies.' %}</p>
                 </div><!-- end title -->
 
                 <div class="row">
                     <div class="col-md-4">
                         <div class="box testimonial">
-                            <p class="testiname"><strong><img src="{% static 'upload/testimonial_01.png' %}" alt="" class="img-circle"> جناب آقای دکتر</strong></p>
-                            <p> جناب آقای دکتر دارای مدرک دکتری  از دانششگاه برتر کشور فعال حوزه آموزشی بنیان گ‌ار سیستم آموزش مجازی</p>
+                            <p class="testiname"><strong><img src="{% static 'upload/testimonial_01.png' %}" alt="" class="img-circle"> {% trans 'Jenny LUXURY' %}</strong></p>
+                            <p>{% trans 'Quisque porttitor eros quis leo pulvinar, at hendrerit sapien iaculis. Donec consectetur accumsan arcu, sit amet fringilla ex ultricies.'%}</p>
                             <div class="rating">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -256,8 +251,8 @@
 
                     <div class="col-md-4">
                         <div class="box testimonial">
-                            <p class="testiname"><strong><img src="{% static 'upload/testimonial_02.png' %}" alt="" class="img-circle"> جناب آقای مهندس</strong></p>
-                            <p>جناب آقای مهندس عضو انجمن مدرسان کشور فعال در حوزه نمایندگان آموطشی</p>
+                            <p class="testiname"><strong><img src="{% static 'upload/testimonial_02.png' %}" alt="" class="img-circle">{% trans 'Martin LEO' %}</strong></p>
+                            <p>{% trans 'Quisque porttitor eros quis leo pulvinar, at hendrerit sapien iaculis. Donec consectetur accumsan arcu, sit amet fringilla ex ultricies.'%}</p>
                             <div class="rating">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -270,8 +265,9 @@
 
                     <div class="col-md-4">
                         <div class="box testimonial">
-                            <p class="testiname"><strong><img src="{% static 'upload/testimonial_03.png' %}" alt="" class="img-circle"> سرکار خانم دکتر</strong></p>
-                            <p>سرکار خانم دکتر استاد و مدرس دانشگاه عضو هییت غلمی سییستم آموزشی کشور محقق و تحلیل گر سیستم آموزشی کشور.</p>
+                            <p class="testiname"><strong><img src="{% static 'upload/testimonial_03.png' %}" alt="" class="img-circle"> {% trans 'John DOE' %}</strong></p>
+                            <p>{% trans 'Quisque porttitor eros quis leo pulvinar, at hendrerit sapien iaculis. Donec consectetur accumsan arcu, sit amet fringilla ex ultricies.'%}</p>
+
                             <div class="rating">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -288,8 +284,8 @@
         <section class="section gb">
             <div class="container">
                 <div class="section-title text-center">
-                    <h3>اخبار اخیر</h3>
-                    <p>هویج گل ماسین غمگین زشت است. هر شرکت هواپیمایی بادام زمینی هر کسی شیر والیبال دارد</p>
+                    <h3>{% trans 'Recent News' %}</h3>
+                <p>{% trans 'Maecenas sit amet tristique turpis. Quisque porttitor eros quis leo pulvinar, at hendrerit sapien iaculis. Donec consectetur accumsan arcu, sit amet fringilla ex ultricies.' %}</p>
                 </div><!-- end title -->
 
                 <div class="row" style="direction: ltr;">
@@ -326,11 +322,11 @@
                 <div class="row callout">
                     <div class="col-md-4 text-center">
                         <h3><sup>@</sup>Edulogy</h3>
-                        <h4>یادگیری خود را شروع کنید!</h4>
+                        <h4>{% trans 'Start your awesome course today!' %}</h4>
                     </div><!-- end col -->
 
                     <div class="col-md-8">
-                        <p class="lead"> بدون محدودیت بدون معطلی زمانی مناسب و دوره های برترموزش سریع کارا با مدرسین کستقل و کار آزموده</p>
+                        <p class="lead">{% trans 'Limited time offer! Your profile will be added to our "Students" directory as well.' %}' </p>
                     </div>
                 </div><!-- end row -->
                 </a>

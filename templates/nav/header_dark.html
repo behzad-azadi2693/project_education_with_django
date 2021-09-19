@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!-- LOADER -->
 <div id="preloader">
     <img class="preloader" src="{% static 'images/loader.gif' %}" alt="">
@@ -17,7 +18,7 @@
                             <span class="flaticon-add" aria-hidden="true"></span>
                         </button>
                         <div class="modal-body">
-                            <input name="q" class="form-control" type="text" placeholder="آموزش خود را جستجو کنید" required>
+                            <input name="q" class="form-control" type="text" placeholder="{% trans 'What you are looking for?'%}" required>
                         </div>
                     </form><!-- End # Login Form -->
                 </div><!-- End # DIV Form -->
@@ -66,27 +67,43 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
                         {% if request.user.is_admin and request.user.is_authenticated %}
-                            <li><a href="{% url 'education:panel' %}">ادمین پنل</a></li>
+                            <li><a href="{% url 'education:panel' %}">{% trans 'admin panel'%}</a></li>
                         {% endif %}
-                        <li><a href="{% url 'education:index' %}">خانه</a></li>
-                        <li><a href="{% url 'education:coureses' %}">اموزش ها</a></li>
+                        <li><a href="{% url 'education:index' %}">{% trans 'home'%}</a></li>
+                        <li><a href="{% url 'education:coureses' %}">{% trans 'Courses'%}</a></li>
                         
-                        <li><a href="{% url 'education:book_store' %}">فروشگاه کتاب</a></li>
-                        <li><a href="{% url 'education:myorder' %}">خرید من</a></li>
+                        <li><a href="{% url 'education:book_store' %}">{% trans 'Shop Book'%}</a></li>
+                        <li><a href="{% url 'education:myorder' %}">{% trans 'My Buies'%}</a></li>
 
-                        <li><a href="{% url 'education:contact' %}">ارتباط با ما</a></li>
+                        <li><a href="{% url 'education:contact' %}">{% trans 'Countact Us'%}</a></li>
                         {% if request.user.is_authenticated %}
-                        <li><a href="{% url 'accounts:logout' %}">خروج</a></li>
-                        <li><a href="{% url 'accounts:profile' %}">پروفایل</a></li>
+                        <li><a href="{% url 'accounts:logout' %}">{% trans 'Signout'%}</a></li>
+                        <li><a href="{% url 'accounts:profile' %}">{% trans 'Translate'%}</a></li>
 
                         {% else %}
-                        <li><a href="{% url 'accounts:signin' %}">ورود/ثبت نام</a></li>
+                        <li><a href="{% url 'accounts:signin' %}">{% trans 'signin / signup'%}</a></li>
                         {% endif %}
                         <li class="iconitem"><a href="{% url 'education:search' %}" data-toggle="modal" data-target="#login-modal"><i class="fa fa-search"></i></a></li>
                         <li class="iconitem"><a class="shopicon" href="{% url 'education:cartview' %}"><i class="fa fa-shopping-basket"></i> &nbsp;</a></li>
 
                     </ul>
+                    
                 </div>
+                <form action="{% url 'education:change_language' %}" method="POST" style="direction: ltr;">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ request.get_full_path }}" />
+                    <select name="language">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                                {{ language.name_local }} ({{ language.code }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <input class="btn btn-info" type="submit" value="{% trans 'cha lng' %}" />
+                </form>
             </nav><!-- end navbar -->
         </div><!-- end container -->
     </header>

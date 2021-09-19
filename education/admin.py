@@ -88,7 +88,7 @@ class AdminCourse(admin.ModelAdmin):
     inlines = [CourseVideoInline, EmailInline]
 
     fieldsets = (
-        (_('INFORMATION'), {"fields": ('name','title','slug','teacher','image','translate','view','time','date','description'),}),
+        (_('INFORMATION'), {"fields": ('name','title','slug','teacher', 'category', 'image','translate','view','time','date','description'),}),
         (_('INFORMATION PAID'), {"fields": ('price','discount','is_free'),}),
     )
     

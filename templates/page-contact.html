@@ -1,6 +1,7 @@
 
 {% extends 'base_whit.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block body %}
   
@@ -9,10 +10,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="tagline-message page-title text-center">
-                            <h3>ارتباط با ما</h3>
+                            <h3>{% trans 'contact us'%}</h3>
                             <ul class="breadcrumb">
                                 <li><a href="javascript:void(0)">Edulogy</a></li>
-                                <li class="active">ارتباط با ما</li>
+                                <li class="active">{% trans 'contact us'%}</li>
                             </ul>
                         </div>
                     </div><!-- end col -->
@@ -30,9 +31,9 @@
                         <div class="col-md-4">
                             <div class="small-box">
                                 <i class="flaticon-email wow fadeIn"></i>
-                                <h4>ارتباط امروز با ما</h4>
-                                <small>تلفن: +90 987 665 55 44</small>
-                                <small>فکس:  +90 987 665 55 45</small>
+                                <h4>{% trans 'contact today' %}</h4>
+                                <small>{% trans 'phone'%}: +90 987 665 55 44</small>
+                                <small>{% trans 'fax'%}:  +90 987 665 55 45</small>
                                 <p><a href="mail:to">info@yoursite.com</a></p>
                             </div><!-- end small-box -->
                         </div><!-- end col -->
@@ -40,20 +41,20 @@
                         <div class="col-md-4">
                             <div class="small-box">
                                 <i class="flaticon-map-with-position-marker wow fadeIn"></i>
-                                <h4>دفتر مرکزی ما</h4>
-                                <small>PO Box 16122 Collins Street West</small>
-                                <small>Victoria 8007 Australia</small>
-                                <p><a href="#">مشاهده در گوگل مپ</a></p>
+                                <h4>{% transe 'Our headquarters' %}</h4>
+                                <small>{% trans 'PO Box 16122 Collins Street West' %}</small>
+                                <small>{% trans 'Victoria 8007 Australia' %}</small>
+                                <p><a href="#">{% trans 'google map' %}</a></p>
                             </div><!-- end small-box -->
                         </div><!-- end col -->
 
                         <div class="col-md-4">
                             <div class="small-box">
                                 <i class="flaticon-share wow fadeIn"></i>
-                                <h4>شبکه اجتماعی ما</h4>
-                                <small>توییتر: @yourhandle</small>
-                                <small>فیسبوک: facebook.com/yourhandle</small>
-                                <p><a href="#">خبرنامه ایمیل</a></p>
+                                <h4>{% trans 'social network'%}</h4>
+                                <small>{% trans 'twitter' %}: @yourhandle</small>
+                                <small>{% trans 'facebook'%}: facebook.com/yourhandle</small>
+                                <p><a href="#">{% trans 'newsletter'%}</a></p>
                             </div><!-- end small-box -->
                         </div><!-- end col -->
                     </div><!-- end contactv2 -->
@@ -61,17 +62,17 @@
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="section-title text-center">
-                                <h3>فرم ارتباط با ما</h3>
-                                <p>لطفا نظرات و پیشنهادات خود را برای کار گروه کارشناسی ما ارسال کنید </p>
+                                <h3>{% transe 'contact form' %}</h3>
+                                <p>{% trans 'Please send your comments and suggestions for the work of our expert group ' %} </p>
                             </div><!-- end title -->
                             
                             <form class="big-contact-form" role="search" action="{% url  'education:contact' %}" method="POST">
                                 {% csrf_token %}
-                                <input name="name" type="text" class="form-control" placeholder="نام شما..">
-                                <input name="email" type="email" class="form-control" placeholder="ایمیل شما..">
-                                <input name="subject" type="text" class="form-control" placeholder="موضوع..">
-                                <textarea name="message" class="form-control" placeholder="پیغام شما.."></textarea>
-                                <button type="submit" class="btn btn-primary" style="float: left;">ارسال</button>
+                                <input name="name" type="text" class="form-control" placeholder="{% trans 'your name ...' %}">
+                                <input name="email" type="email" class="form-control" placeholder="{% trans 'your email ...'%}">
+                                <input name="subject" type="text" class="form-control" placeholder="{% trans 'subject ...'%}">
+                                <textarea name="message" class="form-control" placeholder="{% trans 'message ..'%}"></textarea>
+                                <button type="submit" class="btn btn-primary" style="float: left;">{% trans 'send' %}</button>
                             </form>
                         </div><!-- end col -->
                     </div><!-- end row -->

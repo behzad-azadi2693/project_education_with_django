@@ -1,12 +1,14 @@
 {% load static %}
+{% load i18n %}
+
         <footer class="section footer noover">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-4">
                         <div class="widget clearfix">
-                            <h3 class="widget-title">اشتراک خبرنامه</h3>
+                            <h3 class="widget-title">{% trans 'Subscribe Our Newsletter'%}</h3>
                             <div class="newsletter-widget">
-                                <p>ایمیل شما محفوظ میباشد ما را اسپم نکنید</p>
+                                <p>{% trans 'You can opt out of our newsletters at any time.<br> See our' %}<a href="#">{% trans 'privacy policy' %}</a>.</p>
                                 <form class="form-inline" role="search" method="POST" action="{% url 'education:newsletters' %}">
                                     {% csrf_token %}
                                     <div class="form-1">
@@ -23,26 +25,26 @@
 
                     <div class="col-lg-3 col-md-3">
                         <div class="widget clearfix">
-                            <h3 class="widget-title">امروز به ما بپیوندید</h3>
-                            <p>با پیوستن به تیم ما سود خود را بدست آورید,بدون از دست دادن وقت به ما بپیوندید</p>
-                            <a href="{% url 'education:contact' %}" class="readmore">معلم شوید</a>
+                            <h3 class="widget-title">{% trans 'Join us today' %}</h3>
+                            <p>{% trans 'Would you like to earn your profits by joining our team? Join us without losing time.' %}</p>
+                            <a href="{% url 'education:contact' %}" class="readmore">{% trans 'Became a Teacher'%} </a>
                         </div><!-- end widget -->
                     </div><!-- end col -->
 
                     <div class="col-lg-3 col-md-3">
                         <div class="widget clearfix">
-                            <h3 class="widget-title">برجسب های محبوب</h3>
+                            <h3 class="widget-title">{% trans 'Popular Tags'%}</h3>
                             <div class="tags-widget">   
                                 <ul class="list-inline">
-                                    <li><a href="{% url 'education:coureses' %}">آموزش ها</a></li>
-                                    <li><a href="{% url 'education:tag' 'web design' %}">طراحی وب</a></li>
-                                    <li><a href="{% url 'education:tag' 'developer' %}">توسعه دهنده</a></li>
-                                    <li><a href="{% url 'education:tag' 'language' %}">زبان</a></li>
-                                    <li><a href="{% url 'education:tag' 'programming' %}">برنامه نویسی</a></li>
-                                    <li><a href="{% url 'education:tag' 'caleg' %}">دانشگاه</a></li>
-                                    <li><a href="{% url 'education:tag' 'math' %}">ریاضیات</a></li>
-                                    <li><a href="{% url 'education:tag' 'phyisics' %}">فیزیک</a></li>
-                                    <li><a href="{% url 'education:tag' 'geraphik' %}">گرافیک</a></li>
+                                    <li><a href="{% url 'education:coureses' %}"> {% trans 'course'%}</a></li>
+                                    <li><a href="{% url 'education:tag' 'web design' %}"> {% trans 'web design'%}</a></li>
+                                    <li><a href="{% url 'education:tag' 'developer' %}"> {% trans 'development'%}</a></li>
+                                    <li><a href="{% url 'education:tag' 'language' %}">{% trans 'language'%}</a></li>
+                                    <li><a href="{% url 'education:tag' 'programming' %}"> {% trans 'programming'%}</a></li>
+                                    <li><a href="{% url 'education:tag' 'caleg' %}">{% trans 'caleg'%}</a></li>
+                                    <li><a href="{% url 'education:tag' 'math' %}">{% trans 'math'%}</a></li>
+                                    <li><a href="{% url 'education:tag' 'phyisics' %}">{% trans 'phyisics'%}</a></li>
+                                    <li><a href="{% url 'education:tag' 'geraphik' %}">{% trans 'learning'%}</a></li>
                                 </ul>
                             </div><!-- end list-widget -->
                         </div><!-- end widget -->
@@ -50,15 +52,15 @@
 
                     <div class="col-lg-2 col-md-2">
                         <div class="widget clearfix">
-                            <h3 class="widget-title">پشتیبانی</h3>
+                            <h3 class="widget-title">{% trans 'Support'%}</h3>
                             <div class="list-widget">   
                                 <ul>
-                                    <li><a>قوانین مشخص</a></li>
-                                    <li><a>حقوق کپی رایت</a></li>
-                                    <li><a>ایجاد و خرید</a></li>
-                                    <li><a>قیمتها و برنامه ها</a></li>
-                                    <li><a>حامل</a></li>
-                                    <li><a>تجاری</a></li>
+                                    <li><a> {% trans 'Terms of Use'%}</a></li>
+                                    <li><a>{% trans 'Copyrights'%}</a></li>
+                                    <li><a>{% trans 'Create a Ticket'%}</a></li>
+                                    <li><a>{% trans 'Pricing & Plans'%}</a></li>
+                                    <li><a>{% trans 'Carrier'%}</a></li>
+                                    <li><a>{% trans 'Trademark'%}</a></li>
                                 </ul>
                             </div><!-- end list-widget -->
                         </div><!-- end widget -->

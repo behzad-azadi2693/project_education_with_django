@@ -1,7 +1,6 @@
 from django.urls import path
 from django.urls.conf import include
 from .cart import send_request, verify
-from django.urls.resolvers import URLPattern
 from .sitemaps import CourseSitemap, BookSitemap
 from django.contrib.sitemaps.views import sitemap
 from .views import (
@@ -12,6 +11,7 @@ from .views import (
     create_category,create_course,create_coursevideo,
     edit_course,edit_coursevideo,edit_book,
     delete_course,delete_coursevideo,delete_book,
+    change_language
 )
 
 
@@ -64,5 +64,6 @@ urlpatterns = [
     path('edit/', include(edit_urlpatterns)),
     path('delete/', include(delete_urlpatterns)),
     path('sitemap/', sitemap, {'sitemaps':sitemaps}, name="sitemap"),
+    path('change_language/',change_language, name='change_language'),
 
 ]

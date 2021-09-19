@@ -1,6 +1,7 @@
 
 {% extends 'base_whit.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block body %}
   
@@ -9,10 +10,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="tagline-message page-title text-center">
-                            <h3>جستجو</h3>
+                            <h3>{% trans 'search' %}</h3>
                             <ul class="breadcrumb">
-                                <li><a href="{% url 'education:index' %}">Edulogy</a></li>
-                                <li class="active">نتایج جستجو</li>
+                                <li><a href="{% url 'education:index' %}">{% trans 'Edulogy' %}</a></li>
+                                <li class="active">{% trans 'search'%}</li>
                             </ul>
                         </div>
                     </div><!-- end col -->
@@ -54,16 +55,16 @@
                                     <div class="pull-left" >
                                         <ul class="list-inline" >
                                             {% if book.is_paid %}
-                                            <li style="text-align: left;">خریداری شده</li> 
+                                            <li style="text-align: left;">{% trans 'paied' %}</li> 
                                             {% else %}
-                                            <li style="text-align: left;"><a href="{% url 'education:cart' name='delete' pk=book.pk %}"><i class="fa fa-shopping-basket"></i> حذق از سبد</a></li>
+                                            <li style="text-align: left;"><a href="{% url 'education:cart' name='delete' pk=book.pk %}"><i class="fa fa-shopping-basket"></i> {% trans remove of basket %}</a></li>
                                             {% endif %}
                                         </ul>
                                     </div><!-- end left -->
 
                                     <div class="pull-right" style="text-align: right;">
                                         <ul class="list-inline">
-                                            <li><a>{{ book.price_end }} ریال </a></li>
+                                            <li><a>{{ book.price_end }} {% trans 'rials'%} </a></li>
                                         </ul>
                                     </div><!-- end left -->
                                 </div><!-- end footer -->
@@ -76,7 +77,7 @@
                 <div class="tags-widget row">   
                     <ul class="list-inline">
                         {% if request.path == '/cartview/' %}
-                            <li><a href="{% url 'education:paid' %}">ریال{{paid}} </a>:مبلغ پرداختی</li>
+                            <li><a href="{% url 'education:paid' %}">{% trans 'vdhg' %}{{paid}} </a>: {% trans 'Amount' %}</li>
                         {% endif %}
                     </ul>
                 </div>

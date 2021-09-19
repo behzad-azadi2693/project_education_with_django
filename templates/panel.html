@@ -1,19 +1,20 @@
 {% extends 'base_whit.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block body %}
 <section class="section gb nopadtop">
     <div class="container">
         <div class="boxed boxedp4">
 
-            <div class="row">Admin Panel
+            <div class="row">{% trans 'Admin Panel' %}
             <ul class="nav navbar-nav navbar-right">
                             {% if request.user.is_admin %}
-                                <li><a href="{% url 'education:create_book' %}">create Book </a></li>
-                                <li><a href="{% url 'education:create_category' %}">create Category </a></li>
+                                <li><a href="{% url 'education:create_book' %}">{% trans 'create Book' %}% </a></li>
+                                <li><a href="{% url 'education:create_category' %}">{% trans 'create Category' %}% </a></li>
                             {% endif %}
                             {% if request.user.is_admin or request.user.is_teacher %}
-                                <li><a href="{% url 'education:create_course' %}">Create Course</a></li>
+                                <li><a href="{% url 'education:create_course' %}">{% trans 'Create Course' %}</a></li>
                             {% endif %}
 
             </ul>
@@ -33,8 +34,8 @@
                         <form class="form-inline" role="search" action="{% url 'education:send_email' %}" method="POST">
                             {% csrf_token %}
                             <div class="form-1">
-                               <p> <input type='text' class="form-control" name="subject" placeholder="موضوع ایمیل .."></p>
-                               <p> <textarea class="form-control" name="message" placeholder="پیغام شما.."></textarea></p>
+                               <p> <input type='text' class="form-control" name="subject" placeholder="{% transe 'subject email' %} ..."></p>
+                               <p> <textarea class="form-control" name="message" placeholder="{% trans 'your message' %}..."></textarea></p>
                                 <input type="hidden" class="form-control" name="slug" value=none readonly>
                                 <input type="hidden" class="form-control" name="path" value={{request.get_full_path}} readonly>
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane-o"></i></button>

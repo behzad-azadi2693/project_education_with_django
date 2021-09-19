@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -108,7 +108,7 @@ else:
             'USER': 'admin',
             'PASSWORD':'admin',
             'PORT':5432,
-            'HOST':'postgres-container'
+            'HOST':'postgres_container'
         },
         'messages_db':{
             'ENGINE': 'django.db.backends.postgresql',
@@ -116,7 +116,7 @@ else:
             'USER': 'admin',
             'PASSWORD':'admin',
             'PORT':5432,
-            'HOST':'postgres-container'
+            'HOST':'postgres_container'
         }
     }
 
@@ -145,9 +145,14 @@ LOGIN_URL = 'education:login'
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'fa'
 
 TIME_ZONE = 'Asia/Tehran'
+
+LANGUAGES = (
+    ('fa', 'Persian'),
+    ('en', 'English'),
+)
 
 USE_I18N = True
 
@@ -155,6 +160,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOCALE_PATHS = ( os.path.join(BASE_DIR, 'locale'), )
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

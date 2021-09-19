@@ -1,7 +1,7 @@
 
 {% extends 'base_whit.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block body %}
   
         <section class="section cb">
@@ -9,13 +9,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="tagline-message page-title">
-                            <h3>توضیحات کتاب </h3>
+                            <h3>{% trans 'Book Description '  %} </h3>
                         </div>
                     </div><!-- end col -->
                     <div class="col-md-6 text-right">
                         <ul class="breadcrumb">
                             <li><a href="{% url 'education:index' %}">Edulogy</a></li>
-                            <li class="active">کتاب</li>
+                            <li class="active">{% trans 'Book' %}</li>
                         </ul>
                     </div>
                 </div><!-- end row -->
@@ -45,29 +45,29 @@
                             <div class="shop-desc">
                                 <h3>{{ book.name }}</h3>
                                 {% if book.is_free %}
-                                <small>رایگان</small>
+                                <small>{% trans 'Free' %}</small>
 
                                 {% else %}
-                                <small> ریال {{book.price_end}}</small>
+                                <small> {% trans 'rials' %} {{book.price_end}}</small>
                                 {% endif %}
                                 <p style="text-align: justify;">{{ book.description | truncatechars:400 }}</p>
                                 <div class="shop-meta">
                                     <ul class="list-inline">
                                         {% if is_buy %}
-                                        <a href="{{ book.file.url }}" download="" class="btn btn-primary">دانلود</a>
-                                        <li> شما قبلا خرید کرده اید </li> 
+                                        <a href="{{ book.file.url }}" download="" class="btn btn-primary">{% trans 'download' %}</a>
+                                        <li> {% trans 'You have already purchased '  %} </li> 
                                         {% elif book.is_free %}
-                                        <a href="{{ book.file.url }}" download="" class="btn btn-primary">دانلود</a>
-                                        <li>این کتاب رایگان است</li> 
+                                        <a href="{{ book.file.url }}" download="" class="btn btn-primary">{% trans 'download' %}</a>
+                                        <li>{% trans 'this book is free' %}</li> 
                                     </ul>
                                         {% else %}
-                                            <a href="{% url 'education:cart' name='book' pk=book.pk %}" class="btn btn-primary">Add to Cart</a>
+                                            <a href="{% url 'education:cart' name='book' pk=book.pk %}" class="btn btn-primary">{% trans 'add to cart' %}</a>
                                         {% endif %}
                                     
                                 </div><!-- end shop meta -->
                                 {% if request.user.is_admin %}
-                                    <li><a href="{% url 'education:edit_book' book.pk %}">edit book </a></li>
-                                    <li><a href="{% url 'education:delete_book' book.pk %}">delete book </a></li>
+                                    <li><a href="{% url 'education:edit_book' book.pk %}">{% trans 'edit book' %} </a></li>
+                                    <li><a href="{% url 'education:delete_book' book.pk %}">{% trans 'delete book' %} </a></li>
                                 {% endif %}
                             </div><!-- end desc -->
                         </div><!-- end col -->
@@ -79,9 +79,9 @@
                         <div class="col-md-12">
                             <div class="shop-extra">
                                 <ul class="nav nav-tabs">
-                                    <li class="active"><a data-toggle="tab" href="#home">توضیحات کتاب</a></li>
-                                    <li><a data-toggle="tab" href="#menu1">اظلاعات کتاب</a></li>
-                                    <li><a data-toggle="tab" href="#menu2">دیدگاه کاربران</a></li>
+                                    <li class="active"><a data-toggle="tab" href="#home">{% trans 'book Description'  %}</a></li>
+                                    <li><a data-toggle="tab" href="#menu1">{% trans 'information book' %}</a></li>
+                                    <li><a data-toggle="tab" href="#menu2">{% trans 'User comments'  %}</a></li>
                                 </ul>
 
                                 <div class="tab-content">
@@ -89,26 +89,26 @@
                                         <p style="text-align: justify;">{{ book.description }}</p>
                                     </div>
                                     <div id="menu1" class="tab-pane fade">
-                                        <h3>اطلاعات کتاب</h3>
+                                        <h3>{% trans 'information book' %}</h3>
                                         <table class="table">
                                             <tbody>
                                                 <tr>
-                                                    <td><strong>تعداد صفحات</strong></td>
+                                                    <td><strong>{% trans 'number page' %}</strong></td>
                                                     <td>{{ book.page }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>زبان کتاب</strong></td>
+                                                    <td><strong>{% trans 'book language' %}</strong></td>
                                                     <td>{{ book.language }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>حجم</strong></td>
+                                                    <td><strong>{% trans 'size' %}</strong></td>
                                                     <td>{{ book.file.size | filesizeformat }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <div id="menu2" class="tab-pane fade">
-                                        <h3>دیدگاه کاربران</h3>                                    
+                                        <h3>{% trans 'user comments' %}</h3>                                    
                                         <form action="" method="POST" class="big-contact-form row" role="search" novalidate>
                                             {% csrf_token %}
                                             <div class="col-md-12">
@@ -124,7 +124,7 @@
                                                 <span style='color:tomato'> {{errors.email}} </span>
                                             </div>             
                                             <div class="col-md-12" style="float: left;">
-                                                <button style="float: left;" type="submit" class="btn btn-primary">ارسال</button>
+                                                <button style="float: left;" type="submit" class="btn btn-primary">{% trans 'send' %}</button>
                                             </div>              
                                         </form>
                                     </div>
@@ -137,7 +137,7 @@
 
                     <div class="related-products">
                         <div class="text-widget">
-                            <h3>محصولات مرتبط</h3>
+                            <h3>{% trans 'Related products'  %}</h3>
                         </div><!-- end title -->        
 
                         <div class="row blog-grid shop-grid">
@@ -160,7 +160,7 @@
                                 <div class="course-footer clearfix">
                                     <div class="pull-left">
                                         <ul class="list-inline">
-                                            <li><a href="{% url 'education:cart' book.pk %}"><i class="fa fa-shopping-basket"></i> Add Cart</a></li>
+                                            <li><a href="{% url 'education:cart' book.pk %}"><i class="fa fa-shopping-basket"></i> {% trans 'add to cart' %} </a></li>
                                         </ul>
                                     </div><!-- end left -->
 

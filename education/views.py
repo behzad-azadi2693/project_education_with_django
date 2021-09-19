@@ -1,22 +1,35 @@
-from os import error, linesep
-from django.shortcuts import render, redirect, get_object_or_404, resolve_url
-from django.urls import reverse
-from .models import Book, BookComment, Category, Contact, CourseVideo, NewsBlog, Order, Course, Comment, Newsletter_email, EmailSending
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q
-from django.contrib.auth import get_user_model
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.core.cache import cache
 from itertools import chain
-from .forms import (
-        CourseForm,CourseVideoForm,CategoryForm, BookForm, CommentCourseForm,
-        BookCommentForm
-)
-from django.utils.translation import gettext_lazy as _
+from django.db.models import Q
+from django.contrib import messages
+from django.core.cache import cache
+from django.utils import translation
 from django.core.mail import send_mail
+from django.contrib.auth import get_user_model
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .models import (
+        Book, Category, Contact, CourseVideo, 
+        NewsBlog, Order, Course, Newsletter_email, 
+        EmailSending
+)
+from .forms import (
+        CourseForm,CourseVideoForm,CategoryForm, 
+        BookForm, CommentCourseForm,BookCommentForm
+)
 
 
+def change_language(request):
+    if request.method == 'POST':
+        lang = request.POST.get('language')
+        translation.activate(lang)
+        path = request.POST.get('next')
+        if path == 'change_language':
+            return redirect('education:index')
+        else:    
+            return redirect(path)
 
 def index(request):
     courses = Course.objects.order_by('-date')[:4]
@@ -174,7 +187,7 @@ def course_single(request, slug):
         if course_all:
             cache.set('course_all', course_all, 60*60)
 
-    courses = course_all(category=course.category).exclude(slug=slug)[:4]
+    courses = course_all.filter(category=course.category).exclude(slug=slug)[:4]
     order = course.courses.filter(user=request.user).filter(is_paid=True)
     tags = Category.objects.order_by('?')[:6]
 
