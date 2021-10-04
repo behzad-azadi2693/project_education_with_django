@@ -38,7 +38,7 @@ services:
                     python manage.py makemigrations &&
                     python manage.py migrate --database=education_db && 
                     python manage.py migrate --database=messages_db && 
-                    python manage.py collectstatic && 
+                    python manage.py collectstatic --no-input && 
                     python manage.py initadmin && 
                     gunicorn -k gevent config.wsgi:application -b 0.0.0.0:8000"
         restart: on-failure
