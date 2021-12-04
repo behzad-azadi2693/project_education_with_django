@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #local
-    
+    'accounts.apps.AccountsConfig',
+    'api.apps.ApiConfig',
+    'education.apps.EducationConfig',
     'django.contrib.sitemaps',
     #3rd
     'django_user_agents',
