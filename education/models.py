@@ -1,3 +1,4 @@
+import os
 from datetime import date
 from django.db import models
 from django.urls import reverse
@@ -21,8 +22,8 @@ class Category(models.Model):
         return f'{self.category}-{self.sub_category}'
 
 def path_save_course(instance, filename):
-    name = '{0}/{1}'.format(instance.slug, filename)
-    return 'course/'+name
+    name = os.path.join('course',instance.slug, filename)
+    return name
 
 class Course(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING,related_name='categories', verbose_name=('category'))
@@ -98,8 +99,8 @@ class Comment(models.Model):
 
 
 def path_save_coursevideo(instance, filename):
-    name = '{0}/{1}'.format(instance.course.slug, filename)
-    return 'course/'+name
+    name = os.path.join('course',instance.course.slug, filename)
+    return name
 
 class CourseVideo(models.Model):
     number = models.PositiveBigIntegerField(verbose_name=_('number file'))
@@ -145,8 +146,8 @@ class Contact(models.Model):
 
 
 def path_save_book(instance, filename):
-    name = '{0}/{1}'.format(instance.name, filename)
-    return 'book/'+name
+    name = os.path.join('book', instance.name, filename)
+    return name
 
 class Book(models.Model):
     name = models.CharField(max_length=250, verbose_name=_('book name'))
@@ -248,8 +249,8 @@ class EmailSending(models.Model):
 
 
 def path_save_newsblog(instance, filename):
-    name = '{0}/{1}'.format(instance.date, filename)
-    return 'newsblog/'+name
+    name = os.path.join('newsblog', str(instance.date), filename)
+    return name
 
 class NewsBlog(models.Model):
     title = models.CharField(max_length=300, verbose_name=_('news title'))
