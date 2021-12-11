@@ -22,8 +22,8 @@ class Category(models.Model):
         return f'{self.category}-{self.sub_category}'
 
 def path_save_course(instance, filename):
-    name = os.path.join('course',instance.slug, filename)
-    return name
+    path_save = os.path.join('course',instance.slug, filename)
+    return path_save
 
 class Course(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING,related_name='categories', verbose_name=('category'))
@@ -99,8 +99,8 @@ class Comment(models.Model):
 
 
 def path_save_coursevideo(instance, filename):
-    name = os.path.join('course',instance.course.slug, filename)
-    return name
+    path_save = os.path.join('course',instance.course.slug, filename)
+    return path_save
 
 class CourseVideo(models.Model):
     number = models.PositiveBigIntegerField(verbose_name=_('number file'))
@@ -146,8 +146,8 @@ class Contact(models.Model):
 
 
 def path_save_book(instance, filename):
-    name = os.path.join('book', instance.name, filename)
-    return name
+    path_save = os.path.join('book', instance.name, filename)
+    return path_saave
 
 class Book(models.Model):
     name = models.CharField(max_length=250, verbose_name=_('book name'))
@@ -249,8 +249,8 @@ class EmailSending(models.Model):
 
 
 def path_save_newsblog(instance, filename):
-    name = os.path.join('newsblog', str(instance.date), filename)
-    return name
+    path_save = os.path.join('newsblog', str(instance.date), filename)
+    return path_save
 
 class NewsBlog(models.Model):
     title = models.CharField(max_length=300, verbose_name=_('news title'))
