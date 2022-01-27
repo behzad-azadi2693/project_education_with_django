@@ -19,19 +19,7 @@ from .forms import (
         CourseForm,CourseVideoForm,CategoryForm, 
         BookForm, CommentCourseForm,BookCommentForm
 )
-from django.conf import settings
 
-
-def change_language(request):
-    if request.method == 'POST':
-        lang = request.POST.get('language')
-        path = request.POST.get('next')
-        for language_cod, language_name in settings.LANGUAGES:
-            if language_cod in path:
-                translation.activate(lang)
-                return redirect(path.replace(language_cod, lang))
-        else:    
-            return redirect(path)
 
 def index(request):
     courses = Course.objects.order_by('-date')[:4]
