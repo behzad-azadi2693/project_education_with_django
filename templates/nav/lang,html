@@ -1,0 +1,11 @@
+{% load i18n %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info for LANGUAGE_CODE as lang %}
+{% load i18n_urls %}
+
+<div>
+    <a href=""><i class='ti-world icon'>{{ lang.name_translated }}</i></a> <hr>
+    {% for language_code, language_name in LANGUAGES %}
+        <a href="{% change_lang language_code %}" hreflang="{{ language_code }}">{{ language_name }}</a>
+    {% endfor %}
+</div>
