@@ -39,7 +39,7 @@ def course_create(request):
         form = CourseCreate().data
         return Response(form, status=status.HTTP_200_OK)
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'PUT'])
 def course_edit(request, slug):
     if not request.user.is_authenticated:
         return redirect('api:signin')
@@ -49,7 +49,7 @@ def course_edit(request, slug):
 
     course = get_object_or_404(Course, slug=slug, teacher=request.user.teacher)
 
-    if request.method == 'POST':
+    if request.method == 'PUT':
         form = CourseCreate(course, data=request.data)
         if form.is_valid():
             form.save()
@@ -84,7 +84,7 @@ def course_create_video(request, slug):
         return redirect('api:index')
 
 
-@api_view(['GET',])
+@api_view(['DELETE',])
 def course_delete(request, slug):
     course = get_object_or_404(Course, slug=slug)
     if not request.user.is_authenticated:
@@ -96,7 +96,7 @@ def course_delete(request, slug):
     return redirect('api:index')
 
 
-@api_view(['GET','POST'])
+@api_view(['GET','PUT'])
 def course_video_edit(request, pk):
     course_video = get_object_or_404(CourseVideo, pk=pk)
     
@@ -104,7 +104,7 @@ def course_video_edit(request, pk):
         return redirect('api:signin')
     
     if request.user == course_video.course.teacher.user:
-        if request.method == 'POST':
+        if request.method == 'PUT':
             form = Coursevideo(course_video, request.data)
             if form.is_valid():
                 form.save()
@@ -119,7 +119,7 @@ def course_video_edit(request, pk):
         return redirect('api:index')
 
 
-@api_view(['GET',])
+@api_view(['DELETE',])
 def course_video_delete(request, pk):
     course_video = get_object_or_404(CourseVideo, pk=pk)
     path = reverse('api:course_single', args=[course_video.course.slug])
