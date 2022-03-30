@@ -81,7 +81,7 @@ def book_edit(request, slug):
         return redirect('api:signin')
 
     if request.user.is_admin:
-        if request.method == 'POST':
+        if request.method == 'PUT':
             form = BookSingleSerializer(book, data=request.data)
             if form.is_valid():
                 obj = form.save()
