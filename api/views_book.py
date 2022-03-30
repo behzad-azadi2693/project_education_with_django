@@ -73,7 +73,7 @@ def book_single(request, slug):
     srz = (bookcomment_srz, book_srz, link, form.data)
     return Response(srz, status=status.HTTP_200_OK)
 
-@api_view(['GET','POST'])
+@api_view(['GET','PUT'])
 def book_edit(request, slug):
     book = get_object_or_404(Book, slug=slug)
 
@@ -116,7 +116,7 @@ def book_create(request):
         return redirect('api:index')
 
 
-@api_view(['GET',])
+@api_view(['DELETE',])
 def book_delete(request, slug):
     book = get_object_or_404(Book, slug=slug)
 
