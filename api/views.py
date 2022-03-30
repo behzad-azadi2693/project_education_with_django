@@ -54,7 +54,7 @@ def profile(request):
     return Response(srz, status=status.HTTP_200_OK)
 
 
-@api_view(['GET',])
+@api_view(['DELETE',])
 def session_delete(request, pk):
     if not request.user.is_authenticated:
         return redirect('api:signin')
@@ -108,14 +108,14 @@ def news_blog_create(request):
         return Response(form, status=status.HTTP_200_OK)
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'PUT'])
 def news_blog_edit(request, pk):
     if not (request.user.is_authenticated or request.user.is_admin):
         return redirect('api:signin')
     
     news = get_object_or_404(NewsBlog, pk=pk)
 
-    if request.method == 'POST':
+    if request.method == 'PUT':
         form = NewsBlogSerializer(news, data=request.data)
         if form.is_valid():
             form.save()
@@ -136,7 +136,7 @@ def news_blog(request):
 
     return Response(srz, status=status.HTTP_200_OK)
 
-@api_view(['POST',])
+@api_view(['DELETE',])
 def news_blog_delete(request,pk):
     news = get_object_or_404(NewsBlog, pk=pk)
 
