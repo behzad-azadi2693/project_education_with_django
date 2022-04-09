@@ -41,7 +41,7 @@ services:
         ports:
             - "5050:80"
         volumes:
-            - ./data/pgadmin:/var/lib/pgadmin
+            - ./data/pgadmin:/var/lib/pgadmin/data
     
     app:
         container_name: app
