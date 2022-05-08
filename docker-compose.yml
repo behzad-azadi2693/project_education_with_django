@@ -1,36 +1,22 @@
 version: '3.9'
 
 services:
-    postgres1:
+    postgres:
         image: postgres
         container_name: postgres_container1
         restart: on-failure
         environment: 
-            - POSTGRES_DB=education_db
             - POSTGRES_USER=admin
             - POSTGRES_PASSWORD=admin
+            - POSTGRES_MULTIPLE_DATABASES=education_db,messages_db
         networks: 
             - main
         ports: 
             - "5432:5432"
-        volumes: 
+        volumes:
+            - ./create_database.sh:/docker-entrypoint-initdb.d/create_database.sql
             - ./data/postgres:/var/lib/postgresql/data 
 
-    postgres2:
-        image: postgres
-        container_name: postgres_container2
-        restart: on-failure
-        environment: 
-            - POSTGRES_DB=messages_db
-            - POSTGRES_USER=admin
-            - POSTGRES_PASSWORD=admin
-        networks: 
-            - main
-        ports: 
-            - "5433:5432"
-        volumes: 
-            - ./data/postgres:/var/lib/postgresql/data 
-            
     pgbackups:
         image: prodrigestivill/postgres-backup-local
         container_name: pgdump
