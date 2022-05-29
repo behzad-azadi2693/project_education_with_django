@@ -2,26 +2,27 @@
 # education project with django
 ***
 ```
-<p> pgadmin in web , postgresql db </p>
+ pgadmin in web , postgresql db 
 
-<p> register with email and token send for register </p>
+register with email and token send for register
+ 
+shoping training course and book </p>
 
-<p> shoping training course and book </p>
+manage multi device in session </p>
 
-<p> manage multi device in session </p>
+multi language </p>
 
-<p> multi language </p>
+multi databases </p>
 
-<p> multi databases </p>
+dockrize </p>
 
-<p> dockrize </p>
+nginx config auth and limit 
 
-<p> nginx config auth and limit </p>
-
-<p> django-rest-framework </p>
+django-rest-framework 
 ```
 ***
 
 ### how to run
-<p> install docker and docker-compose </p>
-<p> runing docker-compose.yml (docker-compose up -d) </p>
+install docker and docker-compose 
+
+runing docker-compose.yml (docker-compose up -d) 
