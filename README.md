@@ -6,15 +6,15 @@
 
 register with email and token send for register
  
-shoping training course and book </p>
+shoping training course and book 
 
-manage multi device in session </p>
+manage multi device in session 
 
-multi language </p>
+multi language 
 
-multi databases </p>
+multi databases 
 
-dockrize </p>
+dockrize 
 
 nginx config auth and limit 
 
