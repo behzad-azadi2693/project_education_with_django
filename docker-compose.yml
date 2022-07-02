@@ -3,7 +3,7 @@ version: '3.9'
 services:
     postgres:
         image: postgres
-        container_name: postgres_container1
+        container_name: postgres_container
         restart: on-failure
         environment: 
             - POSTGRES_USER=admin
